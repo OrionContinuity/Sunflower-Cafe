@@ -154,7 +154,7 @@
   .open-chip b{font-weight:600}
 
   /* ── hero ───────────────────────────────────────────────── */
-  .hero{padding:clamp(40px,7vw,84px) 0 clamp(36px,5vw,60px)}
+  .hero{padding-block:clamp(40px,7vw,84px) clamp(36px,5vw,60px)}
   .hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(28px,5vw,64px);align-items:center}
   .hero h1{margin:16px 0 18px}
   .hero h1 em{font-style:italic;color:var(--gold);font-weight:400}
@@ -204,7 +204,10 @@
     .trust li:last-child{border-bottom:0}}
 
   /* ── sections ───────────────────────────────────────────── */
-  .sec{padding:clamp(52px,7vw,92px) 0}
+  /* padding-block, NOT `padding: X 0` — these elements also carry .wrap, whose
+     `padding:0 24px` is declared earlier, so the shorthand would zero the inline
+     padding and let content run to the screen edge on a phone. */
+  .sec{padding-block:clamp(52px,7vw,92px)}
   .band{background:var(--band);border-block:1px solid var(--hairline)}
   .sec-head{max-width:62ch;margin-bottom:clamp(28px,4vw,44px)}
   .sec-head h2{margin:14px 0 12px}
@@ -278,10 +281,30 @@
     background:var(--card);border:1px solid var(--line);border-radius:999px;
     padding:12px 16px 12px 40px}
   .search-row input:focus{outline:none;border-color:var(--gold);box-shadow:var(--ring)}
-  .cat-group{margin-bottom:34px}
-  .cat-group > h3{margin-bottom:14px;display:flex;align-items:baseline;gap:11px}
-  .cat-group > h3 .n{font-family:var(--body);font-size:11.5px;font-weight:500;color:var(--ink-faint);
-    letter-spacing:.08em;text-transform:uppercase}
+  /* ── collapsible menu sections ──────────────────────────────────── */
+  .cat-tools{display:flex;align-items:center;gap:8px 12px;margin-bottom:6px;flex-wrap:wrap}
+  .cat-tools .count{font-size:13px;color:var(--ink-faint);font-variant-numeric:tabular-nums;min-width:0}
+  .expand-all{margin-left:auto;background:none;border:0;font:inherit;font-size:13px;font-weight:600;
+    color:var(--gold);cursor:pointer;padding:10px 4px;min-height:44px;display:inline-flex;
+    align-items:center;gap:7px}
+  @media(hover:hover){.expand-all:hover{color:var(--gold-deep)}}
+  .cat-group{border-top:1px solid var(--line)}
+  .cat-group:last-of-type{border-bottom:1px solid var(--line)}
+  .cat-sum{display:flex;align-items:center;gap:13px;cursor:pointer;list-style:none;
+    padding:19px 2px;min-height:56px;-webkit-tap-highlight-color:transparent}
+  .cat-sum::-webkit-details-marker{display:none}
+  .cat-sum::marker{content:''}
+  .cat-sum h3{font-size:clamp(19px,2.2vw,23px);margin:0}
+  .cat-sum .n{margin-left:auto;font-size:12px;font-weight:500;color:var(--ink-faint);
+    letter-spacing:.07em;text-transform:uppercase;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .cat-sum .chev{flex:none;width:19px;height:19px;color:var(--gold);
+    transition:transform .22s cubic-bezier(.4,0,.2,1)}
+  .cat-group[open] > .cat-sum .chev{transform:rotate(90deg)}
+  @media(hover:hover){.cat-sum:hover h3{color:var(--gold)}}
+  .cat-sum:focus-visible{outline:2px solid var(--gold);outline-offset:-2px;border-radius:6px}
+  .cat-body{padding:2px 0 28px}
+  /* a closed section must not leave its cards mid-reveal when it reopens */
+  .cat-group:not([open]) .reveal{opacity:1;transform:none}
 
   /* ── story ──────────────────────────────────────────────── */
   .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,60px);align-items:center}
@@ -646,6 +669,13 @@
     <input id="menuSearch" type="search" placeholder="Search — omelet, fish, pancakes…" aria-label="Search the menu" autocomplete="off">
   </div>
   <div class="filters" id="filters" role="group" aria-label="Filter by section"></div>
+  <div class="cat-tools">
+    <span class="count" id="catCount"></span>
+    <button class="expand-all" id="expandAll" type="button">
+      <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+      <span id="expandAllTxt">Open all sections</span>
+    </button>
+  </div>
   <div id="catalog"><p style="color:var(--ink-faint)">Loading the menu…</p></div>
 </section>
 
@@ -1071,23 +1101,58 @@ function visible() {
     return (p.name + ' ' + (p.blurb || '')).toLowerCase().indexOf(q) >= 0;
   });
 }
+/* Which sections are open. Session-only and deliberately NOT persisted: its job
+   is to survive the full re-render that search and filtering fire, so a section
+   you opened does not snap shut under your hand. Seeded with the first section
+   so the page never lands as a wall of closed headers. */
+var openCats = null;
+
 function renderCatalog() {
-  var el = $('#catalog'); if (!el) return;
+  var el = $('#catalog'), tools = $('#catCount'); if (!el) return;
   var list = visible();
+  var searching = query.trim() !== '' || activeCat !== 'all';
+
   if (!list.length) {
     el.innerHTML = '<p style="color:var(--ink-faint)">Nothing matches that. Try another word, or clear the search.</p>';
+    if (tools) tools.textContent = '';
+    $('#expandAll').hidden = true;
     return;
   }
   var groups = CATS.filter(function (c) {
     return list.some(function (p) { return p.category === c.key; });
   });
+  if (openCats === null) openCats = groups.length ? [groups[0].key] : [];
+
   el.innerHTML = groups.map(function (c) {
     var mine = list.filter(function (p) { return p.category === c.key; });
-    return '<div class="cat-group reveal"><h3>' + esc(c.label) +
-      '<span class="n">' + mine.length + (mine.length === 1 ? ' item' : ' items') + '</span></h3>' +
-      '<div class="grid">' + mine.map(cardHTML).join('') + '</div></div>';
+    /* while searching or filtered to one section, show the matches rather than
+       make someone open a drawer to find out there was a result inside */
+    var open = searching || openCats.indexOf(c.key) >= 0;
+    return '<details class="cat-group" data-cat-key="' + esc(c.key) + '"' + (open ? ' open' : '') + '>' +
+      '<summary class="cat-sum">' +
+        '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>' +
+        '<h3>' + esc(c.label) + '</h3>' +
+        '<span class="n">' + mine.length + (mine.length === 1 ? ' item' : ' items') + '</span>' +
+      '</summary>' +
+      '<div class="cat-body"><div class="grid reveal">' + mine.map(cardHTML).join('') + '</div></div>' +
+    '</details>';
   }).join('');
+
+  if (tools) {
+    tools.textContent = list.length + (list.length === 1 ? ' dish' : ' dishes') +
+      ' in ' + groups.length + (groups.length === 1 ? ' section' : ' sections');
+  }
+  $('#expandAll').hidden = groups.length < 2;
+  syncExpandAll();
   observeReveals();
+}
+
+function syncExpandAll() {
+  var all = $$('.cat-group'), txt = $('#expandAllTxt'), btn = $('#expandAll');
+  if (!all.length || !txt || !btn) return;
+  var allOpen = all.every(function (d) { return d.open; });
+  txt.textContent = allOpen ? 'Close all sections' : 'Open all sections';
+  btn.setAttribute('aria-expanded', allOpen ? 'true' : 'false');
 }
 function renderRail() {
   var el = $('#rail'); if (!el) return;
@@ -1294,6 +1359,29 @@ function wire() {
     timer = setTimeout(function () { query = search.value; renderCatalog(); }, 150);
   });
 
+  /* `toggle` does not bubble, but a non-bubbling event still reaches an
+     ancestor during the CAPTURE phase — so one listener covers every section. */
+  $('#catalog').addEventListener('toggle', function (e) {
+    var d = e.target;
+    if (!d || !d.classList || !d.classList.contains('cat-group')) return;
+    var key = d.getAttribute('data-cat-key');
+    if (openCats === null) openCats = [];
+    var i = openCats.indexOf(key);
+    if (d.open && i < 0) openCats.push(key);
+    if (!d.open && i >= 0) openCats.splice(i, 1);
+    syncExpandAll();
+  }, true);
+
+  $('#expandAll').addEventListener('click', function () {
+    var all = $$('.cat-group');
+    if (!all.length) return;
+    var opening = !all.every(function (d) { return d.open; });
+    openCats = opening ? all.map(function (d) { return d.getAttribute('data-cat-key'); }) : [];
+    all.forEach(function (d) { d.open = opening; });
+    syncExpandAll();
+    if (opening) observeReveals();
+  });
+
   var rail = $('#rail');
   $('#railPrev').addEventListener('click', function () {
     rail.scrollBy({ left: -(rail.clientWidth * 0.8), behavior: 'smooth' });
@@ -1342,6 +1430,9 @@ function boot() {
       if (row.section === 'info') applyInfo(row.data);
       if (row.section === 'hours' && row.data && row.data.days) HOURS = row.data;
     });
+    /* the fallback menu seeded openCats with ITS first section; the live menu
+       has different sections, so re-seed rather than leave an arbitrary one open */
+    openCats = null;
     renderFilters(); renderRail(); renderCatalog();
     paintOpen(); paintHours(); paintTray();
     track('page_view');
