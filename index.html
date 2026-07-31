@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sunflower Café — Breakfast, Lunch & Friday Fish Fry · Stevens Point, WI</title>
+<title>Sunflower Café — Breakfast, Lunch &amp; Friday Fish Fry · Stevens Point, WI</title>
 <meta name="description" content="A neighborhood café at 2301 Church Street in Stevens Point, Wisconsin. Omelets, skillets and pancakes all morning, homemade soups and desserts, and a fish fry every Friday. Open daily at 8am.">
 <link rel="canonical" href="https://orioncontinuity.github.io/Sunflower-Cafe/">
-<meta name="theme-color" content="#FDF8EE">
+<meta name="theme-color" content="#FBF6EF">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:type" content="restaurant">
 <meta property="og:site_name" content="Sunflower Café">
@@ -48,504 +48,718 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"></noscript>
 
 <style>
-/* ─────────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════
    Sunflower Café. Hand-written, zero dependencies.
-   Palette measured against WCAG AA — every text pair below clears 4.5:1
-   on its own background (see README for the table).
-   ───────────────────────────────────────────────────────────────────── */
-:root{
-  --ink:#2B2118; --ink-soft:#57483A; --ink-faint:#71604F;
-  --page:#FDF8EE; --card:#FFFDF8; --band:#F7EEDC; --band-deep:#EFE0C4;
-  --gold:#E3A008; --gold-deep:#9A5B08; --gold-lite:#F6C544;
-  --green:#3D6B39; --green-deep:#2E5230;
-  --line:rgba(43,33,24,.14); --hairline:rgba(43,33,24,.08);
-  --r:14px; --r-md:10px; --r-sm:8px;
-  --s1:16px; --s2:24px; --s3:36px; --s4:56px;
-  --shadow-1:0 1px 2px rgba(43,33,24,.06), 0 8px 20px -8px rgba(43,33,24,.16);
-  --shadow-2:0 2px 4px rgba(43,33,24,.08), 0 16px 36px -10px rgba(43,33,24,.22);
-  --ring:0 0 0 3px rgba(227,160,8,.34);
-  --disp:'Zilla Slab', Georgia, 'Times New Roman', serif;
-  --body:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --head-h:64px;
-  font-synthesis:none;
-}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--page); color:var(--ink);
-  font-family:var(--body); font-size:17px; line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-}
-img{max-width:100%; display:block}
-a{color:var(--gold-deep)}
-:focus-visible{outline:2px solid var(--gold-deep); outline-offset:2px; border-radius:4px}
-.wrap{max-width:1080px; margin:0 auto; padding:0 20px}
-.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--page);padding:10px 16px;z-index:100;border-radius:0 0 var(--r-sm) 0}
-.skip:focus{left:0}
+   Design system carried over from Ariana Bakehouse — same warm parchment,
+   same measured contrast, same components — retuned from copper to the
+   café's sunflower gold. Contrast table lives in the README.
+   ═══════════════════════════════════════════════════════════════════ */
+  :root{
+    --ink:#2B2018; --ink-soft:#5A4A3C; --ink-faint:#756351;
+    --page:#FBF6EF; --card:#FFFDFA; --band:#F3EADD; --band-deep:#EADCC9;
+    --gold:#9A5B08; --gold-deep:#7C4A12; --gold-lite:#E0A06E; --sun:#E3A008;
+    --pistachio:#4F6B3C;
+    --line:rgba(43,32,24,.13); --hairline:rgba(43,32,24,.08);
+    --r:14px; --r-md:10px; --r-sm:8px;
+    --shadow-1:0 1px 2px rgba(43,32,24,.06), 0 8px 20px -8px rgba(43,32,24,.16);
+    --shadow-2:0 2px 4px rgba(43,32,24,.08), 0 16px 36px -10px rgba(43,32,24,.22);
+    --ring:0 0 0 3px rgba(154,91,8,.26);
+    --disp:'Fraunces', Georgia, 'Times New Roman', serif;
+    --body:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  /* The HTML `hidden` attribute only works through the UA rule [hidden]{display:none},
+     which ANY author display rule outranks — a lesson paid for on Ariana, where a
+     display:grid gate stayed on screen after a successful login. Make it authoritative. */
+  [hidden]{display:none !important}
 
-h1,h2,h3{font-family:var(--disp); font-weight:700; margin:0; text-wrap:balance; letter-spacing:-.015em}
-h1{font-size:clamp(2.1rem, 1.4rem + 3.2vw, 3.5rem); line-height:1.06; letter-spacing:-.028em}
-h2{font-size:clamp(1.5rem, 1.2rem + 1.4vw, 2.15rem); line-height:1.16}
-h3{font-size:1.06rem; line-height:1.3; letter-spacing:-.005em}
-p{margin:0; text-wrap:pretty}
-.kicker{
-  font-size:.75rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--gold-deep); font-variant-numeric:tabular-nums;
-}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:76px}
+  html,body{overflow-x:clip}
+  body{font-family:var(--body);background:var(--page);color:var(--ink);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-synthesis:none}
+  /* paper grain — multiply, very low, on a light page */
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.035;
+    mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+  h1,h2,h3,.disp{font-family:var(--disp);font-weight:600;line-height:1.12;letter-spacing:-.02em}
+  h1,h2,h3{text-wrap:balance}
+  p{text-wrap:pretty}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+  ::selection{background:var(--gold-lite);color:var(--ink)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  section[id]{scroll-margin-top:76px}
+  svg.i{width:1em;height:1em;flex:none;vertical-align:-.12em}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--page);
+    padding:10px 16px;border-radius:0 0 var(--r-sm) 0;z-index:200}
+  .skip:focus{left:0}
 
-/* ── buttons ───────────────────────────────────────────────────────── */
-.btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  min-height:48px; padding:12px 22px; border-radius:var(--r-md);
-  font:600 1rem/1 var(--body); text-decoration:none; cursor:pointer;
-  border:1px solid transparent; transition:transform .12s, box-shadow .12s, background .12s;
-}
-.btn-primary{
-  background:linear-gradient(180deg, var(--gold-lite), var(--gold));
-  color:var(--ink); border-color:#c98c05; border-bottom:3px solid #a86f04;
-  box-shadow:var(--shadow-1);
-}
-.btn-secondary{
-  background:var(--card); color:var(--ink); border:1px solid var(--line);
-  border-bottom:3px solid var(--line); box-shadow:var(--shadow-1);
-}
-.btn-ghost{background:transparent; color:var(--ink); border:1px solid var(--line)}
-.btn:active{transform:translateY(1px); border-bottom-width:1px}
-@media (hover:hover){
-  .btn-primary:hover{box-shadow:var(--shadow-2)}
-  .btn-secondary:hover{border-color:var(--gold); box-shadow:var(--shadow-2)}
-}
+  h1{font-size:clamp(38px,7vw,68px);letter-spacing:-.03em}
+  h2{font-size:clamp(27px,4vw,40px)}
+  h3{font-size:clamp(18px,2vw,21px);letter-spacing:-.015em}
+  .lede{font-size:clamp(16.5px,1.6vw,19px);color:var(--ink-soft);max-width:60ch}
+  .kicker{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--gold);
+    font-variant-numeric:tabular-nums lining-nums}
+  .kicker .no{color:var(--ink-faint);letter-spacing:.1em}
+  .kicker::before{content:'';width:22px;height:1px;background:var(--gold);opacity:.55;flex:none}
 
-/* ── header ────────────────────────────────────────────────────────── */
-header{
-  position:sticky; top:0; z-index:50; background:rgba(253,248,238,.92);
-  backdrop-filter:saturate(1.4) blur(10px); border-bottom:1px solid transparent;
-  transition:border-color .2s, box-shadow .2s;
-}
-header.is-stuck{border-bottom-color:var(--line); box-shadow:0 4px 18px -12px rgba(43,33,24,.5)}
-.head-in{display:flex; align-items:center; gap:16px; height:var(--head-h)}
-.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); margin-right:auto}
-.brand svg{width:34px; height:34px; flex:none}
-.brand b{font-family:var(--disp); font-size:1.2rem; font-weight:700; letter-spacing:-.02em}
-.nav-links{display:flex; gap:4px; align-items:center}
-.nav-links a{
-  padding:9px 13px; border-radius:var(--r-sm); text-decoration:none;
-  color:var(--ink-soft); font-weight:500; font-size:.95rem;
-}
-@media (hover:hover){ .nav-links a:hover{background:var(--band); color:var(--ink)} }
-.head-cta{display:flex; gap:8px; align-items:center}
-.head-cta .btn{min-height:42px; padding:9px 16px; font-size:.94rem}
-.burger{
-  display:none; width:44px; height:44px; align-items:center; justify-content:center;
-  background:transparent; border:1px solid var(--line); border-radius:var(--r-sm); cursor:pointer;
-}
-.burger span{display:block; width:18px; height:2px; background:var(--ink); position:relative}
-.burger span::before,.burger span::after{content:''; position:absolute; left:0; width:18px; height:2px; background:var(--ink)}
-.burger span::before{top:-6px} .burger span::after{top:6px}
-.mob{display:none; border-top:1px solid var(--line); background:var(--page); padding:10px 20px 16px}
-.mob.open{display:block}
-.mob a{display:block; padding:13px 6px; text-decoration:none; color:var(--ink); border-bottom:1px solid var(--hairline); font-weight:500}
-@media (max-width:840px){
-  .nav-links{display:none}
-  .burger{display:flex}
-  .head-cta .btn-secondary{display:none}
-}
+  /* ── header ─────────────────────────────────────────────── */
+  header{position:sticky;top:0;z-index:60;background:rgba(251,246,239,.88);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--hairline);transition:box-shadow .3s ease,border-color .3s ease}
+  header.scrolled{box-shadow:0 8px 22px -18px rgba(43,32,24,.7);border-bottom-color:var(--line)}
+  .nav{display:flex;align-items:center;gap:18px;padding-block:12px}
+  .brand{display:flex;align-items:center;gap:11px;min-width:0}
+  .brand .mark{width:36px;height:36px;flex:none}
+  .brand .wm{font-family:var(--disp);font-weight:700;font-size:18px;letter-spacing:-.025em;
+    white-space:nowrap;display:flex;flex-direction:column;line-height:1.04}
+  .brand .tag{font-family:var(--body);font-size:9.5px;font-weight:600;letter-spacing:.19em;
+    text-transform:uppercase;color:var(--gold);margin-top:1px}
+  .nav-links{display:flex;gap:24px;margin-left:auto;font-size:14.5px;font-weight:500;color:var(--ink-soft)}
+  .nav-links a{position:relative;padding:5px 0}
+  .nav-links a::after{content:'';position:absolute;left:0;right:100%;bottom:0;height:1.5px;
+    background:var(--gold);transition:right .28s cubic-bezier(.4,0,.2,1)}
+  @media(hover:hover){.nav-links a:hover{color:var(--ink)}.nav-links a:hover::after{right:0}}
+  .nav-cta{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#FBF6EF;
+    font-size:14px;font-weight:600;padding:9px 17px;border-radius:999px;
+    border-bottom:3px solid var(--gold-deep);transition:transform .12s ease,box-shadow .2s ease}
+  @media(hover:hover){.nav-cta:hover{box-shadow:var(--shadow-1)}}
+  .nav-cta:active{transform:translateY(1px);border-bottom-width:1px;margin-bottom:2px}
+  .menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--line);
+    border-radius:var(--r-sm);cursor:pointer;color:var(--ink);
+    min-width:44px;min-height:44px;place-items:center}
+  .mob{display:none;flex-direction:column;gap:2px;padding:8px 24px 18px;border-top:1px solid var(--hairline)}
+  .mob a{padding:13px 4px;font-size:16px;font-weight:500;border-bottom:1px solid var(--hairline)}
+  .mob a:last-child{border-bottom:0}
+  .mob.open{display:flex}
+  @media(max-width:820px){
+    .nav-links,.nav .nav-cta{display:none}
+    .menu-btn{display:grid}
+  }
 
-/* ── open-now chip ─────────────────────────────────────────────────── */
-.open-chip{
-  display:inline-flex; align-items:center; gap:9px; padding:8px 15px;
-  border-radius:999px; background:var(--card); border:1px solid var(--line);
-  font-size:.92rem; font-weight:500; box-shadow:var(--shadow-1);
-}
-.dot{width:9px; height:9px; border-radius:50%; background:var(--ink-faint); flex:none}
-.open-chip.is-open .dot{background:var(--green)}
-.open-chip.is-shut .dot{background:#9A3A12}
-.open-chip b{font-weight:600}
+  /* ── open-now chip ──────────────────────────────────────── */
+  .open-chip{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;
+    background:var(--card);border:1px solid var(--line);font-size:13.5px;font-weight:500;
+    box-shadow:var(--shadow-1);margin-top:24px}
+  .open-chip .dot{width:9px;height:9px;border-radius:50%;background:var(--ink-faint);flex:none}
+  .open-chip.is-open .dot{background:var(--pistachio)}
+  .open-chip.is-shut .dot{background:#9A3A12}
+  .open-chip b{font-weight:600}
 
-/* ── hero ──────────────────────────────────────────────────────────── */
-.hero{padding:clamp(34px,5vw,64px) 0 clamp(30px,4vw,52px)}
-.hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(24px,4vw,52px); align-items:center}
-.hero-lede{font-size:1.12rem; color:var(--ink-soft); max-width:46ch; margin-top:16px}
-.hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:26px}
-.hero-meta{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; align-items:center}
-h1 em{font-style:normal; color:var(--gold-deep); display:block}
-.hero-art{
-  position:relative; border-radius:var(--r); overflow:hidden; background:var(--band);
-  border:1px solid var(--line); box-shadow:var(--shadow-2); aspect-ratio:4/3;
-}
-.hero-art svg{width:100%; height:100%; display:block}
-.hero-art figcaption{
-  position:absolute; left:14px; bottom:14px; background:rgba(253,248,238,.94);
-  padding:7px 13px; border-radius:999px; font-size:.82rem; font-weight:500;
-  border:1px solid var(--line);
-}
-@media (max-width:840px){
-  .hero-grid{grid-template-columns:1fr; gap:26px}
-  .hero-art{aspect-ratio:16/10}
-}
+  /* ── hero ───────────────────────────────────────────────── */
+  .hero{padding:clamp(40px,7vw,84px) 0 clamp(36px,5vw,60px)}
+  .hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(28px,5vw,64px);align-items:center}
+  .hero h1{margin:16px 0 18px}
+  .hero h1 em{font-style:italic;color:var(--gold);font-weight:400}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--body);
+    font-size:15px;font-weight:600;padding:13px 24px;border-radius:999px;cursor:pointer;border:0;
+    transition:transform .12s ease,box-shadow .2s ease,background .2s ease}
+  .btn-p{background:var(--gold);color:#FBF6EF;border-bottom:3px solid var(--gold-deep)}
+  .btn-p:active{transform:translateY(1px);border-bottom-width:1px;margin-bottom:2px}
+  .btn-s{background:transparent;color:var(--ink);border:1px solid var(--line);border-bottom:3px solid var(--line)}
+  .btn-s:active{transform:translateY(1px);border-bottom-width:1px;margin-bottom:2px}
+  @media(hover:hover){.btn-p:hover{background:var(--gold-deep);box-shadow:var(--shadow-1)}
+    .btn-s:hover{border-color:var(--gold);color:var(--gold)}}
 
-/* ── trust strip ───────────────────────────────────────────────────── */
-.trust{border-block:1px solid var(--line); background:var(--band)}
-.trust-in{display:flex; gap:clamp(16px,4vw,48px); flex-wrap:wrap; justify-content:center; padding:18px 0}
-.trust-item{display:flex; align-items:center; gap:9px; font-size:.94rem; color:var(--ink-soft); font-weight:500}
-.trust-item svg{width:18px; height:18px; flex:none; color:var(--gold-deep)}
+  /* the illustrated counter — stands in for photography until real shots land */
+  .case-art{position:relative;aspect-ratio:1/1;border-radius:var(--r);overflow:hidden;
+    background:linear-gradient(158deg,var(--band) 0%,var(--band-deep) 100%);
+    border:1px solid var(--line);box-shadow:var(--shadow-2)}
+  .case-art::after{content:'';position:absolute;inset:0;
+    background:radial-gradient(120% 90% at 30% 10%,rgba(255,253,250,.6),transparent 60%)}
+  .case-shelf{position:absolute;inset:0;display:grid;grid-template-rows:1fr 1fr;padding:9%}
+  .case-row{display:flex;align-items:center;justify-content:space-around;gap:4%;
+    border-bottom:2px solid rgba(43,32,24,.14)}
+  .case-row:last-child{border-bottom:0}
+  .case-row svg{width:26%;height:auto;color:var(--gold);opacity:.92}
+  .case-row svg:nth-child(2){color:var(--gold-deep);width:29%}
+  .case-row svg:nth-child(3){color:var(--pistachio);width:23%}
+  .case-cap{position:absolute;left:14px;bottom:14px;z-index:2;background:rgba(251,246,239,.94);
+    border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:11.5px;
+    font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+  @media(max-width:820px){
+    .hero-grid{grid-template-columns:1fr}
+    .case-art{aspect-ratio:5/4;order:-1}
+  }
 
-/* ── sections ──────────────────────────────────────────────────────── */
-.sec{padding:clamp(44px,6vw,80px) 0}
-.sec-head{max-width:60ch; margin-bottom:clamp(22px,3vw,34px)}
-.sec-head p{color:var(--ink-soft); margin-top:12px}
-.band-sec{background:var(--band); border-block:1px solid var(--line)}
+  /* ── trust strip ────────────────────────────────────────── */
+  .trust{border-block:1px solid var(--hairline);background:var(--card)}
+  .trust ul{display:grid;grid-template-columns:repeat(3,1fr);list-style:none}
+  .trust li{padding:20px 8px;text-align:center;font-size:13.5px;color:var(--ink-soft);
+    border-right:1px solid var(--hairline);display:flex;flex-direction:column;gap:5px;align-items:center}
+  .trust li:last-child{border-right:0}
+  .trust b{font-family:var(--disp);font-size:16px;color:var(--ink);font-weight:600}
+  .trust svg{color:var(--gold);font-size:19px}
+  @media(max-width:640px){.trust ul{grid-template-columns:1fr}
+    .trust li{border-right:0;border-bottom:1px solid var(--hairline);flex-direction:row;
+      justify-content:center;gap:9px;padding:14px 8px}
+    .trust li:last-child{border-bottom:0}}
 
-/* ── menu ──────────────────────────────────────────────────────────── */
-.menu-tools{
-  position:sticky; top:var(--head-h); z-index:30; background:var(--page);
-  padding:12px 0 10px; margin-bottom:6px; border-bottom:1px solid var(--hairline);
-}
-.band-sec .menu-tools{background:var(--band)}
-.cat-rail{display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; scrollbar-width:thin}
-.cat-rail::-webkit-scrollbar{height:5px}
-.cat-rail::-webkit-scrollbar-thumb{background:var(--line); border-radius:3px}
-.chip{
-  flex:none; padding:9px 15px; border-radius:999px; border:1px solid var(--line);
-  background:var(--card); color:var(--ink-soft); font:500 .9rem/1 var(--body);
-  cursor:pointer; white-space:nowrap; min-height:40px;
-}
-.chip.on{background:var(--ink); color:var(--page); border-color:var(--ink)}
-.menu-search{
-  width:100%; margin-top:10px; padding:11px 14px; font-size:16px; font-family:var(--body);
-  border:1px solid var(--line); border-radius:var(--r-md); background:var(--card); color:var(--ink);
-}
-.menu-search:focus{outline:none; box-shadow:var(--ring); border-color:var(--gold)}
-.cat-block{padding-top:clamp(22px,3vw,32px)}
-.cat-title{display:flex; align-items:baseline; gap:12px; margin-bottom:14px}
-.cat-title h3{font-size:1.34rem}
-.cat-title span{font-size:.82rem; color:var(--ink-faint); font-variant-numeric:tabular-nums}
-.items{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:14px}
-.item{
-  background:linear-gradient(180deg, var(--card), #FFFBF2);
-  border:1px solid var(--line); border-radius:var(--r); padding:16px 17px;
-  display:flex; flex-direction:column; gap:8px; position:relative;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.7), var(--shadow-1);
-  transition:transform .14s, box-shadow .14s, border-color .14s;
-}
-@media (hover:hover){ .item:hover{transform:translateY(-3px); box-shadow:var(--shadow-2); border-color:var(--gold)} }
-.item-top{display:flex; justify-content:space-between; gap:12px; align-items:baseline}
-.item h4{margin:0; font:600 1.02rem/1.3 var(--body); letter-spacing:-.005em}
-.price{font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink)}
-.price.ask{color:var(--ink-faint); font-weight:500; font-size:.9rem}
-.item p{font-size:.9rem; color:var(--ink-soft); line-height:1.5}
-.badge{
-  align-self:flex-start; font-size:.7rem; font-weight:600; letter-spacing:.06em;
-  text-transform:uppercase; padding:3px 9px; border-radius:999px;
-  background:var(--band-deep); color:var(--ink); border:1px solid var(--line);
-}
-.item-foot{margin-top:auto; padding-top:6px}
-.add{
-  width:100%; min-height:44px; border-radius:var(--r-sm); cursor:pointer;
-  background:var(--card); border:1px solid var(--line); color:var(--ink);
-  font:600 .92rem/1 var(--body); display:flex; align-items:center; justify-content:center; gap:8px;
-}
-@media (hover:hover){ .add:hover{background:var(--gold-lite); border-color:var(--gold)} }
-.add:active{transform:translateY(1px)}
-.add.in{background:var(--band-deep); border-color:var(--gold)}
-.qty{display:flex; align-items:center; gap:0; border:1px solid var(--line); border-radius:var(--r-sm); overflow:hidden}
-.qty button{
-  width:44px; height:44px; border:0; background:var(--card); cursor:pointer;
-  font:600 1.15rem/1 var(--body); color:var(--ink);
-}
-@media (hover:hover){ .qty button:hover{background:var(--band-deep)} }
-.qty b{flex:1; text-align:center; font-variant-numeric:tabular-nums; font-weight:600}
-.counter-note{font-size:.82rem; color:var(--ink-faint); text-align:center; padding:12px 0}
-.empty{padding:40px 0; text-align:center; color:var(--ink-faint)}
+  /* ── sections ───────────────────────────────────────────── */
+  .sec{padding:clamp(52px,7vw,92px) 0}
+  .band{background:var(--band);border-block:1px solid var(--hairline)}
+  .sec-head{max-width:62ch;margin-bottom:clamp(28px,4vw,44px)}
+  .sec-head h2{margin:14px 0 12px}
 
-/* ── tray ──────────────────────────────────────────────────────────── */
-.tray-bar{
-  position:fixed; left:0; right:0; bottom:0; z-index:60; padding:12px 20px;
-  padding-bottom:calc(12px + env(safe-area-inset-bottom));
-  background:rgba(253,248,238,.96); backdrop-filter:blur(10px);
-  border-top:1px solid var(--line); box-shadow:0 -8px 26px -18px rgba(43,33,24,.6);
-  transform:translateY(110%); transition:transform .22s ease;
-}
-.tray-bar.up{transform:none}
-.tray-in{max-width:1080px; margin:0 auto; display:flex; align-items:center; gap:14px}
-.tray-sum{margin-right:auto; font-size:.94rem}
-.tray-sum b{display:block; font-size:1.06rem; font-variant-numeric:tabular-nums}
-.tray-sum span{color:var(--ink-faint); font-size:.86rem}
+  /* ── rail (scroll-snap, manual only — no autoplay) ── */
+  .rail-outer{position:relative}
+  .rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:4px 24px 18px;margin-inline:-24px;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .rail>*{scroll-snap-align:center;scroll-snap-stop:always;flex:0 0 min(320px,82%)}
+  @media(min-width:861px){.rail>*{flex-basis:300px}}
+  .rail-nav{position:absolute;top:-52px;right:24px;display:flex;gap:8px}
+  .rail-nav button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+    background:var(--card);cursor:pointer;color:var(--ink);display:grid;place-items:center}
+  .rail-nav button:disabled{opacity:.35;cursor:default}
+  @media(hover:none) and (pointer:coarse){.rail-nav{display:none}}
 
-/* ── order form ────────────────────────────────────────────────────── */
-.order-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,44px); align-items:start}
-@media (max-width:840px){ .order-grid{grid-template-columns:1fr} }
-.field{margin-bottom:14px}
-.field label{display:block; font-size:.86rem; font-weight:600; margin-bottom:6px; color:var(--ink-soft)}
-.field input,.field textarea,.field select{
-  width:100%; padding:12px 14px; font-size:16px; font-family:var(--body);
-  border:1px solid var(--line); border-radius:var(--r-md);
-  background:var(--card); color:var(--ink); accent-color:var(--gold);
-}
-.field textarea{min-height:88px; resize:vertical}
-.field input:focus,.field textarea:focus,.field select:focus{outline:none; box-shadow:var(--ring); border-color:var(--gold)}
-.field select{appearance:none; background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='%2371604F' d='M1 1.5 6 6.5l5-5'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; background-size:12px; padding-right:38px}
-.two{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-.hp{position:absolute; left:-9999px; opacity:0; height:0; overflow:hidden}
-.form-msg{margin-top:12px; font-size:.92rem; padding:11px 14px; border-radius:var(--r-md); display:none}
-.form-msg.show{display:block}
-.form-msg.err{background:#FBE9E1; color:#7A2E0C; border:1px solid #E4B79F}
-.form-msg.ok{background:#E7F0E4; color:var(--green-deep); border:1px solid #B9CFB4}
-.review{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px}
-.review h3{margin-bottom:12px}
-.rev-line{display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid var(--hairline); font-size:.94rem}
-.rev-line:last-of-type{border-bottom:0}
-.rev-line span{color:var(--ink-soft)}
-.rev-total{display:flex; justify-content:space-between; padding-top:12px; margin-top:6px; border-top:2px solid var(--line); font-weight:700; font-variant-numeric:tabular-nums}
-.rev-note{font-size:.84rem; color:var(--ink-faint); margin-top:12px}
-.alt-order{margin-top:18px; padding-top:18px; border-top:1px solid var(--hairline)}
-.alt-order p{font-size:.9rem; color:var(--ink-soft); margin-bottom:12px}
+  /* ── dish cards ─────────────────────────────────────────── */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(266px,1fr));gap:18px}
+  .p-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    overflow:hidden;display:flex;flex-direction:column;
+    box-shadow:var(--shadow-1);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+  @media(hover:hover){.p-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-2);border-color:var(--gold-lite)}}
+  .p-art{position:relative;aspect-ratio:4/3;display:grid;place-items:center;
+    background:linear-gradient(158deg,var(--band) 0%,var(--band-deep) 100%);
+    border-bottom:1px solid var(--line)}
+  .p-art svg{width:44%;height:auto;color:var(--gold)}
+  .p-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .p-badge{position:absolute;top:10px;left:10px;background:var(--ink);color:var(--page);
+    font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    padding:5px 10px;border-radius:999px}
+  .p-body{padding:16px 17px 17px;display:flex;flex-direction:column;gap:7px;flex:1}
+  .p-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .p-top h3{font-size:17px}
+  .p-price{font-family:var(--disp);font-weight:600;font-size:17px;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .p-price.ask{font-family:var(--body);font-size:13px;font-weight:500;color:var(--ink-faint)}
+  .p-unit{font-size:11.5px;color:var(--ink-faint);font-weight:400}
+  .p-blurb{font-size:14px;color:var(--ink-soft);flex:1}
+  .p-more{background:none;border:0;padding:0;font:inherit;font-size:12.5px;font-weight:600;
+    color:var(--gold);cursor:pointer;text-align:left;align-self:start;
+    display:inline-flex;align-items:center;min-height:44px}
+  .p-detail{font-size:13.5px;color:var(--ink-soft);border-top:1px solid var(--hairline);
+    padding-top:10px;margin-top:2px}
+  .p-foot{display:flex;align-items:center;gap:10px;margin-top:4px}
+  .p-counter{font-size:11.5px;color:var(--ink-faint);margin-left:auto;text-align:right;line-height:1.35}
+  .add{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#FBF6EF;
+    border:0;border-bottom:3px solid var(--gold-deep);border-radius:999px;
+    padding:9px 16px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;min-height:40px}
+  .add:active{transform:translateY(1px);border-bottom-width:1px;margin-bottom:2px}
+  @media(hover:hover){.add:hover{background:var(--gold-deep)}}
+  .stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;
+    background:var(--page);overflow:hidden}
+  .stepper button{width:38px;height:40px;border:0;background:none;font:inherit;font-size:17px;
+    cursor:pointer;color:var(--ink);display:grid;place-items:center}
+  @media(hover:hover){.stepper button:hover{background:var(--band)}}
+  .stepper span{min-width:30px;text-align:center;font-weight:600;font-size:14.5px;
+    font-variant-numeric:tabular-nums}
 
-/* ── visit ─────────────────────────────────────────────────────────── */
-.visit-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,48px)}
-@media (max-width:840px){ .visit-grid{grid-template-columns:1fr} }
-.hours-tbl{width:100%; border-collapse:collapse; font-size:.96rem}
-.hours-tbl th,.hours-tbl td{text-align:left; padding:10px 0; border-bottom:1px solid var(--hairline); font-weight:400}
-.hours-tbl th{font-weight:500; color:var(--ink-soft)}
-.hours-tbl td{text-align:right; font-variant-numeric:tabular-nums}
-.hours-tbl tr.today th,.hours-tbl tr.today td{font-weight:700; color:var(--ink)}
-.addr{font-size:1.06rem; line-height:1.7}
-.addr a{font-weight:500}
+  /* ── filters + search ───────────────────────────────────── */
+  .filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;
+    padding:9px 17px;font:inherit;font-size:13.5px;font-weight:500;color:var(--ink-soft);
+    cursor:pointer;min-height:40px;transition:all .18s ease}
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--page);font-weight:600}
+  @media(hover:hover){.chip:not([aria-pressed="true"]):hover{border-color:var(--gold);color:var(--gold)}}
+  .search-row{position:relative;margin-bottom:26px;max-width:420px}
+  .search-row svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);
+    color:var(--ink-faint);width:17px;height:17px}
+  .search-row input{width:100%;font-family:inherit;font-size:16px;color:var(--ink);
+    background:var(--card);border:1px solid var(--line);border-radius:999px;
+    padding:12px 16px 12px 40px}
+  .search-row input:focus{outline:none;border-color:var(--gold);box-shadow:var(--ring)}
+  .cat-group{margin-bottom:34px}
+  .cat-group > h3{margin-bottom:14px;display:flex;align-items:baseline;gap:11px}
+  .cat-group > h3 .n{font-family:var(--body);font-size:11.5px;font-weight:500;color:var(--ink-faint);
+    letter-spacing:.08em;text-transform:uppercase}
 
-/* ── footer ────────────────────────────────────────────────────────── */
-footer{background:var(--green-deep); color:#EDF2EC; padding:clamp(36px,5vw,56px) 0 28px; margin-bottom:0}
-footer h3{color:#fff; font-size:1.1rem; margin-bottom:10px}
-footer a{color:#DCE8DA}
-.foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:32px}
-@media (max-width:760px){ .foot-grid{grid-template-columns:1fr; gap:26px} }
-.foot-brand{display:flex; align-items:center; gap:10px; margin-bottom:12px}
-.foot-brand svg{width:32px; height:32px}
-.foot-brand b{font-family:var(--disp); font-size:1.15rem; color:#fff}
-.foot-grid p,.foot-grid li{color:#CFDCCD; font-size:.94rem}
-.foot-grid ul{list-style:none; padding:0; margin:0}
-.foot-grid li{padding:4px 0}
-.foot-base{
-  margin-top:30px; padding-top:18px; border-top:1px solid rgba(255,255,255,.16);
-  display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
-  font-size:.85rem; color:#B6C6B4;
-}
+  /* ── story ──────────────────────────────────────────────── */
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,60px);align-items:center}
+  .story-list{list-style:none;display:grid;gap:18px;margin-top:8px}
+  .story-list li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+  .story-n{font-family:var(--disp);font-size:13px;font-weight:700;color:var(--gold);
+    border:1px solid var(--gold);border-radius:50%;width:30px;height:30px;
+    display:grid;place-items:center;flex:none;font-variant-numeric:tabular-nums}
+  .story-list h3{font-size:16.5px;margin-bottom:3px}
+  .story-list p{font-size:14px;color:var(--ink-soft)}
+  @media(max-width:820px){.story-grid{grid-template-columns:1fr}}
 
-/* ── reveal ────────────────────────────────────────────────────────── */
-.reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease}
-.reveal.is-in{opacity:1; transform:none}
-@media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1; transform:none; transition:none}
-  *{animation-duration:.001ms !important; transition-duration:.001ms !important}
-}
-@media print{ .reveal{opacity:1; transform:none} .tray-bar,header{display:none} }
+  /* ── pre-order ──────────────────────────────────────────── */
+  .order-grid{display:grid;grid-template-columns:1fr .92fr;gap:clamp(26px,4vw,44px);align-items:start}
+  @media(max-width:900px){.order-grid{grid-template-columns:1fr}}
+  .tray{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:22px;box-shadow:var(--shadow-1);position:sticky;top:92px}
+  .tray h3{margin-bottom:14px}
+  .tray-list{list-style:none;display:grid;gap:11px;margin-bottom:14px}
+  .tray-list li{display:grid;grid-template-columns:1fr auto auto;gap:11px;align-items:center;
+    font-size:14px;padding-bottom:11px;border-bottom:1px solid var(--hairline)}
+  .tray-list .nm{min-width:0}
+  .tray-list .nm b{display:block;font-weight:600}
+  .tray-list .nm small{color:var(--ink-faint);font-size:11.5px}
+  .tray-list .ln{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+  .tray-x{background:none;border:0;color:var(--ink-faint);cursor:pointer;font-size:17px;
+    width:44px;height:44px;border-radius:50%;display:grid;place-items:center}
+  @media(hover:hover){.tray-x:hover{background:var(--band);color:var(--gold)}}
+  .tray-total{display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--disp);font-size:19px;font-weight:600;padding-top:6px;
+    border-top:2px solid var(--ink);font-variant-numeric:tabular-nums}
+  .tray-empty{font-size:14px;color:var(--ink-faint);padding:14px 0 4px}
+  .tray-note{font-size:12px;color:var(--ink-faint);margin-top:12px;line-height:1.5}
+  .alt-order{margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline)}
+  .alt-order p{font-size:12.5px;color:var(--ink-faint);margin-bottom:10px}
+
+  /* forms — 16px minimum kills iOS focus zoom */
+  .field{display:grid;gap:6px;margin-bottom:14px}
+  .field label{font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
+  .field input,.field textarea,.field select{font-family:inherit;font-size:16px;color:var(--ink);
+    background:var(--page);border:1px solid var(--line);border-radius:var(--r-md);
+    padding:12px 14px;width:100%;transition:border-color .18s ease,box-shadow .18s ease}
+  .field textarea{min-height:96px;resize:vertical}
+  .field select{appearance:none;-webkit-appearance:none;padding-right:38px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%23756351' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center}
+  .field input:focus,.field textarea:focus,.field select:focus{outline:none;
+    border-color:var(--gold);box-shadow:var(--ring)}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.field-row{grid-template-columns:1fr}}
+  /* honeypot — off-screen for people, still fillable by bots. 16px like every
+     other field so it never becomes an iOS zoom trigger if a browser reveals it. */
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;font-size:16px}
+  .o-msg{font-size:14px;margin-top:12px;min-height:20px}
+  .o-msg.err{color:var(--gold-deep);font-weight:500}
+  .o-done{background:var(--card);border:1px solid var(--pistachio);border-radius:var(--r);
+    padding:26px;text-align:center}
+  .o-done h3{color:var(--pistachio);margin-bottom:8px}
+
+  /* ── visit ──────────────────────────────────────────────── */
+  .visit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+  .v-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+  .v-card h3{margin-bottom:12px;display:flex;align-items:center;gap:9px;font-size:18px}
+  .v-card h3 svg{color:var(--gold)}
+  .v-card ul{list-style:none;display:grid;gap:8px;font-size:14.5px;color:var(--ink-soft)}
+  .v-card li{display:flex;justify-content:space-between;gap:14px;
+    padding-bottom:8px;border-bottom:1px solid var(--hairline)}
+  .v-card li:last-child{border-bottom:0;padding-bottom:0}
+  .v-card li.today{color:var(--ink);font-weight:600}
+  .v-card li.today .d::after{content:' · today';color:var(--gold);font-weight:600}
+  .v-card .addr{display:block;line-height:1.7}
+  .notice{background:var(--gold);color:#FBF6EF;border-radius:var(--r);padding:16px 20px;
+    font-size:14.5px;margin-bottom:24px;display:flex;gap:11px;align-items:center}
+  .notice svg{flex:none}
+
+  /* ── footer ─────────────────────────────────────────────── */
+  footer{background:var(--ink);color:#E9E3DB;padding:clamp(44px,6vw,68px) 0 28px;margin-top:0}
+  .f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;margin-bottom:36px}
+  @media(max-width:760px){.f-grid{grid-template-columns:1fr;gap:26px}}
+  footer h4{font-family:var(--disp);font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--gold-lite);margin-bottom:13px;font-weight:600}
+  footer ul{list-style:none;display:grid;gap:9px;font-size:14px}
+  footer a{color:#C9B8A8}
+  @media(hover:hover){footer a:hover{color:var(--gold-lite)}}
+  .f-brand{display:flex;align-items:center;gap:11px}
+  .f-brand svg{width:34px;height:34px}
+  .f-brand b{font-family:var(--disp);font-size:18px;color:#fff;font-weight:700}
+  .f-blurb{font-size:14px;color:#C9B8A8;max-width:38ch;margin-top:12px}
+  .f-bar{border-top:1px solid rgba(233,227,219,.14);padding-top:20px;display:flex;
+    flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;
+    font-size:12.5px;color:#A8998A}
+  .f-admin{font-size:12.5px;color:#A8998A;border-bottom:1px solid transparent}
+  @media(hover:hover){.f-admin:hover{color:var(--gold-lite);border-bottom-color:var(--gold-lite)}}
+  .f-build{font-size:11px;color:#8A7A6B;font-variant-numeric:tabular-nums}
+
+  /* ── mobile dock ────────────────────────────────────────── */
+  .dock{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;padding:10px 16px;
+    padding-bottom:calc(10px + env(safe-area-inset-bottom));
+    background:rgba(251,246,239,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .dock a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;
+    border-radius:999px;font-size:15px;font-weight:600}
+  .dock .d-order{background:var(--gold);color:#FBF6EF}
+  .dock .d-menu{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+  .dock .count{background:#FBF6EF;color:var(--gold);border-radius:999px;
+    min-width:22px;height:22px;display:grid;place-items:center;font-size:12px;
+    font-variant-numeric:tabular-nums}
+  @media(max-width:820px){.dock.on{display:flex}}
+  /* the dock is fixed over the bottom of the viewport and is always showing by the
+     time you reach the footer — without this the last footer row is unreachable */
+  @media(max-width:820px){
+    footer{padding-bottom:calc(28px + 70px + env(safe-area-inset-bottom))}
+  }
+
+  /* ── one-shot scroll reveals (JS adds .is-in; no-JS stays visible) ── */
+  .reveal{opacity:0;transform:translateY(14px);
+    transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+  .reveal.is-in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+  }
+  @media print{.reveal{opacity:1;transform:none}header,.dock{display:none}}
 </style>
 </head>
 <body>
-<a class="skip" href="#menu">Skip to the menu</a>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ═══ illustration sprite — one drawing per kind of dish, standing in for
+     photography until real shots land. Assigned per item by the `glyph`
+     column, which the back office can override. ═══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+ <defs>
+  <g id="g-pancakes" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="32" cy="24" rx="20" ry="7"/><path d="M12 24v6c0 3.9 9 7 20 7s20-3.1 20-7v-6"/>
+    <path d="M12 34v6c0 3.9 9 7 20 7s20-3.1 20-7v-6"/><path d="M9 52h46"/>
+    <path d="M32 17c0-3 3-3 3-6"/>
+  </g>
+  <g id="g-omelet" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 38c0-11 10.7-20 24-20s24 9 24 20c0 3.3-2.7 6-6 6H14c-3.3 0-6-2.7-6-6Z"/>
+    <path d="M20 33c3-4 7-4 10 0M36 30c2.5-3.5 6-3.5 8.5 0"/><path d="M9 51h46"/>
+  </g>
+  <g id="g-skillet" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="27" cy="34" r="18"/><path d="M45 34h13"/><circle cx="22" cy="31" r="4"/>
+    <circle cx="32" cy="38" r="4"/><path d="M28 25h6M18 40h5"/>
+  </g>
+  <g id="g-benedict" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="32" cy="44" rx="22" ry="8"/><ellipse cx="32" cy="32" rx="16" ry="9"/>
+    <circle cx="32" cy="30" r="5"/><path d="M20 40c4 2.5 20 2.5 24 0"/>
+  </g>
+  <g id="g-egg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 12c9 0 17 12 17 23s-7.6 17-17 17-17-6-17-17 8-23 17-23Z"/>
+    <circle cx="32" cy="36" r="6.5"/>
+  </g>
+  <g id="g-sandwich" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 48 34 12l20 36H10Z"/>
+    <path d="M17 41h30"/><path d="M23 33h18"/>
+    <path d="M20 44c3-3 6-3 9 0s6 3 9 0"/>
+  </g>
+  <g id="g-burger" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 27c0-8 10.3-14 23-14s23 6 23 14"/><path d="M9 27h46v3H9z"/>
+    <path d="M10 35c5 3.5 39 3.5 44 0"/><path d="M9 41h46v4c0 4.4-3.6 8-8 8H17c-4.4 0-8-3.6-8-8v-4Z"/>
+    <path d="M22 20v.01M32 17v.01M42 20v.01"/>
+  </g>
+  <g id="g-wrap" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 54 42 12c6 2.5 9.5 7 11 13L34 56c-5 1-9 0-12-2Z"/>
+    <path d="M25 46c4 2 8 2 12 0M29 37c4 2 8 2 12 0M33 28c4 2 7 2 10 0"/>
+  </g>
+  <g id="g-quesadilla" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 12a24 24 0 0 1 24 24H32Z" transform="rotate(45 32 32)"/>
+    <path d="M15 41 32 24l17 17c-4.7 4.7-11.1 7-17 7s-12.3-2.3-17-7Z"/>
+    <path d="M24 41h4M32 37v4M36 41h4"/>
+  </g>
+  <g id="g-tortilla" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="14"/>
+    <path d="M25 27h.01M38 28h.01M30 37h.01M39 36h.01M32 24h.01"/>
+  </g>
+  <g id="g-fish" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 32c6-10 16-15 26-15s18 5 22 15c-6 10-12 15-22 15S14 42 8 32Z"/>
+    <circle cx="45" cy="28" r="2"/><path d="M8 32c4-3 4-9 4-12M8 32c4 3 4 9 4 12"/>
+    <path d="M24 24c3 5 3 11 0 16"/>
+  </g>
+  <g id="g-wings" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M42 12c7 0 12 5 12 12 0 8-6 14-14 15l-11 11"/>
+    <path d="M29 50a7 7 0 0 1-9.5 1.5A7 7 0 0 1 18 42"/>
+    <path d="M18 42a6 6 0 0 1-6-8 6 6 0 0 1 8-3.5"/>
+    <path d="M20 30.5 31 20"/>
+    <path d="M31 20c-1-7 4-12 11-8"/>
+  </g>
+  <g id="g-curds" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 26h36l-4 24a4 4 0 0 1-4 3.5H22a4 4 0 0 1-4-3.5L14 26Z"/>
+    <circle cx="25" cy="36" r="3.5"/><circle cx="38" cy="34" r="3"/><circle cx="32" cy="45" r="3"/>
+    <path d="M14 26c0-3 8-5 18-5s18 2 18 5"/>
+  </g>
+  <g id="g-soup" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 30h46c0 12-8 21-19 21h-8C17 51 9 42 9 30Z"/><path d="M6 55h52"/>
+    <path d="M24 20c0-3 3-3 3-6M32 20c0-3 3-3 3-6M40 20c0-3 3-3 3-6" opacity=".7"/>
+  </g>
+  <g id="g-salad" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 34h46c0 10-9 18-20 18h-6C18 52 9 44 9 34Z"/>
+    <path d="M18 33c-2-6 2-11 7-12 1 5-1 9-4 11M32 32c-3-6 0-13 5-14 2 5 0 11-3 13M45 33c1-5 4-8 8-8 0 5-2 8-5 9"/>
+  </g>
+  <g id="g-steak" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M25 15c11-3 24 1 28 10 4 9-1 20-11 25-10 5-23 3-28-5-5-8-2-19 4-25 2-2 4-4 7-5Z"/>
+    <path d="M31 30c5-2 10 0 12 4 2 5-1 10-6 11"/>
+  </g>
+  <g id="g-bacon" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 40c6-8 10 4 16-4s10 4 16-4 10 4 14-2"/>
+    <path d="M12 50c6-8 10 4 16-4s10 4 16-4 10 4 12-2"/>
+    <path d="M10 40c-1-4 0-8 2-11"/>
+  </g>
+  <g id="g-toast" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 24c0-5 7-9 16-9s16 4 16 9v25a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V24Z"/>
+    <path d="M16 26h-4a4 4 0 0 1 0-8h4M48 26h4a4 4 0 0 0 0-8h-4"/>
+    <path d="M25 34h14M25 42h10"/>
+  </g>
+  <g id="g-fries" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 30h28l-3 21a4 4 0 0 1-4 3.5H25a4 4 0 0 1-4-3.5L18 30Z"/>
+    <path d="M18 30h28M22 30l2-14M30 30V13M38 30l2-15M45 30l3-12"/>
+  </g>
+  <g id="g-pie" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 36h48c0 9-7 15-16 15H24C15 51 8 45 8 36Z"/>
+    <path d="M8 36c0-11 10.7-19 24-19s24 8 24 19"/>
+    <path d="M20 27c4-2.5 8-2.5 12 0M34 25c4-2.5 8-2.5 11 0"/><path d="M32 17V9"/>
+  </g>
+  <g id="g-coffee" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 24h32v17c0 6.6-5.4 12-12 12h-8c-6.6 0-12-5.4-12-12V24Z"/>
+    <path d="M45 28h4.5a6.5 6.5 0 0 1 0 13H45"/><path d="M9 57h44"/>
+    <path d="M24 16c0-2.5 2.5-3.5 2.5-6M32 16c0-2.5 2.5-3.5 2.5-6M40 16c0-2.5 2.5-3.5 2.5-6" opacity=".7"/>
+  </g>
+  <g id="g-tea" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15 26h30v14c0 7.7-6.3 14-14 14h-2c-7.7 0-14-6.3-14-14V26Z"/>
+    <path d="M45 30h4a5 5 0 0 1 0 10h-4"/><path d="M30 26v-5M30 21l-4-3M30 21l4-3"/>
+  </g>
+  <g id="g-milk" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 24h20v26a5 5 0 0 1-5 5H27a5 5 0 0 1-5-5V24Z"/>
+    <path d="M22 24l5-9h10l5 9M27 15v-4h10v4"/><path d="M22 36h20"/>
+  </g>
+  <g id="g-juice" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 20h24l-3 30a5 5 0 0 1-5 4.5h-8a5 5 0 0 1-5-4.5L20 20Z"/>
+    <path d="M21 31h22"/><path d="M38 20l6-10"/>
+  </g>
+  <g id="g-soda" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 22h26l-3.5 30a5 5 0 0 1-5 4.5h-9a5 5 0 0 1-5-4.5L19 22Z"/>
+    <path d="M17 22h30"/><path d="M36 22l4-12 6 2"/><path d="M27 33v14M35 33v14" opacity=".7"/>
+  </g>
+  <g id="g-kids" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="32" cy="32" r="21"/><circle cx="25" cy="28" r="2"/><circle cx="39" cy="28" r="2"/>
+    <path d="M22 39c5 5 15 5 20 0"/>
+  </g>
+  <g id="g-plate" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="14"/>
+  </g>
+ </defs>
+</svg>
 
 <header id="hdr">
-  <div class="wrap head-in">
+  <div class="wrap nav">
     <a class="brand" href="#top" aria-label="Sunflower Café — home">
-      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
         <g fill="#E3A008">
-          <circle cx="24" cy="8"  r="5.2"/><circle cx="24" cy="40" r="5.2"/>
-          <circle cx="8"  cy="24" r="5.2"/><circle cx="40" cy="24" r="5.2"/>
+          <circle cx="24" cy="8" r="5.2"/><circle cx="24" cy="40" r="5.2"/>
+          <circle cx="8" cy="24" r="5.2"/><circle cx="40" cy="24" r="5.2"/>
           <circle cx="12.7" cy="12.7" r="5.2"/><circle cx="35.3" cy="35.3" r="5.2"/>
           <circle cx="35.3" cy="12.7" r="5.2"/><circle cx="12.7" cy="35.3" r="5.2"/>
         </g>
         <circle cx="24" cy="24" r="9" fill="#7C4A12"/>
       </svg>
-      <b>Sunflower Café</b>
+      <span class="wm">Sunflower Café<span class="tag">Stevens Point, WI</span></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#menu">Menu</a>
+      <a href="#kitchen">The kitchen</a>
       <a href="#order">Pre-order</a>
       <a href="#visit">Visit</a>
     </nav>
-    <div class="head-cta">
-      <a class="btn btn-secondary" href="#order">Pre-order</a>
-      <a class="btn btn-primary" href="tel:+17155700393" data-track="call_click">Call</a>
-      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobMenu"><span></span></button>
-    </div>
+    <a class="nav-cta" href="tel:+17155700393" data-track="call_click">
+      <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+      Call us</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobMenu">
+      <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
-  <nav class="mob" id="mobMenu" aria-label="Mobile">
+  <nav class="mob wrap" id="mobMenu" aria-label="Mobile">
     <a href="#menu">Menu</a>
+    <a href="#kitchen">The kitchen</a>
     <a href="#order">Pre-order for pickup</a>
     <a href="#visit">Hours &amp; directions</a>
     <a href="tel:+17155700393" data-track="call_click">Call (715) 570-0393</a>
   </nav>
 </header>
 
-<main id="top">
+<main id="main">
+<span id="top"></span>
 
-<!-- ── hero ───────────────────────────────────────────────────────── -->
+<!-- ══ HERO ══ -->
 <section class="hero wrap">
   <div class="hero-grid">
     <div>
-      <p class="kicker" data-edit="hero_kicker">Stevens Point, Wisconsin</p>
-      <h1><span data-edit="hero_title">Breakfast worth</span> <em data-edit="hero_title_em">waking up for</em></h1>
-      <p class="hero-lede" data-edit="hero_lede">A neighborhood cafe on Church Street. Eggs and skillets all morning, homemade soups and desserts, and a fish fry every Friday.</p>
+      <p class="kicker"><span data-edit="hero.place">Stevens Point, Wisconsin</span><span class="no" data-edit="hero.since">Church Street</span></p>
+      <h1><span data-edit="hero.line1">Breakfast worth</span><br><span data-edit="hero.line2">waking up</span> <em data-edit="hero.emph">for</em>.</h1>
+      <p class="lede" data-edit="hero.lede">A neighborhood café on Church Street. Omelets built to order and skillets
+        under country gravy all morning, homemade soups and desserts, and a fish fry
+        every Friday until eight.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="#menu">See the menu</a>
-        <a class="btn btn-secondary" href="#order">Pre-order for pickup</a>
+        <a class="btn btn-p" href="#menu"><span data-edit="hero.cta1">See the menu</span>
+          <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-s" href="#order"><span data-edit="hero.cta2">Pre-order for pickup</span></a>
       </div>
-      <div class="hero-meta">
-        <span class="open-chip" id="openChip"><span class="dot"></span><span id="openTxt">Checking hours…</span></span>
+      <span class="open-chip" id="openChip"><span class="dot"></span><span id="openTxt">Checking hours…</span></span>
+    </div>
+    <div class="case-art" role="img" aria-label="Illustration of a café counter holding pancakes, an omelet, a skillet, a fish fry, coffee and pie">
+      <div class="case-shelf">
+        <div class="case-row">
+          <svg viewBox="0 0 64 64"><use href="#g-pancakes"/></svg>
+          <svg viewBox="0 0 64 64"><use href="#g-omelet"/></svg>
+          <svg viewBox="0 0 64 64"><use href="#g-skillet"/></svg>
+        </div>
+        <div class="case-row">
+          <svg viewBox="0 0 64 64"><use href="#g-fish"/></svg>
+          <svg viewBox="0 0 64 64"><use href="#g-coffee"/></svg>
+          <svg viewBox="0 0 64 64"><use href="#g-pie"/></svg>
+        </div>
       </div>
+      <span class="case-cap">Photography coming</span>
     </div>
-    <figure class="hero-art" id="heroArt">
-      <svg viewBox="0 0 400 300" role="img" aria-label="Illustration of a sunflower">
-        <rect width="400" height="300" fill="#F7EEDC"/>
-        <circle cx="200" cy="150" r="112" fill="#FBF3E2"/>
-        <path d="M200 178 C196 214 194 246 200 282" stroke="#3D6B39" stroke-width="9"
-              stroke-linecap="round" fill="none"/>
-        <path d="M198 236 C170 224 150 232 140 250 C164 262 186 256 198 240 Z" fill="#3D6B39"/>
-        <path d="M202 214 C230 202 252 210 260 228 C236 240 214 234 202 218 Z" fill="#4B7D45"/>
-        <g fill="#E3A008">
-          <ellipse cx="200" cy="86"  rx="17" ry="36"/><ellipse cx="200" cy="194" rx="17" ry="36"/>
-          <ellipse cx="146" cy="140" rx="36" ry="17"/><ellipse cx="254" cy="140" rx="36" ry="17"/>
-          <ellipse cx="162" cy="102" rx="17" ry="36" transform="rotate(-45 162 102)"/>
-          <ellipse cx="238" cy="178" rx="17" ry="36" transform="rotate(-45 238 178)"/>
-          <ellipse cx="238" cy="102" rx="17" ry="36" transform="rotate(45 238 102)"/>
-          <ellipse cx="162" cy="178" rx="17" ry="36" transform="rotate(45 162 178)"/>
-        </g>
-        <g fill="#F6C544">
-          <ellipse cx="200" cy="100" rx="11" ry="24"/><ellipse cx="200" cy="180" rx="11" ry="24"/>
-          <ellipse cx="160" cy="140" rx="24" ry="11"/><ellipse cx="240" cy="140" rx="24" ry="11"/>
-        </g>
-        <circle cx="200" cy="140" r="46" fill="#7C4A12"/>
-        <circle cx="200" cy="140" r="31" fill="#5E370D"/>
-      </svg>
-      <figcaption>Photography coming</figcaption>
-    </figure>
   </div>
 </section>
 
-<!-- ── trust strip ────────────────────────────────────────────────── -->
-<section class="trust" aria-label="At a glance">
-  <div class="wrap trust-in">
-    <span class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-      Open every day at 8am
-    </span>
-    <span class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12c4-6 14-6 18 0-4 6-14 6-18 0z"/><circle cx="15" cy="12" r="1.4" fill="currentColor"/></svg>
-      Fish fry every Friday
-    </span>
-    <span class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 20h14M6 20V9a6 6 0 0 1 12 0v11"/><path d="M9 5V3M15 5V3"/></svg>
-      Soups &amp; desserts made in house
-    </span>
+<!-- ══ TRUST ══ -->
+<section class="trust">
+  <ul class="wrap">
+    <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <b data-edit="trust.1.title">Open every day at 8</b><span data-edit="trust.1.sub">Seven mornings a week</span></li>
+    <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c4-6 14-6 18 0-4 6-14 6-18 0z"/><circle cx="15" cy="12" r="1.4" fill="currentColor"/></svg>
+      <b data-edit="trust.2.title">Fish fry every Friday</b><span data-edit="trust.2.sub">Kitchen open until eight</span></li>
+    <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20h14M6 20V9a6 6 0 0 1 12 0v11"/><path d="M9 5V3M15 5V3"/></svg>
+      <b data-edit="trust.3.title">Made in house</b><span data-edit="trust.3.sub">Soups, salsa and desserts</span></li>
+  </ul>
+</section>
+
+<!-- ══ THE MENU ══ -->
+<section class="sec wrap" id="menu">
+  <div class="sec-head">
+    <p class="kicker"><span data-edit="menu.kicker">The Menu</span><span class="no">01</span></p>
+    <h2 data-edit="menu.h2">Everything we make</h2>
+    <p class="lede" data-edit="menu.lede">The whole board, section by section. Add what you want to the tray and we
+      will have it waiting at the counter — you pay when you collect.</p>
+  </div>
+
+  <div class="rail-outer reveal">
+    <div class="rail-nav">
+      <button id="railPrev" aria-label="Previous"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button id="railNext" aria-label="Next"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+    <h3 style="margin-bottom:14px" data-edit="menu.rail">House favorites</h3>
+    <div class="rail" id="rail"></div>
+  </div>
+
+  <div class="search-row" style="margin-top:36px">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="menuSearch" type="search" placeholder="Search — omelet, fish, pancakes…" aria-label="Search the menu" autocomplete="off">
+  </div>
+  <div class="filters" id="filters" role="group" aria-label="Filter by section"></div>
+  <div id="catalog"><p style="color:var(--ink-faint)">Loading the menu…</p></div>
+</section>
+
+<!-- ══ THE KITCHEN ══ -->
+<section class="sec band" id="kitchen">
+  <div class="wrap story-grid">
+    <div>
+      <p class="kicker"><span data-edit="kitchen.kicker">The Kitchen</span><span class="no">02</span></p>
+      <h2 style="margin:14px 0 14px" data-edit="kitchen.h2">A short walk from anywhere in town</h2>
+      <p class="lede" data-edit="kitchen.lede">Breakfast runs all day, lunch comes off the same griddle, and Friday belongs
+        to the fish fry. Nothing on this page is a chain recipe.</p>
+      <p style="margin-top:16px;font-size:15px;color:var(--ink-soft)">
+        <span data-edit="kitchen.note">Come hungry, sit a while, and ask what the soup is.</span></p>
+    </div>
+    <ul class="story-list">
+      <li><span class="story-n">1</span><div><h3 data-edit="kitchen.1.h">Breakfast all morning</h3>
+        <p data-edit="kitchen.1.p">Omelets built to order, skillets under country gravy, benedicts, and a stack
+           of Sunflower Pancakes with chocolate chips and bacon inside.</p></div></li>
+      <li><span class="story-n">2</span><div><h3 data-edit="kitchen.2.h">A kitchen with two accents</h3>
+        <p data-edit="kitchen.2.p">Chilaquiles and huevos rancheros under homemade salsa sit on the same board
+           as a broasted chicken sandwich and a turkey club.</p></div></li>
+      <li><span class="story-n">3</span><div><h3 data-edit="kitchen.3.h">Friday is the fish fry</h3>
+        <p data-edit="kitchen.3.p">Baked or fried, by the plate or by the bucket for the whole table — and the
+           kitchen stays open until eight instead of three.</p></div></li>
+      <li><span class="story-n">4</span><div><h3 data-edit="kitchen.4.h">Desserts made here</h3>
+        <p data-edit="kitchen.4.p">Apple dutch pie, triple threat chocolate cake, and whatever else came out of
+           the oven that morning. Ask what is left.</p></div></li>
+    </ul>
   </div>
 </section>
 
-<!-- ── menu ───────────────────────────────────────────────────────── -->
-<section class="sec" id="menu">
+<!-- ══ PRE-ORDER ══ -->
+<section class="sec wrap" id="order">
+  <div class="sec-head">
+    <p class="kicker"><span data-edit="order.kicker">Pre-order</span><span class="no">03</span></p>
+    <h2 data-edit="order.h2">Have it ready when you arrive</h2>
+    <p class="lede" data-edit="order.lede">Tell us what you want and when you are coming. We confirm by hand — usually
+      the same morning — and you pay at the counter when you pick it up. No card needed now.</p>
+  </div>
+
+  <div class="order-grid">
+    <form id="orderForm" novalidate>
+      <div class="field-row">
+        <div class="field"><label for="ofName">Your name</label>
+          <input id="ofName" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="ofPhone">Phone</label>
+          <input id="ofPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"></div>
+      </div>
+      <div class="field"><label for="ofEmail">Email <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--ink-faint)">— or just leave a phone above</span></label>
+        <input id="ofEmail" name="email" type="email" inputmode="email" autocomplete="email"></div>
+      <div class="field-row">
+        <div class="field"><label for="ofDate">Pickup day</label>
+          <input id="ofDate" name="pickup_date" type="date"></div>
+        <div class="field"><label for="ofTime">Pickup time</label>
+          <select id="ofTime" name="pickup_time"></select></div>
+      </div>
+      <div class="field"><label for="ofNotes">Anything we should know?</label>
+        <textarea id="ofNotes" name="notes" placeholder="How you want the eggs, allergies, no onions…"></textarea></div>
+      <div class="hp" aria-hidden="true">
+        <label for="ofWebsite">Website</label>
+        <input id="ofWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button class="btn btn-p" id="ofSubmit" type="submit" style="width:100%">Send pre-order</button>
+      <div class="o-msg" id="ofMsg" role="status" aria-live="polite"></div>
+    </form>
+
+    <aside class="tray" id="trayCard">
+      <h3>Your tray</h3>
+      <ul class="tray-list" id="trayList"></ul>
+      <p class="tray-empty" id="trayEmpty">Nothing yet — add something from the menu.</p>
+      <div class="tray-total" id="trayTotal" hidden><span>Estimated total</span><span id="trayTotalVal">$0.00</span></div>
+      <p class="tray-note">This sends the order to the café; it does not take payment.
+        We will call if anything is unclear.</p>
+      <div class="alt-order" id="altOrder" hidden>
+        <p>Rather pay online and skip the counter?</p>
+        <a class="btn btn-s" id="toastLink" href="#" target="_blank" rel="noopener" style="width:100%">Order &amp; pay on Toast</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ══ VISIT ══ -->
+<section class="sec band" id="visit">
   <div class="wrap">
     <div class="sec-head">
-      <p class="kicker">The menu</p>
-      <h2>Everything we make</h2>
-      <p id="menuLede">Prices are current as of our last update. Tap a plus to build a pickup order.</p>
+      <p class="kicker"><span data-edit="visit.kicker">Visit</span><span class="no">04</span></p>
+      <h2 data-edit="visit.h2">Find us on Church Street</h2>
     </div>
-
-    <div class="menu-tools">
-      <div class="cat-rail" id="catRail" role="tablist" aria-label="Menu sections"></div>
-      <input class="menu-search" id="menuSearch" type="search" placeholder="Search the menu — omelet, fish, pancakes…" aria-label="Search the menu" autocomplete="off">
-    </div>
-
-    <div id="menuBody"><p class="empty">Loading the menu…</p></div>
-  </div>
-</section>
-
-<!-- ── order ──────────────────────────────────────────────────────── -->
-<section class="sec band-sec" id="order">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="kicker">Pickup</p>
-      <h2 data-edit="order_title">Pre-order for pickup</h2>
-      <p data-edit="order_lede">Tell us what you want and when you are coming. We will have it ready at the counter.</p>
-    </div>
-
-    <div class="order-grid">
-      <form id="orderForm" novalidate>
-        <div class="two">
-          <div class="field">
-            <label for="ofName">Your name</label>
-            <input id="ofName" name="name" type="text" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="ofPhone">Phone</label>
-            <input id="ofPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel">
-          </div>
-        </div>
-        <div class="field">
-          <label for="ofEmail">Email <span style="font-weight:400;color:var(--ink-faint)">(or leave a phone above)</span></label>
-          <input id="ofEmail" name="email" type="email" inputmode="email" autocomplete="email">
-        </div>
-        <div class="two">
-          <div class="field">
-            <label for="ofDate">Pickup day</label>
-            <input id="ofDate" name="pickup_date" type="date">
-          </div>
-          <div class="field">
-            <label for="ofTime">Pickup time</label>
-            <select id="ofTime" name="pickup_time"></select>
-          </div>
-        </div>
-        <div class="field">
-          <label for="ofNotes">Anything we should know?</label>
-          <textarea id="ofNotes" name="notes" placeholder="Allergies, how you want the eggs, no onions…"></textarea>
-        </div>
-        <div class="hp" aria-hidden="true">
-          <label for="ofWebsite">Website</label>
-          <input id="ofWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
-        </div>
-        <button class="btn btn-primary" id="ofSubmit" type="submit" style="width:100%">Send pre-order</button>
-        <div class="form-msg" id="ofMsg" role="status" aria-live="polite"></div>
-        <p class="rev-note">This sends your order to the café — it does not take payment. You pay at the counter when you pick up. We will call if anything is unclear.</p>
-      </form>
-
-      <aside class="review" id="review">
-        <h3>Your order</h3>
-        <div id="revBody"><p style="color:var(--ink-faint);font-size:.94rem">Nothing yet — add something from the menu.</p></div>
-        <div class="alt-order" id="altOrder" hidden>
-          <p>Rather pay online and skip the counter?</p>
-          <a class="btn btn-secondary" id="toastLink" href="#" target="_blank" rel="noopener" style="width:100%">Order &amp; pay on Toast</a>
-        </div>
-      </aside>
-    </div>
-  </div>
-</section>
-
-<!-- ── visit ──────────────────────────────────────────────────────── -->
-<section class="sec" id="visit">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="kicker">Visit</p>
-      <h2 data-edit="visit_title">Find us</h2>
+    <div class="notice">
+      <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c4-6 14-6 18 0-4 6-14 6-18 0z"/><circle cx="15" cy="12" r="1.4" fill="currentColor"/></svg>
+      <span data-edit="visit.notice">Friday is fish fry — the kitchen stays open until eight.</span>
     </div>
     <div class="visit-grid">
-      <div>
-        <p class="addr">
-          <strong>Sunflower Café</strong><br>
-          <span id="vAddr1">2301 Church Street</span><br>
-          <span id="vCity">Stevens Point, WI 54481</span><br><br>
-          <a href="tel:+17155700393" id="vPhone" data-track="call_click">(715) 570-0393</a>
-        </p>
-        <div class="hero-cta" style="margin-top:22px">
-          <a class="btn btn-primary" id="vMap" href="https://maps.app.goo.gl/iDAiDhSjzzamdf9k6" target="_blank" rel="noopener" data-track="directions_click">Get directions</a>
-          <a class="btn btn-secondary" href="tel:+17155700393" data-track="call_click">Call the café</a>
-        </div>
+      <div class="v-card">
+        <h3><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Hours</h3>
+        <ul id="hoursList"></ul>
+        <p class="tray-note" id="hoursNote"></p>
       </div>
-      <div>
-        <h3 style="margin-bottom:12px">Hours</h3>
-        <table class="hours-tbl" id="hoursTbl"><tbody></tbody></table>
-        <p class="rev-note" id="hoursNote">Kitchen closes 15 minutes before we do.</p>
+      <div class="v-card">
+        <h3><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a7 7 0 0 1 14 0c0 5.5-7 10-7 10Z"/><circle cx="12" cy="11" r="2.5"/></svg>Find us</h3>
+        <span class="addr">
+          <b id="vAddr1">2301 Church Street</b><br>
+          <span id="vCity">Stevens Point, WI 54481</span>
+        </span>
+        <p style="margin-top:16px">
+          <a class="btn btn-s" id="vMap" href="https://maps.app.goo.gl/iDAiDhSjzzamdf9k6" target="_blank" rel="noopener" data-track="directions_click">Get directions</a>
+        </p>
+      </div>
+      <div class="v-card">
+        <h3><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>Reach us</h3>
+        <span class="addr">Call the café and someone in the kitchen will pick up.</span>
+        <p style="margin-top:16px">
+          <a class="btn btn-p" href="tel:+17155700393" id="vPhoneBtn" data-track="call_click">(715) 570-0393</a>
+        </p>
       </div>
     </div>
   </div>
@@ -555,24 +769,25 @@ footer a{color:#DCE8DA}
 
 <footer>
   <div class="wrap">
-    <div class="foot-grid">
+    <div class="f-grid">
       <div>
-        <div class="foot-brand">
+        <div class="f-brand">
           <svg viewBox="0 0 48 48" aria-hidden="true">
-            <g fill="#F6C544">
-              <circle cx="24" cy="8"  r="5.2"/><circle cx="24" cy="40" r="5.2"/>
-              <circle cx="8"  cy="24" r="5.2"/><circle cx="40" cy="24" r="5.2"/>
+            <g fill="#E0A06E">
+              <circle cx="24" cy="8" r="5.2"/><circle cx="24" cy="40" r="5.2"/>
+              <circle cx="8" cy="24" r="5.2"/><circle cx="40" cy="24" r="5.2"/>
               <circle cx="12.7" cy="12.7" r="5.2"/><circle cx="35.3" cy="35.3" r="5.2"/>
               <circle cx="35.3" cy="12.7" r="5.2"/><circle cx="12.7" cy="35.3" r="5.2"/>
             </g>
-            <circle cx="24" cy="24" r="9" fill="#3E2408"/>
+            <circle cx="24" cy="24" r="9" fill="#2B2018"/>
           </svg>
           <b>Sunflower Café</b>
         </div>
-        <p data-edit="story_body">Everything comes off our own griddle: omelets built to order, skillets under country gravy, salsa and desserts made in house. Come hungry, stay a while.</p>
+        <p class="f-blurb" data-edit="footer.blurb">A neighborhood café in Stevens Point, Wisconsin. Breakfast all morning,
+          lunch off the same griddle, and a fish fry every Friday.</p>
       </div>
       <div>
-        <h3>Come see us</h3>
+        <h4>Come see us</h4>
         <ul>
           <li>2301 Church Street</li>
           <li>Stevens Point, WI 54481</li>
@@ -580,31 +795,27 @@ footer a{color:#DCE8DA}
         </ul>
       </div>
       <div>
-        <h3>On the site</h3>
+        <h4>On this page</h4>
         <ul>
           <li><a href="#menu">Menu</a></li>
+          <li><a href="#kitchen">The kitchen</a></li>
           <li><a href="#order">Pre-order for pickup</a></li>
           <li><a href="#visit">Hours &amp; directions</a></li>
         </ul>
       </div>
     </div>
-    <div class="foot-base">
-      <span>&copy; <span id="yr">2026</span> Sunflower Café · Stevens Point, Wisconsin</span>
-      <span id="buildTag"></span>
+    <div class="f-bar">
+      <span>&copy; <span id="yr">2026</span> Sunflower Café</span>
+      <span><a class="f-admin" href="admin.html">Back of house</a>
+        <span class="f-build" id="buildTag"></span></span>
     </div>
   </div>
 </footer>
 
-<div class="tray-bar" id="trayBar" role="region" aria-label="Your pickup order">
-  <div class="tray-in">
-    <div class="tray-sum">
-      <b id="trayTotal">$0.00</b>
-      <span id="trayCount">0 items</span>
-    </div>
-    <button class="btn btn-ghost" id="trayClear" type="button">Clear</button>
-    <a class="btn btn-primary" href="#order">Review order</a>
-  </div>
-</div>
+<nav class="dock" id="dock" aria-label="Quick actions">
+  <a class="d-menu" href="#menu">Menu</a>
+  <a class="d-order" href="#order">Your tray <span class="count" id="dockCount">0</span></a>
+</nav>
 
 <script src="config.js"></script>
 <script>
@@ -628,27 +839,28 @@ var LIVE = !!(CFG.SUPA_URL && CFG.SUPA_KEY);
 var FALLBACK = {
   categories: [
     { key:'breakfast', label:'Breakfast', sort:20 },
-    { key:'lunch',     label:'Lunch',     sort:30 },
-    { key:'fish-friday', label:'Fish Friday', sort:90 }
+    { key:'lunch', label:'Lunch', sort:30 },
+    { key:'fish-friday', label:'Fish Friday', sort:90 },
+    { key:'desserts', label:'Homemade Desserts', sort:60 }
   ],
   menu: [
-    { slug:'sunflower-pancakes', name:'Sunflower Pancakes', category:'breakfast', price_cents:1305,
-      blurb:'With chocolate chips and bacon inside topped with homemade blueberry whipped topping', sort:10 },
-    { slug:'byo-omelet', name:'BYO Omelet', category:'breakfast', price_cents:995,
-      blurb:'3 Egg Omelet with Cheese Served with Choice of Potato and Toast', sort:20 },
-    { slug:'loaded-skillet', name:'Loaded Skillet', category:'breakfast', price_cents:1495,
-      blurb:'Bacon, sausage, ham, pepper, tomato, onion, cheese, topped with country gravy', sort:30 },
-    { slug:'fish-sandwich', name:'Fish Sandwich', category:'fish-friday', price_cents:1210, blurb:'', sort:10 }
+    { slug:'sunflower-pancakes', name:'Sunflower Pancakes', category:'breakfast', price_cents:1305, glyph:'pancakes',
+      blurb:'With chocolate chips and bacon inside topped with homemade blueberry whipped topping', sort:10, featured:true },
+    { slug:'loaded-skillet', name:'Loaded Skillet', category:'breakfast', price_cents:1495, glyph:'skillet',
+      blurb:'Bacon, sausage, ham, pepper, tomato, onion, cheese, topped with country gravy', sort:20, featured:true },
+    { slug:'byo-omelet', name:'BYO Omelet', category:'breakfast', price_cents:995, glyph:'omelet',
+      blurb:'3 Egg Omelet with Cheese Served with Choice of Potato and Toast', sort:30, featured:true },
+    { slug:'fish-sandwich', name:'Fish Sandwich', category:'fish-friday', price_cents:1210, glyph:'fish',
+      blurb:'', badge:'Fridays', sort:10, featured:true },
+    { slug:'apple-dutch-pie', name:'Apple Dutch Pie', category:'desserts', price_cents:555, glyph:'pie',
+      blurb:'', sort:10, featured:true }
   ],
   hours: {
     days: [
-      { label:'Monday',    open:'08:00', close:'15:00' },
-      { label:'Tuesday',   open:'08:00', close:'15:00' },
-      { label:'Wednesday', open:'08:00', close:'15:00' },
-      { label:'Thursday',  open:'08:00', close:'15:00' },
-      { label:'Friday',    open:'08:00', close:'20:00' },
-      { label:'Saturday',  open:'08:00', close:'15:00' },
-      { label:'Sunday',    open:'08:00', close:'15:00' }
+      { label:'Monday', open:'08:00', close:'15:00' }, { label:'Tuesday', open:'08:00', close:'15:00' },
+      { label:'Wednesday', open:'08:00', close:'15:00' }, { label:'Thursday', open:'08:00', close:'15:00' },
+      { label:'Friday', open:'08:00', close:'20:00' }, { label:'Saturday', open:'08:00', close:'15:00' },
+      { label:'Sunday', open:'08:00', close:'15:00' }
     ],
     note:'Kitchen closes 15 minutes before we do.'
   },
@@ -657,11 +869,11 @@ var FALLBACK = {
     address1:'2301 Church Street', city:'Stevens Point', state:'WI', zip:'54481',
     maps_url:'https://maps.app.goo.gl/iDAiDhSjzzamdf9k6',
     toast_url:'https://www.toasttab.com/local/order/sunflower-cafe-em-2301-church-street'
-  },
-  copy: {}
+  }
 };
 
-var state = { categories: [], menu: [], hours: FALLBACK.hours, info: FALLBACK.info, cat: 'all', q: '' };
+var CATS = [], MENU = [], INFO = FALLBACK.info, HOURS = FALLBACK.hours;
+var activeCat = 'all', query = '';
 var tray = {};
 
 /* ── helpers ───────────────────────────────────────────────────────── */
@@ -689,16 +901,12 @@ function rpc(fn, body) {
     return r.text().then(function (t) {
       var d = null;
       try { d = t ? JSON.parse(t) : null; } catch (e) { d = t; }
-      if (!r.ok) {
-        var msg = (d && d.message) ? d.message : ('http ' + r.status);
-        return Promise.reject(new Error(msg));
-      }
+      if (!r.ok) return Promise.reject(new Error((d && d.message) ? d.message : ('http ' + r.status)));
       return d;
     });
   });
 }
 
-/* first-party analytics — best effort, never blocks anything */
 var SID = (function () {
   try {
     var k = sessionStorage.getItem('sf_sid');
@@ -733,17 +941,14 @@ function toMins(hhmm) {
 function fmtTime(hhmm) {
   var t = toMins(hhmm); if (t == null) return '';
   var h = Math.floor(t / 60), m = t % 60;
-  var ap = h >= 12 ? 'pm' : 'am';
-  var h12 = h % 12; if (h12 === 0) h12 = 12;
+  var ap = h >= 12 ? 'pm' : 'am', h12 = h % 12 || 12;
   return h12 + (m ? ':' + String(m).padStart(2, '0') : '') + ap;
 }
 /* hours[] is Monday-first; JS getDay() is Sunday-first */
 function dayFor(dow) {
-  var days = (state.hours && state.hours.days) || [];
-  if (days.length !== 7) return null;
-  return days[(dow + 6) % 7];
+  var days = (HOURS && HOURS.days) || [];
+  return days.length === 7 ? days[(dow + 6) % 7] : null;
 }
-
 function paintOpen() {
   var chip = $('#openChip'), txt = $('#openTxt');
   if (!chip || !txt) return;
@@ -751,32 +956,32 @@ function paintOpen() {
   chip.classList.remove('is-open', 'is-shut');
   if (!d) { txt.textContent = 'See hours below'; return; }
   var o = toMins(d.open), c = toMins(d.close);
-  if (o == null || c == null) { txt.textContent = 'See hours below'; return; }
-
+  if (d.closed || o == null || c == null) {
+    chip.classList.add('is-shut');
+    txt.innerHTML = '<b>Closed today</b>';
+    return;
+  }
   if (now.mins >= o && now.mins < c) {
     chip.classList.add('is-open');
-    var left = c - now.mins;
-    txt.innerHTML = '<b>Open now</b> · until ' + esc(fmtTime(d.close)) +
-      (left <= 60 ? ' <span style="color:var(--ink-faint)">(closing soon)</span>' : '');
+    txt.innerHTML = '<b>Open now</b> &middot; until ' + esc(fmtTime(d.close)) +
+      ((c - now.mins) <= 60 ? ' <span style="color:var(--ink-faint)">(closing soon)</span>' : '');
   } else {
     chip.classList.add('is-shut');
     var nd = now.mins < o ? d : dayFor((now.dow + 1) % 7);
-    var when = now.mins < o ? 'today' : 'tomorrow';
-    txt.innerHTML = '<b>Closed</b> · opens ' + esc(when) + ' at ' + esc(fmtTime(nd ? nd.open : '08:00'));
+    txt.innerHTML = '<b>Closed</b> &middot; opens ' + (now.mins < o ? 'today' : 'tomorrow') +
+      ' at ' + esc(fmtTime(nd ? nd.open : '08:00'));
   }
 }
-
 function paintHours() {
-  var tb = $('#hoursTbl tbody'); if (!tb) return;
-  var days = (state.hours && state.hours.days) || [];
+  var el = $('#hoursList'); if (!el) return;
   var today = cafeNow().dow;
-  tb.innerHTML = days.map(function (d, i) {
+  el.innerHTML = ((HOURS && HOURS.days) || []).map(function (d, i) {
     var isToday = ((i + 1) % 7) === today;
-    return '<tr' + (isToday ? ' class="today"' : '') + '><th scope="row">' + esc(d.label) + '</th><td>' +
-      (d.closed ? 'Closed' : esc(fmtTime(d.open) + ' – ' + fmtTime(d.close))) + '</td></tr>';
+    return '<li' + (isToday ? ' class="today"' : '') + '><span class="d">' + esc(d.label) + '</span>' +
+      '<span>' + (d.closed ? 'Closed' : esc(fmtTime(d.open) + ' – ' + fmtTime(d.close))) + '</span></li>';
   }).join('');
   var note = $('#hoursNote');
-  if (note && state.hours && state.hours.note) note.textContent = state.hours.note;
+  if (note) note.textContent = (HOURS && HOURS.note) || '';
 }
 
 /* ── tray ──────────────────────────────────────────────────────────── */
@@ -785,7 +990,7 @@ function loadTray() {
 }
 function saveTray() { try { localStorage.setItem('sf_tray', JSON.stringify(tray)); } catch (e) {} }
 function bySlug(slug) {
-  for (var i = 0; i < state.menu.length; i++) if (state.menu[i].slug === slug) return state.menu[i];
+  for (var i = 0; i < MENU.length; i++) if (MENU[i].slug === slug) return MENU[i];
   return null;
 }
 function trayLines() {
@@ -796,102 +1001,122 @@ function trayLines() {
   });
   return out;
 }
-function trayTotals() {
-  var lines = trayLines(), total = 0, count = 0;
-  lines.forEach(function (l) { total += l.line; count += l.qty; });
-  return { lines: lines, total: total, count: count };
-}
 function setQty(slug, n) {
   if (n <= 0) delete tray[slug]; else tray[slug] = Math.min(99, n);
-  saveTray(); paintTray(); paintItemControls(slug);
+  saveTray();
+  refreshCard(slug);
+  paintTray();
+}
+function refreshCard(slug) {
+  $$('[data-foot="' + slug.replace(/"/g, '') + '"]').forEach(function (el) {
+    var it = bySlug(slug);
+    if (it) el.innerHTML = footInner(it);
+  });
 }
 function paintTray() {
-  var t = trayTotals(), bar = $('#trayBar');
-  $('#trayTotal').textContent = money(t.total);
-  $('#trayCount').textContent = t.count + (t.count === 1 ? ' item' : ' items');
-  bar.classList.toggle('up', t.count > 0);
-  document.body.style.paddingBottom = t.count > 0 ? '84px' : '0';
+  var lines = trayLines(), total = 0, count = 0;
+  lines.forEach(function (l) { total += l.line; count += l.qty; });
 
-  var rev = $('#revBody');
-  if (!t.count) {
-    rev.innerHTML = '<p style="color:var(--ink-faint);font-size:.94rem">Nothing yet — add something from the menu.</p>';
-  } else {
-    rev.innerHTML = t.lines.map(function (l) {
-      return '<div class="rev-line"><span>' + esc(l.item.name) + ' <b>&times;' + l.qty + '</b></span><span>' +
-             esc(money(l.line)) + '</span></div>';
-    }).join('') + '<div class="rev-total"><span>Total</span><span>' + esc(money(t.total)) + '</span></div>';
+  $('#trayList').innerHTML = lines.map(function (l) {
+    return '<li><span class="nm"><b>' + esc(l.item.name) + '</b>' +
+      '<small>' + esc(money(l.item.price_cents)) + ' each</small></span>' +
+      '<span class="ln">' + esc(money(l.line)) + '</span>' +
+      '<button class="tray-x" data-rm="' + esc(l.item.slug) + '" aria-label="Remove ' + esc(l.item.name) + '">&times;</button></li>';
+  }).join('');
+  $('#trayEmpty').hidden = count > 0;
+  $('#trayTotal').hidden = count === 0;
+  $('#trayTotalVal').textContent = money(total);
+  $('#dockCount').textContent = count;
+}
+
+/* ── cards ─────────────────────────────────────────────────────────── */
+function footInner(p) {
+  if (!(p.price_cents > 0)) {
+    return '<span class="p-counter">Priced at<br>the counter</span>';
   }
+  var q = tray[p.slug] || 0;
+  return q > 0
+    ? '<span class="stepper"><button data-dec="' + esc(p.slug) + '" aria-label="One fewer ' + esc(p.name) + '">&minus;</button>' +
+      '<span aria-live="polite">' + q + '</span>' +
+      '<button data-inc="' + esc(p.slug) + '" aria-label="One more ' + esc(p.name) + '">+</button></span>'
+    : '<button class="add" data-add="' + esc(p.slug) + '">Add to tray</button>';
 }
-function paintItemControls(slug) {
-  var host = $('[data-foot="' + CSS.escape(slug) + '"]');
-  if (!host) return;
-  var it = bySlug(slug); if (!it) return;
-  host.innerHTML = footHTML(it);
-}
-function footHTML(it) {
-  if (!(it.price_cents > 0)) {
-    return '<div class="counter-note">Ask at the counter</div>';
-  }
-  var q = tray[it.slug] || 0;
-  if (!q) return '<button class="add" type="button" data-add="' + esc(it.slug) + '">+ Add to order</button>';
-  return '<div class="qty">' +
-    '<button type="button" data-dec="' + esc(it.slug) + '" aria-label="One fewer ' + esc(it.name) + '">&minus;</button>' +
-    '<b>' + q + '</b>' +
-    '<button type="button" data-inc="' + esc(it.slug) + '" aria-label="One more ' + esc(it.name) + '">+</button>' +
-    '</div>';
-}
-
-/* ── menu rendering ────────────────────────────────────────────────── */
-function itemHTML(it) {
-  var priced = it.price_cents > 0;
-  return '<article class="item">' +
-    '<div class="item-top"><h4>' + esc(it.name) + '</h4>' +
-      '<span class="price' + (priced ? '' : ' ask') + '">' +
-        (priced ? esc(money(it.price_cents)) : 'ask') + '</span></div>' +
-    (it.badge ? '<span class="badge">' + esc(it.badge) + '</span>' : '') +
-    (it.blurb ? '<p>' + esc(it.blurb) + '</p>' : '') +
-    '<div class="item-foot" data-foot="' + esc(it.slug) + '">' + footHTML(it) + '</div>' +
-  '</article>';
+function cardHTML(p) {
+  var art = p.image
+    ? '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy">'
+    : '<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#g-' + esc(p.glyph || 'plate') + '"/></svg>';
+  var priced = p.price_cents > 0;
+  var blurb = p.blurb || '';
+  var isLong = blurb.length > 92;
+  return '<article class="p-card">' +
+    '<div class="p-art">' + art +
+      (p.badge ? '<span class="p-badge">' + esc(p.badge) + '</span>' : '') + '</div>' +
+    '<div class="p-body">' +
+      '<div class="p-top"><h3>' + esc(p.name) + '</h3>' +
+        '<span class="p-price' + (priced ? '' : ' ask') + '">' +
+          (priced ? esc(money(p.price_cents)) : 'ask') +
+          (priced && p.unit ? ' <span class="p-unit">/ ' + esc(p.unit) + '</span>' : '') + '</span></div>' +
+      (blurb ? '<p class="p-blurb">' + esc(isLong ? blurb.slice(0, 92).replace(/\s+\S*$/, '') + '…' : blurb) + '</p>' : '') +
+      (isLong ? '<button class="p-more" data-more="' + esc(p.slug) + '" aria-expanded="false">Read more</button>' +
+                '<p class="p-detail" hidden>' + esc(blurb) + '</p>' : '') +
+      '<div class="p-foot" data-foot="' + esc(p.slug) + '">' + footInner(p) + '</div>' +
+    '</div></article>';
 }
 
-function visibleItems() {
-  var q = state.q.trim().toLowerCase();
-  return state.menu.filter(function (it) {
-    if (state.cat !== 'all' && it.category !== state.cat) return false;
+function visible() {
+  var q = query.trim().toLowerCase();
+  return MENU.filter(function (p) {
+    if (activeCat !== 'all' && p.category !== activeCat) return false;
     if (!q) return true;
-    return (it.name + ' ' + (it.blurb || '')).toLowerCase().indexOf(q) >= 0;
+    return (p.name + ' ' + (p.blurb || '')).toLowerCase().indexOf(q) >= 0;
   });
 }
-
-function renderMenu() {
-  var body = $('#menuBody');
-  var items = visibleItems();
-  if (!items.length) {
-    body.innerHTML = '<p class="empty">Nothing matches that. Try another word, or clear the search.</p>';
+function renderCatalog() {
+  var el = $('#catalog'); if (!el) return;
+  var list = visible();
+  if (!list.length) {
+    el.innerHTML = '<p style="color:var(--ink-faint)">Nothing matches that. Try another word, or clear the search.</p>';
     return;
   }
-  var cats = state.categories.filter(function (c) {
-    return items.some(function (it) { return it.category === c.key; });
+  var groups = CATS.filter(function (c) {
+    return list.some(function (p) { return p.category === c.key; });
   });
-  body.innerHTML = cats.map(function (c) {
-    var mine = items.filter(function (it) { return it.category === c.key; });
-    return '<div class="cat-block reveal"><div class="cat-title"><h3>' + esc(c.label) + '</h3>' +
-      '<span>' + mine.length + (mine.length === 1 ? ' item' : ' items') + '</span></div>' +
-      '<div class="items">' + mine.map(itemHTML).join('') + '</div></div>';
+  el.innerHTML = groups.map(function (c) {
+    var mine = list.filter(function (p) { return p.category === c.key; });
+    return '<div class="cat-group reveal"><h3>' + esc(c.label) +
+      '<span class="n">' + mine.length + (mine.length === 1 ? ' item' : ' items') + '</span></h3>' +
+      '<div class="grid">' + mine.map(cardHTML).join('') + '</div></div>';
   }).join('');
   observeReveals();
 }
-
-function renderCats() {
-  var rail = $('#catRail');
-  var all = [{ key: 'all', label: 'Everything' }].concat(state.categories);
-  rail.innerHTML = all.map(function (c) {
-    return '<button class="chip' + (state.cat === c.key ? ' on' : '') + '" type="button" data-cat="' +
-      esc(c.key) + '">' + esc(c.label) + '</button>';
+function renderRail() {
+  var el = $('#rail'); if (!el) return;
+  var feat = MENU.filter(function (p) { return p.featured && p.price_cents > 0; });
+  if (!feat.length) feat = MENU.filter(function (p) { return p.price_cents > 0; }).slice(0, 6);
+  el.innerHTML = feat.slice(0, 8).map(cardHTML).join('');
+  syncRailNav();
+}
+function renderFilters() {
+  var el = $('#filters'); if (!el) return;
+  var present = {};
+  MENU.forEach(function (p) { present[p.category] = true; });
+  var all = [{ key: 'all', label: 'Everything' }].concat(CATS.filter(function (c) { return present[c.key]; }));
+  el.innerHTML = all.map(function (c) {
+    return '<button class="chip" data-cat="' + esc(c.key) + '" aria-pressed="' +
+      (c.key === activeCat) + '">' + esc(c.label) + '</button>';
   }).join('');
 }
 
-/* ── reveal ────────────────────────────────────────────────────────── */
+/* ── rail nav ──────────────────────────────────────────────────────── */
+function syncRailNav() {
+  var rail = $('#rail'), prev = $('#railPrev'), next = $('#railNext');
+  if (!rail || !prev || !next) return;
+  var max = rail.scrollWidth - rail.clientWidth - 2;
+  prev.disabled = rail.scrollLeft <= 2;
+  next.disabled = rail.scrollLeft >= max;
+}
+
+/* ── reveals ───────────────────────────────────────────────────────── */
 var io = null;
 function observeReveals() {
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -910,7 +1135,7 @@ function observeReveals() {
   els.forEach(function (el) { io.observe(el); });
 }
 
-/* ── content application ───────────────────────────────────────────── */
+/* ── content ───────────────────────────────────────────────────────── */
 function applyCopy(copy) {
   if (!copy) return;
   $$('[data-edit]').forEach(function (el) {
@@ -920,18 +1145,18 @@ function applyCopy(copy) {
 }
 function applyInfo(info) {
   if (!info) return;
-  state.info = info;
+  INFO = info;
   var tel = 'tel:+1' + String(info.phone || '').replace(/\D/g, '');
   $$('a[href^="tel:"]').forEach(function (a) { a.setAttribute('href', tel); });
   if (info.phone_display) {
-    var vp = $('#vPhone'); if (vp) vp.textContent = info.phone_display;
+    var b = $('#vPhoneBtn'); if (b) b.textContent = info.phone_display;
   }
   if (info.address1) { var a1 = $('#vAddr1'); if (a1) a1.textContent = info.address1; }
   if (info.city) {
     var c = $('#vCity');
     if (c) c.textContent = info.city + ', ' + (info.state || '') + ' ' + (info.zip || '');
   }
-  if (info.maps_url) { var vm = $('#vMap'); if (vm) vm.setAttribute('href', info.maps_url); }
+  if (info.maps_url) { var m = $('#vMap'); if (m) m.setAttribute('href', info.maps_url); }
   var toast = $('#toastLink');
   if (toast && info.toast_url) {
     toast.setAttribute('href', info.toast_url);
@@ -939,7 +1164,7 @@ function applyInfo(info) {
   }
 }
 
-/* ── pickup time options ───────────────────────────────────────────── */
+/* ── form ──────────────────────────────────────────────────────────── */
 function fillTimes() {
   var sel = $('#ofTime'); if (!sel) return;
   var opts = ['<option value="">As soon as it is ready</option>'];
@@ -954,86 +1179,75 @@ function fillTimes() {
 function setDateBounds() {
   var d = $('#ofDate'); if (!d) return;
   /* local calendar fields — toISOString() is UTC and pre-fills tomorrow in the evening */
-  var now = new Date();
-  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var now = new Date(), pad = function (n) { return String(n).padStart(2, '0'); };
   var today = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
   var max = new Date(now.getTime() + 30 * 864e5);
   d.setAttribute('min', today);
   d.setAttribute('max', max.getFullYear() + '-' + pad(max.getMonth() + 1) + '-' + pad(max.getDate()));
-  d.value = today;
+  if (!d.value) d.value = today;
 }
-
-/* ── order submit ──────────────────────────────────────────────────── */
 function wireForm() {
   var form = $('#orderForm'), btn = $('#ofSubmit'), msg = $('#ofMsg');
-  var busy = false;
+  var busy = false, started = false;
 
-  function say(text, kind) {
-    msg.textContent = text;
-    msg.className = 'form-msg show ' + kind;
-  }
+  function say(t, kind) { msg.textContent = t; msg.className = 'o-msg ' + (kind || ''); }
   function reset() { busy = false; btn.disabled = false; btn.textContent = 'Send pre-order'; }
+
+  form.addEventListener('input', function () {
+    if (!started) { started = true; track('order_start'); }
+  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (busy) return;
+    var lines = trayLines(), total = 0, count = 0;
+    lines.forEach(function (l) { total += l.line; count += l.qty; });
 
-    var t = trayTotals();
-    var name = $('#ofName').value.trim();
-    var phone = $('#ofPhone').value.trim();
-    var email = $('#ofEmail').value.trim();
-
+    var name = $('#ofName').value.trim(), phone = $('#ofPhone').value.trim(), email = $('#ofEmail').value.trim();
     if (name.length < 2) { say('Please tell us your name.', 'err'); $('#ofName').focus(); return; }
     if (!phone && !email) { say('Leave a phone number or an email so we can reach you.', 'err'); $('#ofPhone').focus(); return; }
-    if (!t.count) { say('Your order is empty — add something from the menu first.', 'err'); return; }
+    if (!count) { say('Your tray is empty — add something from the menu first.', 'err'); return; }
 
     var payload = {
       name: name, phone: phone, email: email,
       pickup_date: $('#ofDate').value, pickup_time: $('#ofTime').value,
       notes: $('#ofNotes').value.trim(), website: $('#ofWebsite').value,
-      items: t.lines.map(function (l) { return { slug: l.item.slug, qty: l.qty }; })
+      items: lines.map(function (l) { return { slug: l.item.slug, qty: l.qty }; })
     };
 
     if (!LIVE) {
       var body = 'Pickup pre-order\r\n\r\n' +
-        t.lines.map(function (l) { return l.qty + ' x ' + l.item.name + ' — ' + money(l.line); }).join('\r\n') +
-        '\r\n\r\nTotal: ' + money(t.total) +
-        '\r\nName: ' + name + '\r\nPhone: ' + phone + '\r\nEmail: ' + email +
-        '\r\nPickup: ' + payload.pickup_date + ' ' + payload.pickup_time +
+        lines.map(function (l) { return l.qty + ' x ' + l.item.name + ' - ' + money(l.line); }).join('\r\n') +
+        '\r\n\r\nTotal: ' + money(total) + '\r\nName: ' + name + '\r\nPhone: ' + phone +
+        '\r\nEmail: ' + email + '\r\nPickup: ' + payload.pickup_date + ' ' + payload.pickup_time +
         '\r\nNotes: ' + payload.notes;
-      location.href = 'mailto:?subject=' + encodeURIComponent('Pickup pre-order — ' + name) +
+      location.href = 'mailto:?subject=' + encodeURIComponent('Pickup pre-order - ' + name) +
         '&body=' + encodeURIComponent(body).replace(/%0A/g, '%0D%0A');
       return;
     }
 
     busy = true; btn.disabled = true; btn.textContent = 'Sending…';
-    track('order_submit', { count: t.count, total_cents: t.total });
+    track('order_submit', { count: count, total_cents: total });
 
-    rpc('sf_submit_order', { p: payload }).then(function (id) {
-      say('Got it. We will have your order ready — call us at ' +
-          (state.info.phone_display || '(715) 570-0393') + ' if anything changes.', 'ok');
+    rpc('sf_submit_order', { p: payload }).then(function () {
+      $('#orderForm').innerHTML = '<div class="o-done"><h3>Got it.</h3>' +
+        '<p>We will have your order ready. If anything is unclear we will call — and if you need to change it, ' +
+        'ring us at ' + esc(INFO.phone_display || '(715) 570-0393') + '.</p></div>';
       tray = {}; saveTray(); paintTray();
       $$('[data-foot]').forEach(function (el) {
         var it = bySlug(el.getAttribute('data-foot'));
-        if (it) el.innerHTML = footHTML(it);
+        if (it) el.innerHTML = footInner(it);
       });
-      form.reset(); setDateBounds();
-      reset(); btn.textContent = 'Sent ✓'; btn.disabled = true;
     })['catch'](function (err) {
       var m = String(err && err.message || '');
       if (m.indexOf('rate_limited') >= 0) say('That is a lot of orders from one place. Give us a call instead.', 'err');
       else if (m.indexOf('contact_required') >= 0) say('Leave a phone number or an email so we can reach you.', 'err');
-      else if (m.indexOf('empty_order') >= 0) say('Your order is empty — add something from the menu first.', 'err');
+      else if (m.indexOf('empty_order') >= 0) say('Your tray is empty — add something from the menu first.', 'err');
       else if (m.indexOf('bad_pickup_date') >= 0) say('Pick a pickup day within the next month.', 'err');
-      else say('That did not go through. Please call us at ' + (state.info.phone_display || '(715) 570-0393') + '.', 'err');
+      else say('That did not go through. Please call us at ' + (INFO.phone_display || '(715) 570-0393') + '.', 'err');
       reset();
     });
   });
-
-  var started = false;
-  form.addEventListener('input', function () {
-    if (!started) { started = true; track('order_start'); }
-  }, { once: false });
 }
 
 /* ── wiring ────────────────────────────────────────────────────────── */
@@ -1042,53 +1256,63 @@ function wire() {
     var el;
     if ((el = e.target.closest('[data-add]'))) { setQty(el.getAttribute('data-add'), 1); return; }
     if ((el = e.target.closest('[data-inc]'))) {
-      var s = el.getAttribute('data-inc'); setQty(s, (tray[s] || 0) + 1); return;
+      var a = el.getAttribute('data-inc'); setQty(a, (tray[a] || 0) + 1); return;
     }
     if ((el = e.target.closest('[data-dec]'))) {
-      var s2 = el.getAttribute('data-dec'); setQty(s2, (tray[s2] || 0) - 1); return;
+      var b = el.getAttribute('data-dec'); setQty(b, (tray[b] || 0) - 1); return;
+    }
+    if ((el = e.target.closest('[data-rm]'))) { setQty(el.getAttribute('data-rm'), 0); return; }
+    if ((el = e.target.closest('[data-more]'))) {
+      var open = el.getAttribute('aria-expanded') === 'true';
+      el.setAttribute('aria-expanded', open ? 'false' : 'true');
+      el.textContent = open ? 'Read more' : 'Show less';
+      var d = el.nextElementSibling;
+      if (d) d.hidden = open;
+      return;
     }
     if ((el = e.target.closest('[data-cat]'))) {
-      state.cat = el.getAttribute('data-cat');
-      renderCats(); renderMenu();
-      var sec = document.getElementById('menu');
-      if (sec) window.scrollTo({ top: sec.offsetTop - 8, behavior: 'smooth' });
-      track('menu_open', { category: state.cat });
+      activeCat = el.getAttribute('data-cat');
+      renderFilters(); renderCatalog();
+      track('menu_open', { category: activeCat });
       return;
     }
     if ((el = e.target.closest('[data-track]'))) { track(el.getAttribute('data-track')); }
   });
 
-  var burger = $('#burger'), mob = $('#mobMenu');
-  burger.addEventListener('click', function () {
+  var mb = $('#menuBtn'), mob = $('#mobMenu');
+  mb.addEventListener('click', function () {
     var open = mob.classList.toggle('open');
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    mb.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
   mob.addEventListener('click', function (e) {
-    if (e.target.tagName === 'A') { mob.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+    if (e.target.tagName === 'A') { mob.classList.remove('open'); mb.setAttribute('aria-expanded', 'false'); }
   });
 
   var search = $('#menuSearch'), timer = null;
   search.addEventListener('input', function () {
     clearTimeout(timer);
-    timer = setTimeout(function () { state.q = search.value; renderMenu(); }, 140);
+    timer = setTimeout(function () { query = search.value; renderCatalog(); }, 150);
   });
 
-  $('#trayClear').addEventListener('click', function () {
-    tray = {}; saveTray(); paintTray();
-    $$('[data-foot]').forEach(function (el) {
-      var it = bySlug(el.getAttribute('data-foot'));
-      if (it) el.innerHTML = footHTML(it);
-    });
+  var rail = $('#rail');
+  $('#railPrev').addEventListener('click', function () {
+    rail.scrollBy({ left: -(rail.clientWidth * 0.8), behavior: 'smooth' });
   });
+  $('#railNext').addEventListener('click', function () {
+    rail.scrollBy({ left: rail.clientWidth * 0.8, behavior: 'smooth' });
+  });
+  rail.addEventListener('scroll', syncRailNav, { passive: true });
+  addEventListener('resize', syncRailNav, { passive: true });
 
-  /* header elevation via a sentinel, not a scroll listener */
-  var sentinel = document.createElement('div');
-  sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px';
-  document.body.prepend(sentinel);
+  /* header elevation + dock visibility from sentinels, never a scroll listener */
   if ('IntersectionObserver' in window) {
+    var top = document.createElement('div');
+    top.style.cssText = 'position:absolute;top:0;height:1px;width:1px';
+    document.body.prepend(top);
     new IntersectionObserver(function (en) {
-      $('#hdr').classList.toggle('is-stuck', !en[0].isIntersecting);
-    }).observe(sentinel);
+      $('#hdr').classList.toggle('scrolled', !en[0].isIntersecting);
+      $('#dock').classList.toggle('on', !en[0].isIntersecting);
+    }).observe(top);
   }
 }
 
@@ -1097,44 +1321,29 @@ function boot() {
   $('#yr').textContent = new Date().getFullYear();
   if (CFG.BUILD) $('#buildTag').textContent = CFG.BUILD;
 
-  loadTray();
-  fillTimes();
-  setDateBounds();
-  wire();
-  wireForm();
+  loadTray(); fillTimes(); setDateBounds(); wire(); wireForm();
 
-  state.categories = FALLBACK.categories;
-  state.menu = FALLBACK.menu;
-  renderCats();
-  renderMenu();
-  paintOpen();
-  paintHours();
-  paintTray();
-  observeReveals();
+  CATS = FALLBACK.categories; MENU = FALLBACK.menu;
+  renderFilters(); renderRail(); renderCatalog();
+  paintOpen(); paintHours(); paintTray(); observeReveals();
   setInterval(paintOpen, 60000);
 
   if (!LIVE) return;
 
   Promise.all([
     api('sf_categories?select=key,label,blurb,sort&active=eq.true&order=sort.asc'),
-    api('sf_menu?select=slug,name,category,blurb,price_cents,unit,badge,sort,featured&active=eq.true&order=category.asc,sort.asc'),
+    api('sf_menu?select=slug,name,category,blurb,price_cents,unit,image,glyph,badge,sort,featured&active=eq.true&order=category.asc,sort.asc'),
     api('sf_content?select=section,data')
   ]).then(function (res) {
-    var cats = res[0] || [], menu = res[1] || [], content = res[2] || [];
-    if (cats.length) state.categories = cats;
-    if (menu.length) state.menu = menu;
-
-    content.forEach(function (row) {
+    if ((res[0] || []).length) CATS = res[0];
+    if ((res[1] || []).length) MENU = res[1];
+    (res[2] || []).forEach(function (row) {
       if (row.section === 'copy') applyCopy(row.data);
       if (row.section === 'info') applyInfo(row.data);
-      if (row.section === 'hours' && row.data && row.data.days) state.hours = row.data;
+      if (row.section === 'hours' && row.data && row.data.days) HOURS = row.data;
     });
-
-    renderCats();
-    renderMenu();
-    paintOpen();
-    paintHours();
-    paintTray();
+    renderFilters(); renderRail(); renderCatalog();
+    paintOpen(); paintHours(); paintTray();
     track('page_view');
   })['catch'](function () {
     /* the baked-in content is already on screen — say nothing, break nothing */
@@ -1143,6 +1352,18 @@ function boot() {
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
 else boot();
+})();
+</script>
+<script>
+/* Edit mode loads ONLY for someone who already holds the passphrase in this tab,
+   so ordinary visitors never download a byte of it. Same idea as Ariana. */
+(function () {
+  var on = false;
+  try { on = /[?&]edit=1\b/.test(location.search) && !!sessionStorage.getItem('sf_pass'); } catch (e) {}
+  if (!on) return;
+  var s = document.createElement('script');
+  s.src = 'edit.js';
+  document.body.appendChild(s);
 })();
 </script>
 </body>

@@ -48,8 +48,9 @@ be ordered for free.
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | The whole site. CSS and JS inline — it is the critical path. |
+| `index.html` | The whole site. CSS, JS and the illustration sprite inline — it is the critical path. |
 | `admin.html` | Passphrase-gated back office. `noindex`, and disallowed in robots.txt. |
+| `edit.js` | In-place edit mode. Loaded **only** at `?edit=1` and only when the tab already holds the passphrase, so ordinary visitors never download it. |
 | `supabase-setup.sql` | Schema, RLS, and every RPC. Run once. |
 | `config.js` | The only file with credentials in it. |
 | `favicon.svg`, `404.html`, `robots.txt`, `sitemap.xml` | The usual furniture. |
@@ -77,29 +78,61 @@ Same shape as GBC and Ariana, which came out of the NEXUS hardening:
 
 ## Design notes
 
-Palette measured, not guessed — every text pair clears WCAG AA:
+The design system is Ariana Bakehouse's, carried over deliberately rather than
+reinvented: the same warm parchment and paper grain, the same numbered section
+kickers, pill buttons that press on `:active`, scroll-snap rail, dish cards,
+stepper, sticky tray, mobile dock and one-shot reveals. Only the accent moved —
+copper became the café's deeper sunflower gold.
 
-| | on parchment `#FDF8EE` |
-| --- | --- |
-| ink `#2B2118` | 14.88:1 |
-| ink-soft `#57483A` | 8.29:1 |
-| ink-faint `#71604F` | 5.69:1 |
-| gold-deep `#9A5B08` | 5.12:1 |
-| green `#3D6B39` | 5.90:1 |
+Palette measured, not guessed. Every text pair clears WCAG AA on every surface
+it is actually used on:
 
-Ink on the gold button runs 6.97:1; parchment on the deep-green footer is 8.39:1. The one
-pairing that fails AA for body text — deep-gold on the deepest band tint (4.16:1) — is used
-for borders only, never text. The ink is espresso rather than blue-grey: one cool ink undoes
-a warm page.
+| | on parchment `#FBF6EF` | on card `#FFFDFA` | on band `#F3EADD` |
+| --- | --- | --- | --- |
+| ink `#2B2018` | 14.77:1 | 15.64:1 | 13.33:1 |
+| ink-soft `#5A4A3C` | 7.88:1 | 8.34:1 | 7.11:1 |
+| ink-faint `#756351` | 5.34:1 | 5.65:1 | 4.82:1 |
+| gold `#9A5B08` | 5.04:1 | 5.34:1 | 4.55:1 |
+| pistachio `#4F6B3C` | 5.58:1 | — | — |
 
-Other rules the build follows: no autoplaying carousel anywhere, one IntersectionObserver
-reveal system with reduced-motion guards in CSS *and* JS, 16px minimum on form fields to
-stop iOS zoom-on-focus, 44px touch targets, header elevation driven by a sentinel observer
-rather than a scroll listener, and date handling on local calendar fields rather than
+Parchment on gold runs 5.04:1 and on gold-deep 6.86:1, so the filled buttons
+carry light text safely. `#EADCC9` is the dark end of the card-art gradient and
+never a text background — gold on it is 4.02:1, which is why nothing reads there.
+The ink is espresso rather than a blue-grey: one cool ink undoes a warm page.
+
+**Food placeholders.** There is no photography yet, so every dish gets a drawn
+one. `index.html` carries an inline SVG sprite of 27 line illustrations —
+pancakes, omelet, skillet, benedict, egg, sandwich, burger, wrap, quesadilla,
+tortilla, fish, wings, curds, soup, salad, steak, bacon, toast, fries, pie,
+coffee, tea, milk, juice, soda, kids and a generic plate — and each item's
+`glyph` column picks one. They were assigned in bulk by keyword against the
+real dish names, and the back office (or edit mode) can change any of them.
+The moment a real photo goes in an item's `image` field, the drawing steps aside.
+
+Other rules the build follows: `[hidden]{display:none !important}` at the reset
+(an author `display` rule outranks the UA rule, which once left a login gate
+covering a working dashboard on Ariana), no autoplaying carousel anywhere, one
+IntersectionObserver reveal system with reduced-motion guards in CSS *and* JS,
+16px minimum on form fields to stop iOS zoom-on-focus, 44px touch targets,
+header elevation and dock visibility from a sentinel observer rather than a
+scroll listener, extra footer padding under the mobile dock so the last row
+stays reachable, and date handling on local calendar fields rather than
 `toISOString()` (which is UTC and pre-fills tomorrow in the evening).
 
-The "open now" chip computes against `America/Chicago` via `Intl`, so it is correct for the
-café regardless of where the visitor is.
+The "open now" chip computes against `America/Chicago` via `Intl`, so it is
+correct for the café regardless of where the visitor is.
+
+## Editing the site
+
+Two ways in, both gated by the same passphrase and the same RPCs:
+
+- **`admin.html`** — orders inbox, the full menu, page text, hours and contact
+  details, plus a small analytics tile.
+- **`?edit=1`** — open the site itself in edit mode from the back office's
+  *Edit on the page* button. Every string with a `data-edit` key becomes
+  clickable, every dish card grows an Edit button, and the toolbar has the
+  hours editor. Copy is stored and applied as plain text with `textContent`,
+  so a stored string can never inject markup into a public page.
 
 ## Still to do
 
@@ -108,5 +141,6 @@ café regardless of where the visitor is.
 - **A domain.** Canonical URLs currently point at the GitHub Pages address.
 - **Owner review of the menu**, especially the eleven unpriced items and anything Toast
   lists differently from the printed menu.
-- **In-place edit mode** (`?edit=1`), the way Ariana Bakehouse has it. Not ported yet — the
-  back office covers the same edits, this would just make them clickable on the page itself.
+- **A journal**, the way Ariana Bakehouse has one. Deliberately not built: there is
+  nothing true to put in it yet, and inventing café news would be worse than an
+  empty section.

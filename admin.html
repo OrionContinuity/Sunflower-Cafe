@@ -6,21 +6,27 @@
 <title>Back office — Sunflower Café</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"></noscript>
 <style>
 :root{
-  --ink:#2B2118; --ink-soft:#57483A; --ink-faint:#71604F;
-  --page:#FDF8EE; --card:#FFFDF8; --band:#F7EEDC; --band-deep:#EFE0C4;
-  --gold:#E3A008; --gold-deep:#9A5B08; --gold-lite:#F6C544;
-  --green:#3D6B39; --green-deep:#2E5230; --red:#9A3A12;
-  --line:rgba(43,33,24,.14); --hairline:rgba(43,33,24,.08);
+  --ink:#2B2018; --ink-soft:#5A4A3C; --ink-faint:#756351;
+  --page:#FBF6EF; --card:#FFFDFA; --band:#F3EADD; --band-deep:#EADCC9;
+  --gold:#9A5B08; --gold-deep:#7C4A12; --gold-lite:#E0A06E; --sun:#E3A008;
+  --green:#4F6B3C; --green-deep:#3D5730; --red:#9A3A12;
+  --line:rgba(43,32,24,.13); --hairline:rgba(43,32,24,.08);
   --r:12px; --r-sm:8px;
-  --shadow-1:0 1px 2px rgba(43,33,24,.06), 0 8px 20px -8px rgba(43,33,24,.16);
+  --shadow-1:0 1px 2px rgba(43,32,24,.06), 0 8px 20px -8px rgba(43,32,24,.16);
+  --disp:'Fraunces', Georgia, 'Times New Roman', serif;
   --body:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
+[hidden]{display:none !important}
 *{box-sizing:border-box}
 body{margin:0; background:var(--page); color:var(--ink); font:16px/1.55 var(--body)}
 .wrap{max-width:1000px; margin:0 auto; padding:0 18px}
-h1,h2,h3{margin:0; letter-spacing:-.015em}
+h1,h2,h3{margin:0; letter-spacing:-.02em; font-family:var(--disp); font-weight:600}
 h1{font-size:1.4rem} h2{font-size:1.15rem} h3{font-size:1rem}
 button,input,select,textarea{font:inherit; color:inherit}
 :focus-visible{outline:2px solid var(--gold-deep); outline-offset:2px; border-radius:4px}
@@ -30,7 +36,7 @@ button,input,select,textarea{font:inherit; color:inherit}
   min-height:42px; padding:9px 16px; border-radius:var(--r-sm); cursor:pointer;
   font-weight:600; font-size:.94rem; border:1px solid var(--line); background:var(--card);
 }
-.btn-primary{background:linear-gradient(180deg,var(--gold-lite),var(--gold)); border-color:#c98c05}
+.btn-primary{background:var(--gold); color:#FBF6EF; border-color:var(--gold-deep); border-bottom:3px solid var(--gold-deep)}
 .btn-danger{color:var(--red); border-color:rgba(154,58,18,.34)}
 .btn-sm{min-height:34px; padding:6px 11px; font-size:.85rem}
 .btn:active{transform:translateY(1px)}
@@ -152,6 +158,7 @@ dialog::backdrop{background:rgba(43,33,24,.45)}
       <h1>Back office</h1>
       <span class="sp"></span>
       <a class="btn btn-sm" href="index.html">View site</a>
+      <a class="btn btn-sm" href="index.html?edit=1" id="editLink">Edit on the page</a>
       <button class="btn btn-sm" id="signOut" type="button">Sign out</button>
     </div>
   </header>
@@ -220,6 +227,7 @@ dialog::backdrop{background:rgba(43,33,24,.45)}
     <div class="field"><label for="fBlurb">Description</label><textarea id="fBlurb"></textarea></div>
     <div class="grid2">
       <div class="field"><label for="fBadge">Badge <span class="muted">(optional)</span></label><input id="fBadge" placeholder="Fridays only"></div>
+      <div class="field"><label for="fGlyph">Placeholder drawing</label><select id="fGlyph"></select></div>
       <div class="field"><label for="fActive">Shown on the site</label>
         <select id="fActive"><option value="true">Yes</option><option value="false">Hidden</option></select></div>
     </div>
@@ -251,6 +259,9 @@ var PASS = '';
 try { PASS = sessionStorage.getItem('sf_pass') || ''; } catch (e) {}
 
 var cats = [], items = [], content = {};
+var GLYPHS = ['pancakes','omelet','skillet','benedict','egg','sandwich','burger','wrap',
+  'quesadilla','tortilla','fish','wings','curds','soup','salad','steak','bacon','toast',
+  'fries','pie','coffee','tea','milk','juice','soda','kids','plate'];
 
 function $(s, r) { return (r || document).querySelector(s); }
 function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
@@ -414,6 +425,9 @@ function openItem(item) {
   $('#fPrice').value = item ? (item.price_cents / 100).toFixed(2) : '';
   $('#fSort').value = item ? item.sort : 100;
   $('#fActive').value = item ? String(!!item.active) : 'true';
+  $('#fGlyph').innerHTML = GLYPHS.map(function (g) {
+    return '<option value="' + g + '"' + ((item && item.glyph === g) ? ' selected' : '') + '>' + g + '</option>';
+  }).join('');
   $('#fCat').innerHTML = cats.map(function (c) {
     return '<option value="' + esc(c.key) + '"' +
       (item && item.category === c.key ? ' selected' : '') + '>' + esc(c.label) + '</option>';
@@ -444,7 +458,8 @@ $('#dlgSave').addEventListener('click', function () {
     blurb: $('#fBlurb').value.trim(), badge: $('#fBadge').value.trim(),
     price_cents: Math.round(dollars * 100),
     sort: Number($('#fSort').value) || 100,
-    active: $('#fActive').value === 'true'
+    active: $('#fActive').value === 'true',
+    glyph: $('#fGlyph').value
   };
   /* keep the slug stable on an existing item so links and past orders still resolve */
   if (id) {
@@ -480,7 +495,7 @@ $('#dlgDelete').addEventListener('click', function () {
 function loadMenu() {
   return Promise.all([
     api('sf_categories?select=key,label,blurb,sort&order=sort.asc'),
-    api('sf_menu?select=id,slug,name,category,blurb,price_cents,badge,sort,active&order=category.asc,sort.asc')
+    api('sf_menu?select=id,slug,name,category,blurb,price_cents,badge,glyph,sort,featured,active&order=category.asc,sort.asc')
   ]).then(function (r) {
     cats = r[0] || []; items = r[1] || [];
     paintMenu();
@@ -491,19 +506,48 @@ function loadMenu() {
 
 /* ── page text ─────────────────────────────────────────────────────── */
 var COPY_FIELDS = [
-  ['hero_kicker',  'Hero — small line above the headline'],
-  ['hero_title',   'Hero — headline, first part'],
-  ['hero_title_em','Hero — headline, gold part'],
-  ['hero_lede',    'Hero — paragraph'],
-  ['order_title',  'Pre-order — heading'],
-  ['order_lede',   'Pre-order — paragraph'],
-  ['visit_title',  'Visit — heading'],
-  ['story_body',   'Footer — about the café']
+  ['hero.place',      'Hero — small line above the headline'],
+  ['hero.since',      'Hero — the note beside it'],
+  ['hero.line1',      'Hero — headline, first line'],
+  ['hero.line2',      'Hero — headline, second line'],
+  ['hero.emph',       'Hero — the italic gold word'],
+  ['hero.lede',       'Hero — paragraph'],
+  ['hero.cta1',       'Hero — first button'],
+  ['hero.cta2',       'Hero — second button'],
+  ['trust.1.title',   'Strip 1 — bold line'],
+  ['trust.1.sub',     'Strip 1 — small line'],
+  ['trust.2.title',   'Strip 2 — bold line'],
+  ['trust.2.sub',     'Strip 2 — small line'],
+  ['trust.3.title',   'Strip 3 — bold line'],
+  ['trust.3.sub',     'Strip 3 — small line'],
+  ['menu.kicker',     'Menu — kicker'],
+  ['menu.h2',         'Menu — heading'],
+  ['menu.lede',       'Menu — paragraph'],
+  ['menu.rail',       'Menu — favorites row heading'],
+  ['kitchen.kicker',  'Kitchen — kicker'],
+  ['kitchen.h2',      'Kitchen — heading'],
+  ['kitchen.lede',    'Kitchen — paragraph'],
+  ['kitchen.note',    'Kitchen — closing line'],
+  ['kitchen.1.h',     'Kitchen point 1 — title'],
+  ['kitchen.1.p',     'Kitchen point 1 — text'],
+  ['kitchen.2.h',     'Kitchen point 2 — title'],
+  ['kitchen.2.p',     'Kitchen point 2 — text'],
+  ['kitchen.3.h',     'Kitchen point 3 — title'],
+  ['kitchen.3.p',     'Kitchen point 3 — text'],
+  ['kitchen.4.h',     'Kitchen point 4 — title'],
+  ['kitchen.4.p',     'Kitchen point 4 — text'],
+  ['order.kicker',    'Pre-order — kicker'],
+  ['order.h2',        'Pre-order — heading'],
+  ['order.lede',      'Pre-order — paragraph'],
+  ['visit.kicker',    'Visit — kicker'],
+  ['visit.h2',        'Visit — heading'],
+  ['visit.notice',    'Visit — the gold notice bar'],
+  ['footer.blurb',    'Footer — about the cafe']
 ];
 function paintCopy() {
   var c = content.copy || {};
   $('#copyBody').innerHTML = COPY_FIELDS.map(function (f) {
-    var long = f[0] === 'hero_lede' || f[0] === 'order_lede' || f[0] === 'story_body';
+    var long = /lede|\.p$|blurb|note|notice/.test(f[0]);
     return '<div class="field"><label for="c-' + esc(f[0]) + '">' + esc(f[1]) + '</label>' +
       (long ? '<textarea id="c-' + esc(f[0]) + '">' + esc(c[f[0]] || '') + '</textarea>'
             : '<input id="c-' + esc(f[0]) + '" value="' + esc(c[f[0]] || '') + '">') + '</div>';
