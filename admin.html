@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Back office — Sunflower Café</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{
+  --ink:#2B2118; --ink-soft:#57483A; --ink-faint:#71604F;
+  --page:#FDF8EE; --card:#FFFDF8; --band:#F7EEDC; --band-deep:#EFE0C4;
+  --gold:#E3A008; --gold-deep:#9A5B08; --gold-lite:#F6C544;
+  --green:#3D6B39; --green-deep:#2E5230; --red:#9A3A12;
+  --line:rgba(43,33,24,.14); --hairline:rgba(43,33,24,.08);
+  --r:12px; --r-sm:8px;
+  --shadow-1:0 1px 2px rgba(43,33,24,.06), 0 8px 20px -8px rgba(43,33,24,.16);
+  --body:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--page); color:var(--ink); font:16px/1.55 var(--body)}
+.wrap{max-width:1000px; margin:0 auto; padding:0 18px}
+h1,h2,h3{margin:0; letter-spacing:-.015em}
+h1{font-size:1.4rem} h2{font-size:1.15rem} h3{font-size:1rem}
+button,input,select,textarea{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--gold-deep); outline-offset:2px; border-radius:4px}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:7px;
+  min-height:42px; padding:9px 16px; border-radius:var(--r-sm); cursor:pointer;
+  font-weight:600; font-size:.94rem; border:1px solid var(--line); background:var(--card);
+}
+.btn-primary{background:linear-gradient(180deg,var(--gold-lite),var(--gold)); border-color:#c98c05}
+.btn-danger{color:var(--red); border-color:rgba(154,58,18,.34)}
+.btn-sm{min-height:34px; padding:6px 11px; font-size:.85rem}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.55; cursor:default}
+
+/* ── login ─────────────────────────────────────────────────────────── */
+#login{min-height:100vh; display:grid; place-items:center; padding:24px}
+#login .box{width:100%; max-width:400px; background:var(--card); border:1px solid var(--line);
+  border-radius:var(--r); padding:28px; box-shadow:var(--shadow-1); text-align:center}
+#login svg{width:60px; height:60px; margin:0 auto 16px; display:block}
+#login p{color:var(--ink-soft); font-size:.92rem; margin:8px 0 20px}
+#login input{width:100%; padding:12px 14px; font-size:16px; border:1px solid var(--line);
+  border-radius:var(--r-sm); background:var(--page); margin-bottom:12px}
+#login .btn{width:100%}
+.msg{margin-top:12px; font-size:.9rem; padding:10px 13px; border-radius:var(--r-sm); display:none}
+.msg.show{display:block}
+.msg.err{background:#FBE9E1; color:#7A2E0C; border:1px solid #E4B79F}
+.msg.ok{background:#E7F0E4; color:var(--green-deep); border:1px solid #B9CFB4}
+
+/* ── shell ─────────────────────────────────────────────────────────── */
+#app{display:none}
+header{background:var(--card); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20}
+.head-in{display:flex; align-items:center; gap:12px; height:60px}
+.head-in svg{width:30px; height:30px}
+.head-in .sp{margin-left:auto}
+.tabs{display:flex; gap:6px; overflow-x:auto; padding:10px 0 0; border-bottom:1px solid var(--line);
+  background:var(--card); position:sticky; top:60px; z-index:19}
+.tab{flex:none; padding:10px 15px; border:0; background:transparent; cursor:pointer;
+  border-bottom:3px solid transparent; color:var(--ink-soft); font-weight:600; font-size:.94rem}
+.tab.on{color:var(--ink); border-bottom-color:var(--gold)}
+.panel{display:none; padding:22px 0 60px}
+.panel.on{display:block}
+
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-bottom:22px}
+.stat{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:13px 15px}
+.stat b{display:block; font-size:1.5rem; font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.stat span{font-size:.78rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.07em}
+
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--r);
+  padding:16px 17px; margin-bottom:12px; box-shadow:var(--shadow-1)}
+.row{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+.row .sp{margin-left:auto}
+.muted{color:var(--ink-faint); font-size:.88rem}
+.pill{font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em;
+  padding:3px 9px; border-radius:999px; background:var(--band-deep); border:1px solid var(--line)}
+.pill.new{background:#FFF0CE; border-color:#E8C468}
+.pill.confirmed{background:#E1EDFB; border-color:#A9C8E8}
+.pill.ready{background:#E7F0E4; border-color:#B9CFB4}
+.pill.done{background:var(--band-deep)}
+.pill.cancelled{background:#F2E4DE; color:var(--red)}
+
+.field{margin-bottom:12px}
+.field label{display:block; font-size:.82rem; font-weight:600; color:var(--ink-soft); margin-bottom:5px}
+.field input,.field textarea,.field select{width:100%; padding:10px 12px; font-size:16px;
+  border:1px solid var(--line); border-radius:var(--r-sm); background:var(--page)}
+.field textarea{min-height:74px; resize:vertical}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.grid3{display:grid; grid-template-columns:2fr 1fr 1fr; gap:12px}
+@media (max-width:700px){ .grid2,.grid3{grid-template-columns:1fr} }
+
+.item-row{display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center;
+  padding:11px 0; border-bottom:1px solid var(--hairline)}
+.item-row:last-child{border-bottom:0}
+.item-row .nm{font-weight:600; font-size:.96rem}
+.item-row .bl{font-size:.84rem; color:var(--ink-faint);
+  display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden}
+.item-row .pr{font-variant-numeric:tabular-nums; font-weight:600; white-space:nowrap}
+.item-row.off{opacity:.5}
+details.cat > summary{cursor:pointer; padding:12px 0; font-weight:700; list-style:none;
+  display:flex; align-items:center; gap:10px; border-bottom:1px solid var(--line)}
+details.cat > summary::-webkit-details-marker{display:none}
+details.cat > summary::before{content:'▸'; color:var(--gold-deep); transition:transform .15s}
+details.cat[open] > summary::before{transform:rotate(90deg)}
+details.cat > summary .n{margin-left:auto; font-weight:400; font-size:.84rem; color:var(--ink-faint)}
+
+dialog{border:0; border-radius:var(--r); padding:0; max-width:560px; width:calc(100% - 32px);
+  box-shadow:0 24px 60px -20px rgba(43,33,24,.5); background:var(--card); color:var(--ink)}
+dialog::backdrop{background:rgba(43,33,24,.45)}
+.dlg-in{padding:20px}
+.dlg-head{display:flex; align-items:center; gap:12px; margin-bottom:16px}
+.dlg-head .sp{margin-left:auto}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <div class="box">
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <g fill="#E3A008">
+        <circle cx="24" cy="8" r="5.2"/><circle cx="24" cy="40" r="5.2"/>
+        <circle cx="8" cy="24" r="5.2"/><circle cx="40" cy="24" r="5.2"/>
+        <circle cx="12.7" cy="12.7" r="5.2"/><circle cx="35.3" cy="35.3" r="5.2"/>
+        <circle cx="35.3" cy="12.7" r="5.2"/><circle cx="12.7" cy="35.3" r="5.2"/>
+      </g>
+      <circle cx="24" cy="24" r="9" fill="#7C4A12"/>
+    </svg>
+    <h1>Sunflower Café</h1>
+    <p>Back office</p>
+    <form id="loginForm">
+      <input id="pass" type="password" placeholder="Passphrase" autocomplete="current-password" aria-label="Passphrase">
+      <button class="btn btn-primary" type="submit" id="loginBtn">Sign in</button>
+    </form>
+    <div class="msg" id="loginMsg" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+<div id="app">
+  <header>
+    <div class="wrap head-in">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <g fill="#E3A008">
+          <circle cx="24" cy="8" r="5.2"/><circle cx="24" cy="40" r="5.2"/>
+          <circle cx="8" cy="24" r="5.2"/><circle cx="40" cy="24" r="5.2"/>
+          <circle cx="12.7" cy="12.7" r="5.2"/><circle cx="35.3" cy="35.3" r="5.2"/>
+          <circle cx="35.3" cy="12.7" r="5.2"/><circle cx="12.7" cy="35.3" r="5.2"/>
+        </g>
+        <circle cx="24" cy="24" r="9" fill="#7C4A12"/>
+      </svg>
+      <h1>Back office</h1>
+      <span class="sp"></span>
+      <a class="btn btn-sm" href="index.html">View site</a>
+      <button class="btn btn-sm" id="signOut" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-panel="orders" role="tab">Orders</button>
+      <button class="tab" data-panel="menu" role="tab">Menu</button>
+      <button class="tab" data-panel="page" role="tab">Page text</button>
+      <button class="tab" data-panel="hours" role="tab">Hours &amp; info</button>
+    </div>
+
+    <section class="panel on" id="p-orders">
+      <div class="stats" id="stats"></div>
+      <div class="row" style="margin-bottom:14px">
+        <h2>Pre-orders</h2>
+        <span class="sp"></span>
+        <button class="btn btn-sm" id="refreshOrders" type="button">Refresh</button>
+      </div>
+      <div id="ordersBody"><p class="muted">Loading…</p></div>
+    </section>
+
+    <section class="panel" id="p-menu">
+      <div class="row" style="margin-bottom:14px">
+        <h2>Menu</h2>
+        <span class="sp"></span>
+        <button class="btn btn-sm btn-primary" id="addItem" type="button">+ Add item</button>
+      </div>
+      <p class="muted" style="margin-bottom:14px">
+        An item priced at $0.00 still shows on the menu but cannot be pre-ordered —
+        it reads &ldquo;ask&rdquo; instead. That is the right setting for anything priced at the counter.
+      </p>
+      <div id="menuBody"><p class="muted">Loading…</p></div>
+    </section>
+
+    <section class="panel" id="p-page">
+      <div class="row" style="margin-bottom:14px"><h2>Page text</h2></div>
+      <div class="card" id="copyBody"><p class="muted">Loading…</p></div>
+      <button class="btn btn-primary" id="saveCopy" type="button">Save page text</button>
+      <div class="msg" id="copyMsg" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="panel" id="p-hours">
+      <div class="row" style="margin-bottom:14px"><h2>Hours</h2></div>
+      <div class="card" id="hoursBody"><p class="muted">Loading…</p></div>
+      <div class="row" style="margin-bottom:14px"><h2>Contact &amp; links</h2></div>
+      <div class="card" id="infoBody"></div>
+      <button class="btn btn-primary" id="saveHours" type="button">Save hours &amp; info</button>
+      <div class="msg" id="hoursMsg" role="status" aria-live="polite"></div>
+    </section>
+  </div>
+</div>
+
+<dialog id="itemDlg">
+  <form class="dlg-in" id="itemForm" method="dialog">
+    <div class="dlg-head"><h2 id="dlgTitle">Edit item</h2><span class="sp"></span>
+      <button class="btn btn-sm" type="button" id="dlgClose">Close</button></div>
+    <input type="hidden" id="fId">
+    <div class="field"><label for="fName">Name</label><input id="fName" required></div>
+    <div class="grid3">
+      <div class="field"><label for="fCat">Section</label><select id="fCat"></select></div>
+      <div class="field"><label for="fPrice">Price ($)</label>
+        <input id="fPrice" type="number" step="0.01" min="0" inputmode="decimal"></div>
+      <div class="field"><label for="fSort">Order</label><input id="fSort" type="number" step="10"></div>
+    </div>
+    <div class="field"><label for="fBlurb">Description</label><textarea id="fBlurb"></textarea></div>
+    <div class="grid2">
+      <div class="field"><label for="fBadge">Badge <span class="muted">(optional)</span></label><input id="fBadge" placeholder="Fridays only"></div>
+      <div class="field"><label for="fActive">Shown on the site</label>
+        <select id="fActive"><option value="true">Yes</option><option value="false">Hidden</option></select></div>
+    </div>
+    <div class="row">
+      <button class="btn btn-danger btn-sm" type="button" id="dlgDelete">Delete item</button>
+      <span class="sp"></span>
+      <button class="btn btn-primary" type="button" id="dlgSave">Save</button>
+    </div>
+    <div class="msg" id="dlgMsg" role="status" aria-live="polite"></div>
+  </form>
+</dialog>
+
+<script src="config.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   Sunflower Café — back office.
+
+   Holds the passphrase in sessionStorage only (never localStorage, never a
+   cookie) and sends it with every write. All authorisation happens in the
+   database: each RPC re-checks the bcrypt hash itself, so a tampered client
+   gains nothing. Sign-in goes through sf_admin_login, which rate-limits by
+   IP — sf_check_admin is not reachable from the browser at all.
+   ═══════════════════════════════════════════════════════════════════ */
+(function () {
+'use strict';
+
+var CFG = window.SF_CONFIG || {};
+var PASS = '';
+try { PASS = sessionStorage.getItem('sf_pass') || ''; } catch (e) {}
+
+var cats = [], items = [], content = {};
+
+function $(s, r) { return (r || document).querySelector(s); }
+function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function money(c) { return '$' + (Number(c || 0) / 100).toFixed(2); }
+function say(el, text, kind) {
+  el.textContent = text;
+  el.className = 'msg show ' + (kind || '');
+  if (kind === 'ok') setTimeout(function () { el.className = 'msg'; }, 3200);
+}
+
+function api(path) {
+  return fetch(CFG.SUPA_URL + '/rest/v1/' + path, {
+    headers: { apikey: CFG.SUPA_KEY, Authorization: 'Bearer ' + CFG.SUPA_KEY }
+  }).then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('http ' + r.status)); });
+}
+function rpc(fn, body) {
+  return fetch(CFG.SUPA_URL + '/rest/v1/rpc/' + fn, {
+    method: 'POST',
+    headers: { apikey: CFG.SUPA_KEY, Authorization: 'Bearer ' + CFG.SUPA_KEY,
+               'Content-Type': 'application/json' },
+    body: JSON.stringify(body || {})
+  }).then(function (r) {
+    return r.text().then(function (t) {
+      var d = null;
+      try { d = t ? JSON.parse(t) : null; } catch (e) { d = t; }
+      if (!r.ok) return Promise.reject(new Error((d && d.message) ? d.message : ('http ' + r.status)));
+      return d;
+    });
+  });
+}
+
+/* ── sign in ───────────────────────────────────────────────────────── */
+function showApp() {
+  $('#login').style.display = 'none';
+  $('#app').style.display = 'block';
+  loadAll();
+}
+$('#loginForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var btn = $('#loginBtn'), msg = $('#loginMsg'), pass = $('#pass').value;
+  if (!pass) return;
+  btn.disabled = true; btn.textContent = 'Checking…';
+  rpc('sf_admin_login', { p_pass: pass }).then(function (r) {
+    btn.disabled = false; btn.textContent = 'Sign in';
+    if (r && r.locked) { say(msg, 'Too many tries. Wait fifteen minutes and try again.', 'err'); return; }
+    if (!r || !r.ok) { say(msg, 'That passphrase is not right.', 'err'); return; }
+    PASS = pass;
+    try { sessionStorage.setItem('sf_pass', PASS); } catch (e) {}
+    showApp();
+  })['catch'](function () {
+    btn.disabled = false; btn.textContent = 'Sign in';
+    say(msg, 'Could not reach the database. Check the connection and try again.', 'err');
+  });
+});
+$('#signOut').addEventListener('click', function () {
+  try { sessionStorage.removeItem('sf_pass'); } catch (e) {}
+  location.reload();
+});
+
+/* ── tabs ──────────────────────────────────────────────────────────── */
+$$('.tab').forEach(function (t) {
+  t.addEventListener('click', function () {
+    $$('.tab').forEach(function (x) { x.classList.remove('on'); });
+    $$('.panel').forEach(function (x) { x.classList.remove('on'); });
+    t.classList.add('on');
+    $('#p-' + t.getAttribute('data-panel')).classList.add('on');
+  });
+});
+
+/* ── orders ────────────────────────────────────────────────────────── */
+function paintStats(a) {
+  if (!a) return;
+  var tiles = [
+    ['Views · 7d', a.views_7d], ['Views · 30d', a.views_30d],
+    ['Orders · 7d', a.orders_7d], ['Orders · 30d', a.orders_30d],
+    ['Ordered · 30d', money(a.revenue_30d)], ['Calls · 30d', a.calls_30d]
+  ];
+  $('#stats').innerHTML = tiles.map(function (t) {
+    return '<div class="stat"><b>' + esc(t[1] == null ? '—' : t[1]) + '</b><span>' + esc(t[0]) + '</span></div>';
+  }).join('');
+}
+function orderCard(o) {
+  var when = new Date(o.created_at);
+  var lines = (o.items || []).map(function (i) {
+    return '<div class="row" style="gap:8px"><span>' + esc(i.qty) + ' &times; ' + esc(i.name) +
+           '</span><span class="sp"></span><span class="pr">' + esc(money(i.line_cents)) + '</span></div>';
+  }).join('');
+  var statuses = ['new', 'confirmed', 'ready', 'done', 'cancelled'];
+  return '<div class="card">' +
+    '<div class="row"><span class="pill ' + esc(o.status) + '">' + esc(o.status) + '</span>' +
+      '<b>' + esc(o.name) + '</b><span class="sp"></span>' +
+      '<span class="muted">' + esc(when.toLocaleString()) + '</span></div>' +
+    '<div class="muted" style="margin:8px 0">' +
+      (o.phone ? '<a href="tel:' + esc(o.phone) + '">' + esc(o.phone) + '</a> · ' : '') +
+      (o.email ? esc(o.email) + ' · ' : '') +
+      'pickup ' + esc(o.pickup_date || 'unspecified') + ' ' + esc(o.pickup_time || '') +
+    '</div>' +
+    '<div style="margin:10px 0; padding:10px 0; border-block:1px solid var(--hairline)">' + lines +
+      '<div class="row" style="margin-top:8px"><b>Total</b><span class="sp"></span><b>' +
+      esc(money(o.total_cents)) + '</b></div></div>' +
+    (o.notes ? '<p class="muted" style="margin-bottom:10px">“' + esc(o.notes) + '”</p>' : '') +
+    '<div class="row">' + statuses.map(function (s) {
+      return '<button class="btn btn-sm' + (s === o.status ? ' btn-primary' : '') +
+             '" type="button" data-status="' + esc(s) + '" data-oid="' + esc(o.id) + '">' + esc(s) + '</button>';
+    }).join('') + '</div></div>';
+}
+function loadOrders() {
+  return rpc('sf_list_orders', { p_pass: PASS }).then(function (rows) {
+    var body = $('#ordersBody');
+    if (!rows || !rows.length) { body.innerHTML = '<p class="muted">No pre-orders yet.</p>'; return; }
+    body.innerHTML = rows.map(orderCard).join('');
+  })['catch'](function () {
+    $('#ordersBody').innerHTML = '<p class="muted">Could not load orders.</p>';
+  });
+}
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-status]');
+  if (!b) return;
+  b.disabled = true;
+  rpc('sf_set_order_status', { p_pass: PASS, p_id: Number(b.getAttribute('data-oid')),
+                               p_status: b.getAttribute('data-status') })
+    .then(loadOrders)['catch'](function () { b.disabled = false; });
+});
+$('#refreshOrders').addEventListener('click', function () { loadOrders(); loadStats(); });
+function loadStats() {
+  return rpc('sf_analytics', { p_pass: PASS }).then(paintStats)['catch'](function () {});
+}
+
+/* ── menu ──────────────────────────────────────────────────────────── */
+function paintMenu() {
+  var body = $('#menuBody');
+  if (!cats.length) { body.innerHTML = '<p class="muted">No sections yet.</p>'; return; }
+  body.innerHTML = cats.map(function (c) {
+    var mine = items.filter(function (i) { return i.category === c.key; });
+    return '<details class="cat"><summary>' + esc(c.label) +
+      '<span class="n">' + mine.length + '</span></summary>' +
+      (mine.length ? mine.map(function (i) {
+        return '<div class="item-row' + (i.active ? '' : ' off') + '">' +
+          '<div><div class="nm">' + esc(i.name) + (i.active ? '' : ' <span class="pill">hidden</span>') + '</div>' +
+          (i.blurb ? '<div class="bl">' + esc(i.blurb) + '</div>' : '') + '</div>' +
+          '<div class="pr">' + (i.price_cents > 0 ? esc(money(i.price_cents)) : '<span class="muted">ask</span>') + '</div>' +
+          '<button class="btn btn-sm" type="button" data-edit-item="' + esc(i.id) + '">Edit</button>' +
+        '</div>';
+      }).join('') : '<p class="muted" style="padding:12px 0">Nothing in this section.</p>') +
+    '</details>';
+  }).join('');
+}
+
+var dlg = $('#itemDlg');
+function openItem(item) {
+  $('#dlgTitle').textContent = item ? 'Edit item' : 'New item';
+  $('#fId').value = item ? item.id : '';
+  $('#fName').value = item ? item.name : '';
+  $('#fBlurb').value = item && item.blurb ? item.blurb : '';
+  $('#fBadge').value = item && item.badge ? item.badge : '';
+  $('#fPrice').value = item ? (item.price_cents / 100).toFixed(2) : '';
+  $('#fSort').value = item ? item.sort : 100;
+  $('#fActive').value = item ? String(!!item.active) : 'true';
+  $('#fCat').innerHTML = cats.map(function (c) {
+    return '<option value="' + esc(c.key) + '"' +
+      (item && item.category === c.key ? ' selected' : '') + '>' + esc(c.label) + '</option>';
+  }).join('');
+  $('#dlgDelete').style.display = item ? '' : 'none';
+  $('#dlgMsg').className = 'msg';
+  dlg.showModal();
+}
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-edit-item]');
+  if (!b) return;
+  var id = Number(b.getAttribute('data-edit-item'));
+  var it = items.filter(function (x) { return x.id === id; })[0];
+  if (it) openItem(it);
+});
+$('#addItem').addEventListener('click', function () { openItem(null); });
+$('#dlgClose').addEventListener('click', function () { dlg.close(); });
+
+$('#dlgSave').addEventListener('click', function () {
+  var msg = $('#dlgMsg'), btn = this;
+  var name = $('#fName').value.trim();
+  if (name.length < 2) { say(msg, 'Give the item a name.', 'err'); return; }
+  var dollars = parseFloat($('#fPrice').value);
+  if (isNaN(dollars) || dollars < 0) dollars = 0;
+  var id = $('#fId').value ? Number($('#fId').value) : null;
+  var data = {
+    name: name, category: $('#fCat').value,
+    blurb: $('#fBlurb').value.trim(), badge: $('#fBadge').value.trim(),
+    price_cents: Math.round(dollars * 100),
+    sort: Number($('#fSort').value) || 100,
+    active: $('#fActive').value === 'true'
+  };
+  /* keep the slug stable on an existing item so links and past orders still resolve */
+  if (id) {
+    var prev = items.filter(function (x) { return x.id === id; })[0];
+    if (prev) data.slug = prev.slug;
+  }
+  btn.disabled = true; btn.textContent = 'Saving…';
+  rpc('sf_save_item', { p_pass: PASS, p_id: id, p_data: data }).then(function () {
+    btn.disabled = false; btn.textContent = 'Save';
+    dlg.close();
+    return loadMenu();
+  })['catch'](function (err) {
+    btn.disabled = false; btn.textContent = 'Save';
+    say(msg, 'Could not save: ' + (err && err.message ? err.message : 'unknown error'), 'err');
+  });
+});
+
+$('#dlgDelete').addEventListener('click', function () {
+  var id = Number($('#fId').value);
+  if (!id) return;
+  var it = items.filter(function (x) { return x.id === id; })[0];
+  if (!confirm('Delete "' + (it ? it.name : 'this item') + '" from the menu? This cannot be undone.')) return;
+  var btn = this;
+  btn.disabled = true;
+  rpc('sf_delete_item', { p_pass: PASS, p_id: id }).then(function () {
+    btn.disabled = false; dlg.close(); return loadMenu();
+  })['catch'](function (err) {
+    btn.disabled = false;
+    say($('#dlgMsg'), 'Could not delete: ' + (err && err.message ? err.message : ''), 'err');
+  });
+});
+
+function loadMenu() {
+  return Promise.all([
+    api('sf_categories?select=key,label,blurb,sort&order=sort.asc'),
+    api('sf_menu?select=id,slug,name,category,blurb,price_cents,badge,sort,active&order=category.asc,sort.asc')
+  ]).then(function (r) {
+    cats = r[0] || []; items = r[1] || [];
+    paintMenu();
+  })['catch'](function () {
+    $('#menuBody').innerHTML = '<p class="muted">Could not load the menu.</p>';
+  });
+}
+
+/* ── page text ─────────────────────────────────────────────────────── */
+var COPY_FIELDS = [
+  ['hero_kicker',  'Hero — small line above the headline'],
+  ['hero_title',   'Hero — headline, first part'],
+  ['hero_title_em','Hero — headline, gold part'],
+  ['hero_lede',    'Hero — paragraph'],
+  ['order_title',  'Pre-order — heading'],
+  ['order_lede',   'Pre-order — paragraph'],
+  ['visit_title',  'Visit — heading'],
+  ['story_body',   'Footer — about the café']
+];
+function paintCopy() {
+  var c = content.copy || {};
+  $('#copyBody').innerHTML = COPY_FIELDS.map(function (f) {
+    var long = f[0] === 'hero_lede' || f[0] === 'order_lede' || f[0] === 'story_body';
+    return '<div class="field"><label for="c-' + esc(f[0]) + '">' + esc(f[1]) + '</label>' +
+      (long ? '<textarea id="c-' + esc(f[0]) + '">' + esc(c[f[0]] || '') + '</textarea>'
+            : '<input id="c-' + esc(f[0]) + '" value="' + esc(c[f[0]] || '') + '">') + '</div>';
+  }).join('');
+}
+$('#saveCopy').addEventListener('click', function () {
+  var btn = this, msg = $('#copyMsg'), data = {};
+  COPY_FIELDS.forEach(function (f) {
+    var el = $('#c-' + f[0]);
+    if (el) data[f[0]] = el.value.trim();
+  });
+  btn.disabled = true; btn.textContent = 'Saving…';
+  rpc('sf_save_content', { p_pass: PASS, p_section: 'copy', p_data: data }).then(function () {
+    btn.disabled = false; btn.textContent = 'Save page text';
+    content.copy = data;
+    say(msg, 'Saved. Reload the site to see it.', 'ok');
+  })['catch'](function (err) {
+    btn.disabled = false; btn.textContent = 'Save page text';
+    say(msg, 'Could not save: ' + (err && err.message ? err.message : ''), 'err');
+  });
+});
+
+/* ── hours & info ──────────────────────────────────────────────────── */
+var DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+function paintHours() {
+  var h = content.hours || {};
+  var days = (h.days && h.days.length === 7) ? h.days : DAYS.map(function (d) {
+    return { label: d, open: '08:00', close: '15:00' };
+  });
+  $('#hoursBody').innerHTML = days.map(function (d, i) {
+    return '<div class="grid3" style="align-items:end">' +
+      '<div class="field"><label>' + esc(d.label || DAYS[i]) + '</label>' +
+        '<select id="h-closed-' + i + '"><option value="false"' + (d.closed ? '' : ' selected') + '>Open</option>' +
+        '<option value="true"' + (d.closed ? ' selected' : '') + '>Closed</option></select></div>' +
+      '<div class="field"><label for="h-open-' + i + '">Opens</label>' +
+        '<input id="h-open-' + i + '" type="time" value="' + esc(d.open || '08:00') + '"></div>' +
+      '<div class="field"><label for="h-close-' + i + '">Closes</label>' +
+        '<input id="h-close-' + i + '" type="time" value="' + esc(d.close || '15:00') + '"></div>' +
+    '</div>';
+  }).join('') +
+  '<div class="field"><label for="h-note">Note under the hours</label>' +
+    '<input id="h-note" value="' + esc(h.note || '') + '"></div>';
+}
+var INFO_FIELDS = [
+  ['phone_display','Phone, as shown'], ['phone','Phone, digits only (for the call button)'],
+  ['address1','Street address'], ['city','City'], ['state','State'], ['zip','ZIP'],
+  ['maps_url','Google Maps link'], ['toast_url','Toast ordering link'], ['doordash_url','DoorDash link']
+];
+function paintInfo() {
+  var n = content.info || {};
+  $('#infoBody').innerHTML = '<div class="grid2">' + INFO_FIELDS.map(function (f) {
+    return '<div class="field"><label for="i-' + esc(f[0]) + '">' + esc(f[1]) + '</label>' +
+      '<input id="i-' + esc(f[0]) + '" value="' + esc(n[f[0]] || '') + '"></div>';
+  }).join('') + '</div>';
+}
+$('#saveHours').addEventListener('click', function () {
+  var btn = this, msg = $('#hoursMsg');
+  var days = DAYS.map(function (d, i) {
+    return {
+      label: d,
+      closed: $('#h-closed-' + i).value === 'true',
+      open: $('#h-open-' + i).value || '08:00',
+      close: $('#h-close-' + i).value || '15:00'
+    };
+  });
+  var hours = { days: days, note: $('#h-note').value.trim() };
+  var info = {};
+  INFO_FIELDS.forEach(function (f) { info[f[0]] = $('#i-' + f[0]).value.trim(); });
+  if (content.info) {
+    if (content.info.lat != null) info.lat = content.info.lat;
+    if (content.info.lng != null) info.lng = content.info.lng;
+    if (content.info.name) info.name = content.info.name;
+  }
+  btn.disabled = true; btn.textContent = 'Saving…';
+  Promise.all([
+    rpc('sf_save_content', { p_pass: PASS, p_section: 'hours', p_data: hours }),
+    rpc('sf_save_content', { p_pass: PASS, p_section: 'info',  p_data: info })
+  ]).then(function () {
+    btn.disabled = false; btn.textContent = 'Save hours & info';
+    content.hours = hours; content.info = info;
+    say(msg, 'Saved. Reload the site to see it.', 'ok');
+  })['catch'](function (err) {
+    btn.disabled = false; btn.textContent = 'Save hours & info';
+    say(msg, 'Could not save: ' + (err && err.message ? err.message : ''), 'err');
+  });
+});
+
+/* ── boot ──────────────────────────────────────────────────────────── */
+function loadContent() {
+  return api('sf_content?select=section,data').then(function (rows) {
+    (rows || []).forEach(function (r) { content[r.section] = r.data; });
+    paintCopy(); paintHours(); paintInfo();
+  })['catch'](function () {});
+}
+function loadAll() {
+  loadStats(); loadOrders(); loadMenu(); loadContent();
+}
+
+if (!CFG.SUPA_URL || !CFG.SUPA_KEY) {
+  $('#login').innerHTML =
+    '<div class="box"><h1>Not connected</h1>' +
+    '<p>Fill in <code>config.js</code> with the Supabase URL and publishable key, ' +
+    'then run <code>supabase-setup.sql</code> in that project.</p></div>';
+} else if (PASS) {
+  /* returning within the same tab session — verify before showing anything */
+  rpc('sf_admin_login', { p_pass: PASS }).then(function (r) {
+    if (r && r.ok) showApp();
+    else { try { sessionStorage.removeItem('sf_pass'); } catch (e) {} }
+  })['catch'](function () {});
+}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunflower Café — Breakfast, Lunch & Friday Fish Fry · Stevens Point, WI</title>
+<meta name="description" content="A neighborhood café at 2301 Church Street in Stevens Point, Wisconsin. Omelets, skillets and pancakes all morning, homemade soups and desserts, and a fish fry every Friday. Open daily at 8am.">
+<link rel="canonical" href="https://orioncontinuity.github.io/Sunflower-Cafe/">
+<meta name="theme-color" content="#FDF8EE">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:type" content="restaurant">
+<meta property="og:site_name" content="Sunflower Café">
+<meta property="og:title" content="Sunflower Café — Stevens Point, WI">
+<meta property="og:description" content="Breakfast and lunch on Church Street. Omelets, skillets, homemade desserts, and a fish fry every Friday. Open daily at 8am.">
+<meta property="og:url" content="https://orioncontinuity.github.io/Sunflower-Cafe/">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sunflower Café — Stevens Point, WI">
+<meta name="twitter:description" content="Breakfast and lunch on Church Street. Open daily at 8am.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "@id": "https://orioncontinuity.github.io/Sunflower-Cafe/#cafe",
+  "name": "Sunflower Café",
+  "url": "https://orioncontinuity.github.io/Sunflower-Cafe/",
+  "telephone": "+1-715-570-0393",
+  "servesCuisine": ["Breakfast", "American", "Mexican"],
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2301 Church Street",
+    "addressLocality": "Stevens Point",
+    "addressRegion": "WI",
+    "postalCode": "54481",
+    "addressCountry": "US"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 44.514588, "longitude": -89.574102 },
+  "hasMap": "https://maps.app.goo.gl/iDAiDhSjzzamdf9k6",
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Saturday","Sunday"], "opens": "08:00", "closes": "15:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "08:00", "closes": "20:00" }
+  ],
+  "acceptsReservations": "False"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"></noscript>
+
+<style>
+/* ─────────────────────────────────────────────────────────────────────
+   Sunflower Café. Hand-written, zero dependencies.
+   Palette measured against WCAG AA — every text pair below clears 4.5:1
+   on its own background (see README for the table).
+   ───────────────────────────────────────────────────────────────────── */
+:root{
+  --ink:#2B2118; --ink-soft:#57483A; --ink-faint:#71604F;
+  --page:#FDF8EE; --card:#FFFDF8; --band:#F7EEDC; --band-deep:#EFE0C4;
+  --gold:#E3A008; --gold-deep:#9A5B08; --gold-lite:#F6C544;
+  --green:#3D6B39; --green-deep:#2E5230;
+  --line:rgba(43,33,24,.14); --hairline:rgba(43,33,24,.08);
+  --r:14px; --r-md:10px; --r-sm:8px;
+  --s1:16px; --s2:24px; --s3:36px; --s4:56px;
+  --shadow-1:0 1px 2px rgba(43,33,24,.06), 0 8px 20px -8px rgba(43,33,24,.16);
+  --shadow-2:0 2px 4px rgba(43,33,24,.08), 0 16px 36px -10px rgba(43,33,24,.22);
+  --ring:0 0 0 3px rgba(227,160,8,.34);
+  --disp:'Zilla Slab', Georgia, 'Times New Roman', serif;
+  --body:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --head-h:64px;
+  font-synthesis:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--page); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%; display:block}
+a{color:var(--gold-deep)}
+:focus-visible{outline:2px solid var(--gold-deep); outline-offset:2px; border-radius:4px}
+.wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--page);padding:10px 16px;z-index:100;border-radius:0 0 var(--r-sm) 0}
+.skip:focus{left:0}
+
+h1,h2,h3{font-family:var(--disp); font-weight:700; margin:0; text-wrap:balance; letter-spacing:-.015em}
+h1{font-size:clamp(2.1rem, 1.4rem + 3.2vw, 3.5rem); line-height:1.06; letter-spacing:-.028em}
+h2{font-size:clamp(1.5rem, 1.2rem + 1.4vw, 2.15rem); line-height:1.16}
+h3{font-size:1.06rem; line-height:1.3; letter-spacing:-.005em}
+p{margin:0; text-wrap:pretty}
+.kicker{
+  font-size:.75rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--gold-deep); font-variant-numeric:tabular-nums;
+}
+
+/* ── buttons ───────────────────────────────────────────────────────── */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  min-height:48px; padding:12px 22px; border-radius:var(--r-md);
+  font:600 1rem/1 var(--body); text-decoration:none; cursor:pointer;
+  border:1px solid transparent; transition:transform .12s, box-shadow .12s, background .12s;
+}
+.btn-primary{
+  background:linear-gradient(180deg, var(--gold-lite), var(--gold));
+  color:var(--ink); border-color:#c98c05; border-bottom:3px solid #a86f04;
+  box-shadow:var(--shadow-1);
+}
+.btn-secondary{
+  background:var(--card); color:var(--ink); border:1px solid var(--line);
+  border-bottom:3px solid var(--line); box-shadow:var(--shadow-1);
+}
+.btn-ghost{background:transparent; color:var(--ink); border:1px solid var(--line)}
+.btn:active{transform:translateY(1px); border-bottom-width:1px}
+@media (hover:hover){
+  .btn-primary:hover{box-shadow:var(--shadow-2)}
+  .btn-secondary:hover{border-color:var(--gold); box-shadow:var(--shadow-2)}
+}
+
+/* ── header ────────────────────────────────────────────────────────── */
+header{
+  position:sticky; top:0; z-index:50; background:rgba(253,248,238,.92);
+  backdrop-filter:saturate(1.4) blur(10px); border-bottom:1px solid transparent;
+  transition:border-color .2s, box-shadow .2s;
+}
+header.is-stuck{border-bottom-color:var(--line); box-shadow:0 4px 18px -12px rgba(43,33,24,.5)}
+.head-in{display:flex; align-items:center; gap:16px; height:var(--head-h)}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); margin-right:auto}
+.brand svg{width:34px; height:34px; flex:none}
+.brand b{font-family:var(--disp); font-size:1.2rem; font-weight:700; letter-spacing:-.02em}
+.nav-links{display:flex; gap:4px; align-items:center}
+.nav-links a{
+  padding:9px 13px; border-radius:var(--r-sm); text-decoration:none;
+  color:var(--ink-soft); font-weight:500; font-size:.95rem;
+}
+@media (hover:hover){ .nav-links a:hover{background:var(--band); color:var(--ink)} }
+.head-cta{display:flex; gap:8px; align-items:center}
+.head-cta .btn{min-height:42px; padding:9px 16px; font-size:.94rem}
+.burger{
+  display:none; width:44px; height:44px; align-items:center; justify-content:center;
+  background:transparent; border:1px solid var(--line); border-radius:var(--r-sm); cursor:pointer;
+}
+.burger span{display:block; width:18px; height:2px; background:var(--ink); position:relative}
+.burger span::before,.burger span::after{content:''; position:absolute; left:0; width:18px; height:2px; background:var(--ink)}
+.burger span::before{top:-6px} .burger span::after{top:6px}
+.mob{display:none; border-top:1px solid var(--line); background:var(--page); padding:10px 20px 16px}
+.mob.open{display:block}
+.mob a{display:block; padding:13px 6px; text-decoration:none; color:var(--ink); border-bottom:1px solid var(--hairline); font-weight:500}
+@media (max-width:840px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .head-cta .btn-secondary{display:none}
+}
+
+/* ── open-now chip ─────────────────────────────────────────────────── */
+.open-chip{
+  display:inline-flex; align-items:center; gap:9px; padding:8px 15px;
+  border-radius:999px; background:var(--card); border:1px solid var(--line);
+  font-size:.92rem; font-weight:500; box-shadow:var(--shadow-1);
+}
+.dot{width:9px; height:9px; border-radius:50%; background:var(--ink-faint); flex:none}
+.open-chip.is-open .dot{background:var(--green)}
+.open-chip.is-shut .dot{background:#9A3A12}
+.open-chip b{font-weight:600}
+
+/* ── hero ──────────────────────────────────────────────────────────── */
+.hero{padding:clamp(34px,5vw,64px) 0 clamp(30px,4vw,52px)}
+.hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(24px,4vw,52px); align-items:center}
+.hero-lede{font-size:1.12rem; color:var(--ink-soft); max-width:46ch; margin-top:16px}
+.hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:26px}
+.hero-meta{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+h1 em{font-style:normal; color:var(--gold-deep); display:block}
+.hero-art{
+  position:relative; border-radius:var(--r); overflow:hidden; background:var(--band);
+  border:1px solid var(--line); box-shadow:var(--shadow-2); aspect-ratio:4/3;
+}
+.hero-art svg{width:100%; height:100%; display:block}
+.hero-art figcaption{
+  position:absolute; left:14px; bottom:14px; background:rgba(253,248,238,.94);
+  padding:7px 13px; border-radius:999px; font-size:.82rem; font-weight:500;
+  border:1px solid var(--line);
+}
+@media (max-width:840px){
+  .hero-grid{grid-template-columns:1fr; gap:26px}
+  .hero-art{aspect-ratio:16/10}
+}
+
+/* ── trust strip ───────────────────────────────────────────────────── */
+.trust{border-block:1px solid var(--line); background:var(--band)}
+.trust-in{display:flex; gap:clamp(16px,4vw,48px); flex-wrap:wrap; justify-content:center; padding:18px 0}
+.trust-item{display:flex; align-items:center; gap:9px; font-size:.94rem; color:var(--ink-soft); font-weight:500}
+.trust-item svg{width:18px; height:18px; flex:none; color:var(--gold-deep)}
+
+/* ── sections ──────────────────────────────────────────────────────── */
+.sec{padding:clamp(44px,6vw,80px) 0}
+.sec-head{max-width:60ch; margin-bottom:clamp(22px,3vw,34px)}
+.sec-head p{color:var(--ink-soft); margin-top:12px}
+.band-sec{background:var(--band); border-block:1px solid var(--line)}
+
+/* ── menu ──────────────────────────────────────────────────────────── */
+.menu-tools{
+  position:sticky; top:var(--head-h); z-index:30; background:var(--page);
+  padding:12px 0 10px; margin-bottom:6px; border-bottom:1px solid var(--hairline);
+}
+.band-sec .menu-tools{background:var(--band)}
+.cat-rail{display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; scrollbar-width:thin}
+.cat-rail::-webkit-scrollbar{height:5px}
+.cat-rail::-webkit-scrollbar-thumb{background:var(--line); border-radius:3px}
+.chip{
+  flex:none; padding:9px 15px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--ink-soft); font:500 .9rem/1 var(--body);
+  cursor:pointer; white-space:nowrap; min-height:40px;
+}
+.chip.on{background:var(--ink); color:var(--page); border-color:var(--ink)}
+.menu-search{
+  width:100%; margin-top:10px; padding:11px 14px; font-size:16px; font-family:var(--body);
+  border:1px solid var(--line); border-radius:var(--r-md); background:var(--card); color:var(--ink);
+}
+.menu-search:focus{outline:none; box-shadow:var(--ring); border-color:var(--gold)}
+.cat-block{padding-top:clamp(22px,3vw,32px)}
+.cat-title{display:flex; align-items:baseline; gap:12px; margin-bottom:14px}
+.cat-title h3{font-size:1.34rem}
+.cat-title span{font-size:.82rem; color:var(--ink-faint); font-variant-numeric:tabular-nums}
+.items{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:14px}
+.item{
+  background:linear-gradient(180deg, var(--card), #FFFBF2);
+  border:1px solid var(--line); border-radius:var(--r); padding:16px 17px;
+  display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7), var(--shadow-1);
+  transition:transform .14s, box-shadow .14s, border-color .14s;
+}
+@media (hover:hover){ .item:hover{transform:translateY(-3px); box-shadow:var(--shadow-2); border-color:var(--gold)} }
+.item-top{display:flex; justify-content:space-between; gap:12px; align-items:baseline}
+.item h4{margin:0; font:600 1.02rem/1.3 var(--body); letter-spacing:-.005em}
+.price{font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink)}
+.price.ask{color:var(--ink-faint); font-weight:500; font-size:.9rem}
+.item p{font-size:.9rem; color:var(--ink-soft); line-height:1.5}
+.badge{
+  align-self:flex-start; font-size:.7rem; font-weight:600; letter-spacing:.06em;
+  text-transform:uppercase; padding:3px 9px; border-radius:999px;
+  background:var(--band-deep); color:var(--ink); border:1px solid var(--line);
+}
+.item-foot{margin-top:auto; padding-top:6px}
+.add{
+  width:100%; min-height:44px; border-radius:var(--r-sm); cursor:pointer;
+  background:var(--card); border:1px solid var(--line); color:var(--ink);
+  font:600 .92rem/1 var(--body); display:flex; align-items:center; justify-content:center; gap:8px;
+}
+@media (hover:hover){ .add:hover{background:var(--gold-lite); border-color:var(--gold)} }
+.add:active{transform:translateY(1px)}
+.add.in{background:var(--band-deep); border-color:var(--gold)}
+.qty{display:flex; align-items:center; gap:0; border:1px solid var(--line); border-radius:var(--r-sm); overflow:hidden}
+.qty button{
+  width:44px; height:44px; border:0; background:var(--card); cursor:pointer;
+  font:600 1.15rem/1 var(--body); color:var(--ink);
+}
+@media (hover:hover){ .qty button:hover{background:var(--band-deep)} }
+.qty b{flex:1; text-align:center; font-variant-numeric:tabular-nums; font-weight:600}
+.counter-note{font-size:.82rem; color:var(--ink-faint); text-align:center; padding:12px 0}
+.empty{padding:40px 0; text-align:center; color:var(--ink-faint)}
+
+/* ── tray ──────────────────────────────────────────────────────────── */
+.tray-bar{
+  position:fixed; left:0; right:0; bottom:0; z-index:60; padding:12px 20px;
+  padding-bottom:calc(12px + env(safe-area-inset-bottom));
+  background:rgba(253,248,238,.96); backdrop-filter:blur(10px);
+  border-top:1px solid var(--line); box-shadow:0 -8px 26px -18px rgba(43,33,24,.6);
+  transform:translateY(110%); transition:transform .22s ease;
+}
+.tray-bar.up{transform:none}
+.tray-in{max-width:1080px; margin:0 auto; display:flex; align-items:center; gap:14px}
+.tray-sum{margin-right:auto; font-size:.94rem}
+.tray-sum b{display:block; font-size:1.06rem; font-variant-numeric:tabular-nums}
+.tray-sum span{color:var(--ink-faint); font-size:.86rem}
+
+/* ── order form ────────────────────────────────────────────────────── */
+.order-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,44px); align-items:start}
+@media (max-width:840px){ .order-grid{grid-template-columns:1fr} }
+.field{margin-bottom:14px}
+.field label{display:block; font-size:.86rem; font-weight:600; margin-bottom:6px; color:var(--ink-soft)}
+.field input,.field textarea,.field select{
+  width:100%; padding:12px 14px; font-size:16px; font-family:var(--body);
+  border:1px solid var(--line); border-radius:var(--r-md);
+  background:var(--card); color:var(--ink); accent-color:var(--gold);
+}
+.field textarea{min-height:88px; resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none; box-shadow:var(--ring); border-color:var(--gold)}
+.field select{appearance:none; background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='%2371604F' d='M1 1.5 6 6.5l5-5'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; background-size:12px; padding-right:38px}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.hp{position:absolute; left:-9999px; opacity:0; height:0; overflow:hidden}
+.form-msg{margin-top:12px; font-size:.92rem; padding:11px 14px; border-radius:var(--r-md); display:none}
+.form-msg.show{display:block}
+.form-msg.err{background:#FBE9E1; color:#7A2E0C; border:1px solid #E4B79F}
+.form-msg.ok{background:#E7F0E4; color:var(--green-deep); border:1px solid #B9CFB4}
+.review{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px}
+.review h3{margin-bottom:12px}
+.rev-line{display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid var(--hairline); font-size:.94rem}
+.rev-line:last-of-type{border-bottom:0}
+.rev-line span{color:var(--ink-soft)}
+.rev-total{display:flex; justify-content:space-between; padding-top:12px; margin-top:6px; border-top:2px solid var(--line); font-weight:700; font-variant-numeric:tabular-nums}
+.rev-note{font-size:.84rem; color:var(--ink-faint); margin-top:12px}
+.alt-order{margin-top:18px; padding-top:18px; border-top:1px solid var(--hairline)}
+.alt-order p{font-size:.9rem; color:var(--ink-soft); margin-bottom:12px}
+
+/* ── visit ─────────────────────────────────────────────────────────── */
+.visit-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,48px)}
+@media (max-width:840px){ .visit-grid{grid-template-columns:1fr} }
+.hours-tbl{width:100%; border-collapse:collapse; font-size:.96rem}
+.hours-tbl th,.hours-tbl td{text-align:left; padding:10px 0; border-bottom:1px solid var(--hairline); font-weight:400}
+.hours-tbl th{font-weight:500; color:var(--ink-soft)}
+.hours-tbl td{text-align:right; font-variant-numeric:tabular-nums}
+.hours-tbl tr.today th,.hours-tbl tr.today td{font-weight:700; color:var(--ink)}
+.addr{font-size:1.06rem; line-height:1.7}
+.addr a{font-weight:500}
+
+/* ── footer ────────────────────────────────────────────────────────── */
+footer{background:var(--green-deep); color:#EDF2EC; padding:clamp(36px,5vw,56px) 0 28px; margin-bottom:0}
+footer h3{color:#fff; font-size:1.1rem; margin-bottom:10px}
+footer a{color:#DCE8DA}
+.foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:32px}
+@media (max-width:760px){ .foot-grid{grid-template-columns:1fr; gap:26px} }
+.foot-brand{display:flex; align-items:center; gap:10px; margin-bottom:12px}
+.foot-brand svg{width:32px; height:32px}
+.foot-brand b{font-family:var(--disp); font-size:1.15rem; color:#fff}
+.foot-grid p,.foot-grid li{color:#CFDCCD; font-size:.94rem}
+.foot-grid ul{list-style:none; padding:0; margin:0}
+.foot-grid li{padding:4px 0}
+.foot-base{
+  margin-top:30px; padding-top:18px; border-top:1px solid rgba(255,255,255,.16);
+  display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+  font-size:.85rem; color:#B6C6B4;
+}
+
+/* ── reveal ────────────────────────────────────────────────────────── */
+.reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease}
+.reveal.is-in{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1; transform:none; transition:none}
+  *{animation-duration:.001ms !important; transition-duration:.001ms !important}
+}
+@media print{ .reveal{opacity:1; transform:none} .tray-bar,header{display:none} }
+</style>
+</head>
+<body>
+<a class="skip" href="#menu">Skip to the menu</a>
+
+<header id="hdr">
+  <div class="wrap head-in">
+    <a class="brand" href="#top" aria-label="Sunflower Café — home">
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <g fill="#E3A008">
+          <circle cx="24" cy="8"  r="5.2"/><circle cx="24" cy="40" r="5.2"/>
+          <circle cx="8"  cy="24" r="5.2"/><circle cx="40" cy="24" r="5.2"/>
+          <circle cx="12.7" cy="12.7" r="5.2"/><circle cx="35.3" cy="35.3" r="5.2"/>
+          <circle cx="35.3" cy="12.7" r="5.2"/><circle cx="12.7" cy="35.3" r="5.2"/>
+        </g>
+        <circle cx="24" cy="24" r="9" fill="#7C4A12"/>
+      </svg>
+      <b>Sunflower Café</b>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#menu">Menu</a>
+      <a href="#order">Pre-order</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <div class="head-cta">
+      <a class="btn btn-secondary" href="#order">Pre-order</a>
+      <a class="btn btn-primary" href="tel:+17155700393" data-track="call_click">Call</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobMenu"><span></span></button>
+    </div>
+  </div>
+  <nav class="mob" id="mobMenu" aria-label="Mobile">
+    <a href="#menu">Menu</a>
+    <a href="#order">Pre-order for pickup</a>
+    <a href="#visit">Hours &amp; directions</a>
+    <a href="tel:+17155700393" data-track="call_click">Call (715) 570-0393</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ── hero ───────────────────────────────────────────────────────── -->
+<section class="hero wrap">
+  <div class="hero-grid">
+    <div>
+      <p class="kicker" data-edit="hero_kicker">Stevens Point, Wisconsin</p>
+      <h1><span data-edit="hero_title">Breakfast worth</span> <em data-edit="hero_title_em">waking up for</em></h1>
+      <p class="hero-lede" data-edit="hero_lede">A neighborhood cafe on Church Street. Eggs and skillets all morning, homemade soups and desserts, and a fish fry every Friday.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#menu">See the menu</a>
+        <a class="btn btn-secondary" href="#order">Pre-order for pickup</a>
+      </div>
+      <div class="hero-meta">
+        <span class="open-chip" id="openChip"><span class="dot"></span><span id="openTxt">Checking hours…</span></span>
+      </div>
+    </div>
+    <figure class="hero-art" id="heroArt">
+      <svg viewBox="0 0 400 300" role="img" aria-label="Illustration of a sunflower">
+        <rect width="400" height="300" fill="#F7EEDC"/>
+        <circle cx="200" cy="150" r="112" fill="#FBF3E2"/>
+        <path d="M200 178 C196 214 194 246 200 282" stroke="#3D6B39" stroke-width="9"
+              stroke-linecap="round" fill="none"/>
+        <path d="M198 236 C170 224 150 232 140 250 C164 262 186 256 198 240 Z" fill="#3D6B39"/>
+        <path d="M202 214 C230 202 252 210 260 228 C236 240 214 234 202 218 Z" fill="#4B7D45"/>
+        <g fill="#E3A008">
+          <ellipse cx="200" cy="86"  rx="17" ry="36"/><ellipse cx="200" cy="194" rx="17" ry="36"/>
+          <ellipse cx="146" cy="140" rx="36" ry="17"/><ellipse cx="254" cy="140" rx="36" ry="17"/>
+          <ellipse cx="162" cy="102" rx="17" ry="36" transform="rotate(-45 162 102)"/>
+          <ellipse cx="238" cy="178" rx="17" ry="36" transform="rotate(-45 238 178)"/>
+          <ellipse cx="238" cy="102" rx="17" ry="36" transform="rotate(45 238 102)"/>
+          <ellipse cx="162" cy="178" rx="17" ry="36" transform="rotate(45 162 178)"/>
+        </g>
+        <g fill="#F6C544">
+          <ellipse cx="200" cy="100" rx="11" ry="24"/><ellipse cx="200" cy="180" rx="11" ry="24"/>
+          <ellipse cx="160" cy="140" rx="24" ry="11"/><ellipse cx="240" cy="140" rx="24" ry="11"/>
+        </g>
+        <circle cx="200" cy="140" r="46" fill="#7C4A12"/>
+        <circle cx="200" cy="140" r="31" fill="#5E370D"/>
+      </svg>
+      <figcaption>Photography coming</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── trust strip ────────────────────────────────────────────────── -->
+<section class="trust" aria-label="At a glance">
+  <div class="wrap trust-in">
+    <span class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      Open every day at 8am
+    </span>
+    <span class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12c4-6 14-6 18 0-4 6-14 6-18 0z"/><circle cx="15" cy="12" r="1.4" fill="currentColor"/></svg>
+      Fish fry every Friday
+    </span>
+    <span class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 20h14M6 20V9a6 6 0 0 1 12 0v11"/><path d="M9 5V3M15 5V3"/></svg>
+      Soups &amp; desserts made in house
+    </span>
+  </div>
+</section>
+
+<!-- ── menu ───────────────────────────────────────────────────────── -->
+<section class="sec" id="menu">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">The menu</p>
+      <h2>Everything we make</h2>
+      <p id="menuLede">Prices are current as of our last update. Tap a plus to build a pickup order.</p>
+    </div>
+
+    <div class="menu-tools">
+      <div class="cat-rail" id="catRail" role="tablist" aria-label="Menu sections"></div>
+      <input class="menu-search" id="menuSearch" type="search" placeholder="Search the menu — omelet, fish, pancakes…" aria-label="Search the menu" autocomplete="off">
+    </div>
+
+    <div id="menuBody"><p class="empty">Loading the menu…</p></div>
+  </div>
+</section>
+
+<!-- ── order ──────────────────────────────────────────────────────── -->
+<section class="sec band-sec" id="order">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">Pickup</p>
+      <h2 data-edit="order_title">Pre-order for pickup</h2>
+      <p data-edit="order_lede">Tell us what you want and when you are coming. We will have it ready at the counter.</p>
+    </div>
+
+    <div class="order-grid">
+      <form id="orderForm" novalidate>
+        <div class="two">
+          <div class="field">
+            <label for="ofName">Your name</label>
+            <input id="ofName" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="ofPhone">Phone</label>
+            <input id="ofPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel">
+          </div>
+        </div>
+        <div class="field">
+          <label for="ofEmail">Email <span style="font-weight:400;color:var(--ink-faint)">(or leave a phone above)</span></label>
+          <input id="ofEmail" name="email" type="email" inputmode="email" autocomplete="email">
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="ofDate">Pickup day</label>
+            <input id="ofDate" name="pickup_date" type="date">
+          </div>
+          <div class="field">
+            <label for="ofTime">Pickup time</label>
+            <select id="ofTime" name="pickup_time"></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ofNotes">Anything we should know?</label>
+          <textarea id="ofNotes" name="notes" placeholder="Allergies, how you want the eggs, no onions…"></textarea>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="ofWebsite">Website</label>
+          <input id="ofWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button class="btn btn-primary" id="ofSubmit" type="submit" style="width:100%">Send pre-order</button>
+        <div class="form-msg" id="ofMsg" role="status" aria-live="polite"></div>
+        <p class="rev-note">This sends your order to the café — it does not take payment. You pay at the counter when you pick up. We will call if anything is unclear.</p>
+      </form>
+
+      <aside class="review" id="review">
+        <h3>Your order</h3>
+        <div id="revBody"><p style="color:var(--ink-faint);font-size:.94rem">Nothing yet — add something from the menu.</p></div>
+        <div class="alt-order" id="altOrder" hidden>
+          <p>Rather pay online and skip the counter?</p>
+          <a class="btn btn-secondary" id="toastLink" href="#" target="_blank" rel="noopener" style="width:100%">Order &amp; pay on Toast</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ── visit ──────────────────────────────────────────────────────── -->
+<section class="sec" id="visit">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">Visit</p>
+      <h2 data-edit="visit_title">Find us</h2>
+    </div>
+    <div class="visit-grid">
+      <div>
+        <p class="addr">
+          <strong>Sunflower Café</strong><br>
+          <span id="vAddr1">2301 Church Street</span><br>
+          <span id="vCity">Stevens Point, WI 54481</span><br><br>
+          <a href="tel:+17155700393" id="vPhone" data-track="call_click">(715) 570-0393</a>
+        </p>
+        <div class="hero-cta" style="margin-top:22px">
+          <a class="btn btn-primary" id="vMap" href="https://maps.app.goo.gl/iDAiDhSjzzamdf9k6" target="_blank" rel="noopener" data-track="directions_click">Get directions</a>
+          <a class="btn btn-secondary" href="tel:+17155700393" data-track="call_click">Call the café</a>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px">Hours</h3>
+        <table class="hours-tbl" id="hoursTbl"><tbody></tbody></table>
+        <p class="rev-note" id="hoursNote">Kitchen closes 15 minutes before we do.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <g fill="#F6C544">
+              <circle cx="24" cy="8"  r="5.2"/><circle cx="24" cy="40" r="5.2"/>
+              <circle cx="8"  cy="24" r="5.2"/><circle cx="40" cy="24" r="5.2"/>
+              <circle cx="12.7" cy="12.7" r="5.2"/><circle cx="35.3" cy="35.3" r="5.2"/>
+              <circle cx="35.3" cy="12.7" r="5.2"/><circle cx="12.7" cy="35.3" r="5.2"/>
+            </g>
+            <circle cx="24" cy="24" r="9" fill="#3E2408"/>
+          </svg>
+          <b>Sunflower Café</b>
+        </div>
+        <p data-edit="story_body">Everything comes off our own griddle: omelets built to order, skillets under country gravy, salsa and desserts made in house. Come hungry, stay a while.</p>
+      </div>
+      <div>
+        <h3>Come see us</h3>
+        <ul>
+          <li>2301 Church Street</li>
+          <li>Stevens Point, WI 54481</li>
+          <li><a href="tel:+17155700393" data-track="call_click">(715) 570-0393</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>On the site</h3>
+        <ul>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#order">Pre-order for pickup</a></li>
+          <li><a href="#visit">Hours &amp; directions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>&copy; <span id="yr">2026</span> Sunflower Café · Stevens Point, Wisconsin</span>
+      <span id="buildTag"></span>
+    </div>
+  </div>
+</footer>
+
+<div class="tray-bar" id="trayBar" role="region" aria-label="Your pickup order">
+  <div class="tray-in">
+    <div class="tray-sum">
+      <b id="trayTotal">$0.00</b>
+      <span id="trayCount">0 items</span>
+    </div>
+    <button class="btn btn-ghost" id="trayClear" type="button">Clear</button>
+    <a class="btn btn-primary" href="#order">Review order</a>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   Sunflower Café — storefront.
+
+   Reads its menu, copy and hours from Supabase when config.js is filled,
+   and falls back to the baked-in content below when it is not, so the page
+   is never blank and never depends on the network to be useful.
+
+   Nothing from the database is ever written with innerHTML unescaped:
+   esc() runs over every value that reaches markup.
+   ═══════════════════════════════════════════════════════════════════ */
+(function () {
+'use strict';
+
+var CFG = window.SF_CONFIG || {};
+var LIVE = !!(CFG.SUPA_URL && CFG.SUPA_KEY);
+
+/* ── fallback content (used only when config.js is blank) ──────────── */
+var FALLBACK = {
+  categories: [
+    { key:'breakfast', label:'Breakfast', sort:20 },
+    { key:'lunch',     label:'Lunch',     sort:30 },
+    { key:'fish-friday', label:'Fish Friday', sort:90 }
+  ],
+  menu: [
+    { slug:'sunflower-pancakes', name:'Sunflower Pancakes', category:'breakfast', price_cents:1305,
+      blurb:'With chocolate chips and bacon inside topped with homemade blueberry whipped topping', sort:10 },
+    { slug:'byo-omelet', name:'BYO Omelet', category:'breakfast', price_cents:995,
+      blurb:'3 Egg Omelet with Cheese Served with Choice of Potato and Toast', sort:20 },
+    { slug:'loaded-skillet', name:'Loaded Skillet', category:'breakfast', price_cents:1495,
+      blurb:'Bacon, sausage, ham, pepper, tomato, onion, cheese, topped with country gravy', sort:30 },
+    { slug:'fish-sandwich', name:'Fish Sandwich', category:'fish-friday', price_cents:1210, blurb:'', sort:10 }
+  ],
+  hours: {
+    days: [
+      { label:'Monday',    open:'08:00', close:'15:00' },
+      { label:'Tuesday',   open:'08:00', close:'15:00' },
+      { label:'Wednesday', open:'08:00', close:'15:00' },
+      { label:'Thursday',  open:'08:00', close:'15:00' },
+      { label:'Friday',    open:'08:00', close:'20:00' },
+      { label:'Saturday',  open:'08:00', close:'15:00' },
+      { label:'Sunday',    open:'08:00', close:'15:00' }
+    ],
+    note:'Kitchen closes 15 minutes before we do.'
+  },
+  info: {
+    phone:'7155700393', phone_display:'(715) 570-0393',
+    address1:'2301 Church Street', city:'Stevens Point', state:'WI', zip:'54481',
+    maps_url:'https://maps.app.goo.gl/iDAiDhSjzzamdf9k6',
+    toast_url:'https://www.toasttab.com/local/order/sunflower-cafe-em-2301-church-street'
+  },
+  copy: {}
+};
+
+var state = { categories: [], menu: [], hours: FALLBACK.hours, info: FALLBACK.info, cat: 'all', q: '' };
+var tray = {};
+
+/* ── helpers ───────────────────────────────────────────────────────── */
+function $(s, r) { return (r || document).querySelector(s); }
+function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function money(cents) { return '$' + (Number(cents || 0) / 100).toFixed(2); }
+
+function api(path) {
+  return fetch(CFG.SUPA_URL + '/rest/v1/' + path, {
+    headers: { apikey: CFG.SUPA_KEY, Authorization: 'Bearer ' + CFG.SUPA_KEY }
+  }).then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('http ' + r.status)); });
+}
+function rpc(fn, body) {
+  return fetch(CFG.SUPA_URL + '/rest/v1/rpc/' + fn, {
+    method: 'POST',
+    headers: { apikey: CFG.SUPA_KEY, Authorization: 'Bearer ' + CFG.SUPA_KEY,
+               'Content-Type': 'application/json' },
+    body: JSON.stringify(body || {})
+  }).then(function (r) {
+    return r.text().then(function (t) {
+      var d = null;
+      try { d = t ? JSON.parse(t) : null; } catch (e) { d = t; }
+      if (!r.ok) {
+        var msg = (d && d.message) ? d.message : ('http ' + r.status);
+        return Promise.reject(new Error(msg));
+      }
+      return d;
+    });
+  });
+}
+
+/* first-party analytics — best effort, never blocks anything */
+var SID = (function () {
+  try {
+    var k = sessionStorage.getItem('sf_sid');
+    if (!k) { k = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem('sf_sid', k); }
+    return k;
+  } catch (e) { return ''; }
+})();
+function track(type, meta) {
+  if (!LIVE) return;
+  try {
+    rpc('sf_log_event', { p: { type: type, path: location.pathname, ref: document.referrer || '',
+                               sid: SID, meta: meta || {} } })['catch'](function () {});
+  } catch (e) {}
+}
+
+/* ── time, in the café's own timezone ──────────────────────────────── */
+var TZ = 'America/Chicago';
+function cafeNow() {
+  var parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: TZ, weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false
+  }).formatToParts(new Date());
+  var o = {};
+  parts.forEach(function (p) { o[p.type] = p.value; });
+  var names = { Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6 };
+  var hh = parseInt(o.hour, 10); if (hh === 24) hh = 0;
+  return { dow: names[o.weekday], mins: hh * 60 + parseInt(o.minute, 10) };
+}
+function toMins(hhmm) {
+  var m = /^(\d{1,2}):(\d{2})/.exec(String(hhmm || ''));
+  return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : null;
+}
+function fmtTime(hhmm) {
+  var t = toMins(hhmm); if (t == null) return '';
+  var h = Math.floor(t / 60), m = t % 60;
+  var ap = h >= 12 ? 'pm' : 'am';
+  var h12 = h % 12; if (h12 === 0) h12 = 12;
+  return h12 + (m ? ':' + String(m).padStart(2, '0') : '') + ap;
+}
+/* hours[] is Monday-first; JS getDay() is Sunday-first */
+function dayFor(dow) {
+  var days = (state.hours && state.hours.days) || [];
+  if (days.length !== 7) return null;
+  return days[(dow + 6) % 7];
+}
+
+function paintOpen() {
+  var chip = $('#openChip'), txt = $('#openTxt');
+  if (!chip || !txt) return;
+  var now = cafeNow(), d = dayFor(now.dow);
+  chip.classList.remove('is-open', 'is-shut');
+  if (!d) { txt.textContent = 'See hours below'; return; }
+  var o = toMins(d.open), c = toMins(d.close);
+  if (o == null || c == null) { txt.textContent = 'See hours below'; return; }
+
+  if (now.mins >= o && now.mins < c) {
+    chip.classList.add('is-open');
+    var left = c - now.mins;
+    txt.innerHTML = '<b>Open now</b> · until ' + esc(fmtTime(d.close)) +
+      (left <= 60 ? ' <span style="color:var(--ink-faint)">(closing soon)</span>' : '');
+  } else {
+    chip.classList.add('is-shut');
+    var nd = now.mins < o ? d : dayFor((now.dow + 1) % 7);
+    var when = now.mins < o ? 'today' : 'tomorrow';
+    txt.innerHTML = '<b>Closed</b> · opens ' + esc(when) + ' at ' + esc(fmtTime(nd ? nd.open : '08:00'));
+  }
+}
+
+function paintHours() {
+  var tb = $('#hoursTbl tbody'); if (!tb) return;
+  var days = (state.hours && state.hours.days) || [];
+  var today = cafeNow().dow;
+  tb.innerHTML = days.map(function (d, i) {
+    var isToday = ((i + 1) % 7) === today;
+    return '<tr' + (isToday ? ' class="today"' : '') + '><th scope="row">' + esc(d.label) + '</th><td>' +
+      (d.closed ? 'Closed' : esc(fmtTime(d.open) + ' – ' + fmtTime(d.close))) + '</td></tr>';
+  }).join('');
+  var note = $('#hoursNote');
+  if (note && state.hours && state.hours.note) note.textContent = state.hours.note;
+}
+
+/* ── tray ──────────────────────────────────────────────────────────── */
+function loadTray() {
+  try { tray = JSON.parse(localStorage.getItem('sf_tray') || '{}') || {}; } catch (e) { tray = {}; }
+}
+function saveTray() { try { localStorage.setItem('sf_tray', JSON.stringify(tray)); } catch (e) {} }
+function bySlug(slug) {
+  for (var i = 0; i < state.menu.length; i++) if (state.menu[i].slug === slug) return state.menu[i];
+  return null;
+}
+function trayLines() {
+  var out = [];
+  Object.keys(tray).forEach(function (slug) {
+    var it = bySlug(slug), q = tray[slug];
+    if (it && q > 0 && it.price_cents > 0) out.push({ item: it, qty: q, line: it.price_cents * q });
+  });
+  return out;
+}
+function trayTotals() {
+  var lines = trayLines(), total = 0, count = 0;
+  lines.forEach(function (l) { total += l.line; count += l.qty; });
+  return { lines: lines, total: total, count: count };
+}
+function setQty(slug, n) {
+  if (n <= 0) delete tray[slug]; else tray[slug] = Math.min(99, n);
+  saveTray(); paintTray(); paintItemControls(slug);
+}
+function paintTray() {
+  var t = trayTotals(), bar = $('#trayBar');
+  $('#trayTotal').textContent = money(t.total);
+  $('#trayCount').textContent = t.count + (t.count === 1 ? ' item' : ' items');
+  bar.classList.toggle('up', t.count > 0);
+  document.body.style.paddingBottom = t.count > 0 ? '84px' : '0';
+
+  var rev = $('#revBody');
+  if (!t.count) {
+    rev.innerHTML = '<p style="color:var(--ink-faint);font-size:.94rem">Nothing yet — add something from the menu.</p>';
+  } else {
+    rev.innerHTML = t.lines.map(function (l) {
+      return '<div class="rev-line"><span>' + esc(l.item.name) + ' <b>&times;' + l.qty + '</b></span><span>' +
+             esc(money(l.line)) + '</span></div>';
+    }).join('') + '<div class="rev-total"><span>Total</span><span>' + esc(money(t.total)) + '</span></div>';
+  }
+}
+function paintItemControls(slug) {
+  var host = $('[data-foot="' + CSS.escape(slug) + '"]');
+  if (!host) return;
+  var it = bySlug(slug); if (!it) return;
+  host.innerHTML = footHTML(it);
+}
+function footHTML(it) {
+  if (!(it.price_cents > 0)) {
+    return '<div class="counter-note">Ask at the counter</div>';
+  }
+  var q = tray[it.slug] || 0;
+  if (!q) return '<button class="add" type="button" data-add="' + esc(it.slug) + '">+ Add to order</button>';
+  return '<div class="qty">' +
+    '<button type="button" data-dec="' + esc(it.slug) + '" aria-label="One fewer ' + esc(it.name) + '">&minus;</button>' +
+    '<b>' + q + '</b>' +
+    '<button type="button" data-inc="' + esc(it.slug) + '" aria-label="One more ' + esc(it.name) + '">+</button>' +
+    '</div>';
+}
+
+/* ── menu rendering ────────────────────────────────────────────────── */
+function itemHTML(it) {
+  var priced = it.price_cents > 0;
+  return '<article class="item">' +
+    '<div class="item-top"><h4>' + esc(it.name) + '</h4>' +
+      '<span class="price' + (priced ? '' : ' ask') + '">' +
+        (priced ? esc(money(it.price_cents)) : 'ask') + '</span></div>' +
+    (it.badge ? '<span class="badge">' + esc(it.badge) + '</span>' : '') +
+    (it.blurb ? '<p>' + esc(it.blurb) + '</p>' : '') +
+    '<div class="item-foot" data-foot="' + esc(it.slug) + '">' + footHTML(it) + '</div>' +
+  '</article>';
+}
+
+function visibleItems() {
+  var q = state.q.trim().toLowerCase();
+  return state.menu.filter(function (it) {
+    if (state.cat !== 'all' && it.category !== state.cat) return false;
+    if (!q) return true;
+    return (it.name + ' ' + (it.blurb || '')).toLowerCase().indexOf(q) >= 0;
+  });
+}
+
+function renderMenu() {
+  var body = $('#menuBody');
+  var items = visibleItems();
+  if (!items.length) {
+    body.innerHTML = '<p class="empty">Nothing matches that. Try another word, or clear the search.</p>';
+    return;
+  }
+  var cats = state.categories.filter(function (c) {
+    return items.some(function (it) { return it.category === c.key; });
+  });
+  body.innerHTML = cats.map(function (c) {
+    var mine = items.filter(function (it) { return it.category === c.key; });
+    return '<div class="cat-block reveal"><div class="cat-title"><h3>' + esc(c.label) + '</h3>' +
+      '<span>' + mine.length + (mine.length === 1 ? ' item' : ' items') + '</span></div>' +
+      '<div class="items">' + mine.map(itemHTML).join('') + '</div></div>';
+  }).join('');
+  observeReveals();
+}
+
+function renderCats() {
+  var rail = $('#catRail');
+  var all = [{ key: 'all', label: 'Everything' }].concat(state.categories);
+  rail.innerHTML = all.map(function (c) {
+    return '<button class="chip' + (state.cat === c.key ? ' on' : '') + '" type="button" data-cat="' +
+      esc(c.key) + '">' + esc(c.label) + '</button>';
+  }).join('');
+}
+
+/* ── reveal ────────────────────────────────────────────────────────── */
+var io = null;
+function observeReveals() {
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = $$('.reveal:not(.is-in)');
+  if (reduced || !('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('is-in'); });
+    return;
+  }
+  if (!io) {
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { threshold: [0, .15], rootMargin: '0px 0px -8% 0px' });
+  }
+  els.forEach(function (el) { io.observe(el); });
+}
+
+/* ── content application ───────────────────────────────────────────── */
+function applyCopy(copy) {
+  if (!copy) return;
+  $$('[data-edit]').forEach(function (el) {
+    var k = el.getAttribute('data-edit');
+    if (copy[k] != null && String(copy[k]).trim() !== '') el.textContent = copy[k];
+  });
+}
+function applyInfo(info) {
+  if (!info) return;
+  state.info = info;
+  var tel = 'tel:+1' + String(info.phone || '').replace(/\D/g, '');
+  $$('a[href^="tel:"]').forEach(function (a) { a.setAttribute('href', tel); });
+  if (info.phone_display) {
+    var vp = $('#vPhone'); if (vp) vp.textContent = info.phone_display;
+  }
+  if (info.address1) { var a1 = $('#vAddr1'); if (a1) a1.textContent = info.address1; }
+  if (info.city) {
+    var c = $('#vCity');
+    if (c) c.textContent = info.city + ', ' + (info.state || '') + ' ' + (info.zip || '');
+  }
+  if (info.maps_url) { var vm = $('#vMap'); if (vm) vm.setAttribute('href', info.maps_url); }
+  var toast = $('#toastLink');
+  if (toast && info.toast_url) {
+    toast.setAttribute('href', info.toast_url);
+    $('#altOrder').hidden = false;
+  }
+}
+
+/* ── pickup time options ───────────────────────────────────────────── */
+function fillTimes() {
+  var sel = $('#ofTime'); if (!sel) return;
+  var opts = ['<option value="">As soon as it is ready</option>'];
+  for (var m = 8 * 60; m <= 20 * 60; m += 15) {
+    var h = Math.floor(m / 60), mm = m % 60;
+    var ap = h >= 12 ? 'pm' : 'am', h12 = h % 12 || 12;
+    var label = h12 + ':' + String(mm).padStart(2, '0') + ap;
+    opts.push('<option value="' + label + '">' + label + '</option>');
+  }
+  sel.innerHTML = opts.join('');
+}
+function setDateBounds() {
+  var d = $('#ofDate'); if (!d) return;
+  /* local calendar fields — toISOString() is UTC and pre-fills tomorrow in the evening */
+  var now = new Date();
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var today = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
+  var max = new Date(now.getTime() + 30 * 864e5);
+  d.setAttribute('min', today);
+  d.setAttribute('max', max.getFullYear() + '-' + pad(max.getMonth() + 1) + '-' + pad(max.getDate()));
+  d.value = today;
+}
+
+/* ── order submit ──────────────────────────────────────────────────── */
+function wireForm() {
+  var form = $('#orderForm'), btn = $('#ofSubmit'), msg = $('#ofMsg');
+  var busy = false;
+
+  function say(text, kind) {
+    msg.textContent = text;
+    msg.className = 'form-msg show ' + kind;
+  }
+  function reset() { busy = false; btn.disabled = false; btn.textContent = 'Send pre-order'; }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (busy) return;
+
+    var t = trayTotals();
+    var name = $('#ofName').value.trim();
+    var phone = $('#ofPhone').value.trim();
+    var email = $('#ofEmail').value.trim();
+
+    if (name.length < 2) { say('Please tell us your name.', 'err'); $('#ofName').focus(); return; }
+    if (!phone && !email) { say('Leave a phone number or an email so we can reach you.', 'err'); $('#ofPhone').focus(); return; }
+    if (!t.count) { say('Your order is empty — add something from the menu first.', 'err'); return; }
+
+    var payload = {
+      name: name, phone: phone, email: email,
+      pickup_date: $('#ofDate').value, pickup_time: $('#ofTime').value,
+      notes: $('#ofNotes').value.trim(), website: $('#ofWebsite').value,
+      items: t.lines.map(function (l) { return { slug: l.item.slug, qty: l.qty }; })
+    };
+
+    if (!LIVE) {
+      var body = 'Pickup pre-order\r\n\r\n' +
+        t.lines.map(function (l) { return l.qty + ' x ' + l.item.name + ' — ' + money(l.line); }).join('\r\n') +
+        '\r\n\r\nTotal: ' + money(t.total) +
+        '\r\nName: ' + name + '\r\nPhone: ' + phone + '\r\nEmail: ' + email +
+        '\r\nPickup: ' + payload.pickup_date + ' ' + payload.pickup_time +
+        '\r\nNotes: ' + payload.notes;
+      location.href = 'mailto:?subject=' + encodeURIComponent('Pickup pre-order — ' + name) +
+        '&body=' + encodeURIComponent(body).replace(/%0A/g, '%0D%0A');
+      return;
+    }
+
+    busy = true; btn.disabled = true; btn.textContent = 'Sending…';
+    track('order_submit', { count: t.count, total_cents: t.total });
+
+    rpc('sf_submit_order', { p: payload }).then(function (id) {
+      say('Got it. We will have your order ready — call us at ' +
+          (state.info.phone_display || '(715) 570-0393') + ' if anything changes.', 'ok');
+      tray = {}; saveTray(); paintTray();
+      $$('[data-foot]').forEach(function (el) {
+        var it = bySlug(el.getAttribute('data-foot'));
+        if (it) el.innerHTML = footHTML(it);
+      });
+      form.reset(); setDateBounds();
+      reset(); btn.textContent = 'Sent ✓'; btn.disabled = true;
+    })['catch'](function (err) {
+      var m = String(err && err.message || '');
+      if (m.indexOf('rate_limited') >= 0) say('That is a lot of orders from one place. Give us a call instead.', 'err');
+      else if (m.indexOf('contact_required') >= 0) say('Leave a phone number or an email so we can reach you.', 'err');
+      else if (m.indexOf('empty_order') >= 0) say('Your order is empty — add something from the menu first.', 'err');
+      else if (m.indexOf('bad_pickup_date') >= 0) say('Pick a pickup day within the next month.', 'err');
+      else say('That did not go through. Please call us at ' + (state.info.phone_display || '(715) 570-0393') + '.', 'err');
+      reset();
+    });
+  });
+
+  var started = false;
+  form.addEventListener('input', function () {
+    if (!started) { started = true; track('order_start'); }
+  }, { once: false });
+}
+
+/* ── wiring ────────────────────────────────────────────────────────── */
+function wire() {
+  document.addEventListener('click', function (e) {
+    var el;
+    if ((el = e.target.closest('[data-add]'))) { setQty(el.getAttribute('data-add'), 1); return; }
+    if ((el = e.target.closest('[data-inc]'))) {
+      var s = el.getAttribute('data-inc'); setQty(s, (tray[s] || 0) + 1); return;
+    }
+    if ((el = e.target.closest('[data-dec]'))) {
+      var s2 = el.getAttribute('data-dec'); setQty(s2, (tray[s2] || 0) - 1); return;
+    }
+    if ((el = e.target.closest('[data-cat]'))) {
+      state.cat = el.getAttribute('data-cat');
+      renderCats(); renderMenu();
+      var sec = document.getElementById('menu');
+      if (sec) window.scrollTo({ top: sec.offsetTop - 8, behavior: 'smooth' });
+      track('menu_open', { category: state.cat });
+      return;
+    }
+    if ((el = e.target.closest('[data-track]'))) { track(el.getAttribute('data-track')); }
+  });
+
+  var burger = $('#burger'), mob = $('#mobMenu');
+  burger.addEventListener('click', function () {
+    var open = mob.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  mob.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') { mob.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+  });
+
+  var search = $('#menuSearch'), timer = null;
+  search.addEventListener('input', function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () { state.q = search.value; renderMenu(); }, 140);
+  });
+
+  $('#trayClear').addEventListener('click', function () {
+    tray = {}; saveTray(); paintTray();
+    $$('[data-foot]').forEach(function (el) {
+      var it = bySlug(el.getAttribute('data-foot'));
+      if (it) el.innerHTML = footHTML(it);
+    });
+  });
+
+  /* header elevation via a sentinel, not a scroll listener */
+  var sentinel = document.createElement('div');
+  sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px';
+  document.body.prepend(sentinel);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (en) {
+      $('#hdr').classList.toggle('is-stuck', !en[0].isIntersecting);
+    }).observe(sentinel);
+  }
+}
+
+/* ── boot ──────────────────────────────────────────────────────────── */
+function boot() {
+  $('#yr').textContent = new Date().getFullYear();
+  if (CFG.BUILD) $('#buildTag').textContent = CFG.BUILD;
+
+  loadTray();
+  fillTimes();
+  setDateBounds();
+  wire();
+  wireForm();
+
+  state.categories = FALLBACK.categories;
+  state.menu = FALLBACK.menu;
+  renderCats();
+  renderMenu();
+  paintOpen();
+  paintHours();
+  paintTray();
+  observeReveals();
+  setInterval(paintOpen, 60000);
+
+  if (!LIVE) return;
+
+  Promise.all([
+    api('sf_categories?select=key,label,blurb,sort&active=eq.true&order=sort.asc'),
+    api('sf_menu?select=slug,name,category,blurb,price_cents,unit,badge,sort,featured&active=eq.true&order=category.asc,sort.asc'),
+    api('sf_content?select=section,data')
+  ]).then(function (res) {
+    var cats = res[0] || [], menu = res[1] || [], content = res[2] || [];
+    if (cats.length) state.categories = cats;
+    if (menu.length) state.menu = menu;
+
+    content.forEach(function (row) {
+      if (row.section === 'copy') applyCopy(row.data);
+      if (row.section === 'info') applyInfo(row.data);
+      if (row.section === 'hours' && row.data && row.data.days) state.hours = row.data;
+    });
+
+    renderCats();
+    renderMenu();
+    paintOpen();
+    paintHours();
+    paintTray();
+    track('page_view');
+  })['catch'](function () {
+    /* the baked-in content is already on screen — say nothing, break nothing */
+  });
+}
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+else boot();
+})();
+</script>
+</body>
+</html>

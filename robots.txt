@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://orioncontinuity.github.io/Sunflower-Cafe/sitemap.xml
