@@ -556,6 +556,29 @@ grant select on table public.sf_categories to anon;
 grant select on table public.sf_menu       to anon;
 grant select on table public.sf_photos     to anon;
 
+--     THE ABOVE IS A SWEEP. THIS IS THE CURE.
+--
+--     Revoking on existing tables does not stop the NEXT table from arriving
+--     with the same privileges — Supabase's DEFAULT ACL re-grants them on
+--     every CREATE TABLE. Fixing that needs ALTER DEFAULT PRIVILEGES, which
+--     must run AS the grantor role.
+--
+--     ⚠ NOTE ON SCOPE: this is PROJECT-WIDE, not sf_-only. In a project shared
+--     with other sites (WebApps holds gbc_, ar_, es_ and sf_) it changes the
+--     defaults for all of them. It is strictly a tightening and one statement
+--     to reverse, but announce it rather than slipping it in.
+--
+--     ⚠ NOTE ON TOOLING: run this with execute_sql, which connects as postgres.
+--     apply_migration uses a different role and fails with "permission denied
+--     to change default privileges". That error is the tool, not the account.
+--
+--     The supabase_admin grantor also carries a default ACL and we cannot
+--     change it (postgres is not a member of that role) — but it does not
+--     matter: a default ACL only applies to objects created BY its grantor,
+--     and every table here is owned by postgres.
+alter default privileges for role postgres in schema public
+  revoke truncate, references, trigger on tables from anon, authenticated;
+
 -- FUNCTIONS NEXT — same idea, same reason.
 do $$
 declare f text;
