@@ -44,6 +44,19 @@ priced at $0.00 still appears on the menu, reads *"ask"* instead of a price, and
 added to a pre-order** — `sf_submit_order` drops unpriced lines server-side, so nothing can
 be ordered for free.
 
+**The To Go charge is not optional.** The menu carries a `togo` row at $1.00. It is packaging,
+not a dish, so it is hidden from the menu grid and added by the *server*, once per order, to
+every pre-order — everything ordered through this site is pickup. The tray shows it as its own
+line so the total is never a surprise, and a tampered cart can neither remove it nor multiply
+it: `sf_submit_order` ignores any `togo` line the browser sends and appends its own.
+
+**Dish choices.** `sf_menu.options` holds choice groups, e.g.
+`[{"label":"Toast","choices":["White","Wheat","Rye"]}]`. They render as dropdowns on the tray
+line, next to a free-text note ("over easy please"). Both are validated server-side: a choice
+that is not on that item's list is dropped rather than trusted. **Nothing is seeded** — the
+menu says "choice of potato and toast" but never which potatoes or which breads, and those are
+facts only the café has. The back office is where they get filled in.
+
 ## Files
 
 | Path | What it is |
@@ -54,6 +67,20 @@ be ordered for free.
 | `supabase-setup.sql` | Schema, RLS, and every RPC. Run once. |
 | `config.js` | The only file with credentials in it. |
 | `favicon.svg`, `404.html`, `robots.txt`, `sitemap.xml` | The usual furniture. |
+
+## Sections that hide themselves
+
+Four parts of the page render only when there is something true to put in them, so the site
+never shows an empty frame:
+
+| Section | Fed by | Shows when |
+| --- | --- | --- |
+| **Today** (dark band under the hero) | `sf_content` → `today` | a headline or soup of the day is set |
+| **A look inside** (gallery) | `sf_photos` where `slot = 'room'` | at least one photo exists |
+| **Questions we get asked** | `sf_content` → `faq` | at least one complete Q and A |
+| **Social links** (footer) | `sf_content` → `social` | a Facebook or Instagram URL is set |
+
+Photos are resized in the browser before upload, so a phone photo does not become a slow page.
 
 ## How the security model works
 
@@ -134,8 +161,10 @@ correct for the café regardless of where the visitor is.
 
 Two ways in, both gated by the same passphrase and the same RPCs:
 
-- **`admin.html`** — orders inbox, the full menu, page text, hours and contact
-  details, plus a small analytics tile.
+- **`admin.html`** — orders inbox, the full menu (including each dish's choice groups,
+  entered as plain lines like `Toast: White, Wheat, Rye`), photo upload for the gallery,
+  today's line and soup, the FAQ, social links, page text, hours and contact details,
+  plus a small analytics tile.
 - **`?edit=1`** — open the site itself in edit mode from the back office's
   *Edit on the page* button. Every string with a `data-edit` key becomes
   clickable, every dish card grows an Edit button, and the toolbar has the

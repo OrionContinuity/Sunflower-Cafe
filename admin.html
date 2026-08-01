@@ -169,6 +169,8 @@ dialog::backdrop{background:rgba(43,33,24,.45)}
       <button class="tab" data-panel="menu" role="tab">Menu</button>
       <button class="tab" data-panel="page" role="tab">Page text</button>
       <button class="tab" data-panel="hours" role="tab">Hours &amp; info</button>
+      <button class="tab" data-panel="photos" role="tab">Photos</button>
+      <button class="tab" data-panel="faq" role="tab">Today &amp; FAQ</button>
     </div>
 
     <section class="panel on" id="p-orders">
@@ -209,6 +211,37 @@ dialog::backdrop{background:rgba(43,33,24,.45)}
       <button class="btn btn-primary" id="saveHours" type="button">Save hours &amp; info</button>
       <div class="msg" id="hoursMsg" role="status" aria-live="polite"></div>
     </section>
+
+    <section class="panel" id="p-photos">
+      <div class="row" style="margin-bottom:14px">
+        <h2>Photos of the room</h2>
+        <span class="sp"></span>
+        <label class="btn btn-sm btn-primary" style="cursor:pointer">
+          + Add photos<input id="photoPick" type="file" accept="image/*" multiple hidden>
+        </label>
+      </div>
+      <p class="muted" style="margin-bottom:14px">
+        These fill the &ldquo;A look inside&rdquo; section on the site, which stays hidden while there are none.
+        Pictures are resized in your browser before upload, so a phone photo will not slow the page down.
+        To replace a dish&rsquo;s drawing with a real photo, use the picture field on that item instead.
+      </p>
+      <div class="msg" id="photoMsg" role="status" aria-live="polite"></div>
+      <div id="photoBody"><p class="muted">Loading…</p></div>
+    </section>
+
+    <section class="panel" id="p-faq">
+      <div class="row" style="margin-bottom:14px"><h2>Today</h2></div>
+      <div class="card" id="todayBody"></div>
+      <div class="row" style="margin:22px 0 14px">
+        <h2>Questions &amp; answers</h2>
+        <span class="sp"></span>
+        <button class="btn btn-sm" id="addFaq" type="button">+ Add a question</button>
+      </div>
+      <p class="muted" style="margin-bottom:12px">Leave a question blank to remove it. The whole section hides itself if there are none.</p>
+      <div id="faqBody"></div>
+      <button class="btn btn-primary" id="saveFaq" type="button" style="margin-top:14px">Save today &amp; FAQ</button>
+      <div class="msg" id="faqMsg" role="status" aria-live="polite"></div>
+    </section>
   </div>
 </div>
 
@@ -228,6 +261,8 @@ dialog::backdrop{background:rgba(43,33,24,.45)}
     <div class="grid2">
       <div class="field"><label for="fBadge">Badge <span class="muted">(optional)</span></label><input id="fBadge" placeholder="Fridays only"></div>
       <div class="field"><label for="fGlyph">Placeholder drawing</label><select id="fGlyph"></select></div>
+    <div class="field"><label for="fOptions">Choices <span class="muted">(one group per line, e.g. <code>Toast: White, Wheat, Rye</code>)</span></label>
+      <textarea id="fOptions" placeholder="Potato: Hash browns, Cheesy potatoes, Fruit&#10;Toast: White, Wheat, Rye"></textarea></div>
       <div class="field"><label for="fActive">Shown on the site</label>
         <select id="fActive"><option value="true">Yes</option><option value="false">Hidden</option></select></div>
     </div>
@@ -259,6 +294,24 @@ var PASS = '';
 try { PASS = sessionStorage.getItem('sf_pass') || ''; } catch (e) {}
 
 var cats = [], items = [], content = {};
+/* choices are edited as plain lines — "Toast: White, Wheat" — because a JSON
+   editor is a wall for the person who actually knows the menu */
+function optionsToText(opts) {
+  return (opts || []).map(function (g) {
+    return (g.label || '') + ': ' + ((g.choices || []).join(', '));
+  }).join('\n');
+}
+function textToOptions(txt) {
+  return String(txt || '').split('\n').map(function (line) {
+    var i = line.indexOf(':');
+    if (i < 0) return null;
+    var label = line.slice(0, i).trim();
+    var choices = line.slice(i + 1).split(',').map(function (c) { return c.trim(); })
+                    .filter(function (c) { return c; });
+    if (!label || !choices.length) return null;
+    return { label: label, required: false, choices: choices };
+  }).filter(Boolean);
+}
 var GLYPHS = ['pancakes','omelet','skillet','benedict','egg','sandwich','burger','wrap',
   'quesadilla','tortilla','fish','wings','curds','soup','salad','steak','bacon','toast',
   'fries','pie','coffee','tea','milk','juice','soda','kids','plate'];
@@ -425,6 +478,7 @@ function openItem(item) {
   $('#fPrice').value = item ? (item.price_cents / 100).toFixed(2) : '';
   $('#fSort').value = item ? item.sort : 100;
   $('#fActive').value = item ? String(!!item.active) : 'true';
+  $('#fOptions').value = item ? optionsToText(item.options) : '';
   $('#fGlyph').innerHTML = GLYPHS.map(function (g) {
     return '<option value="' + g + '"' + ((item && item.glyph === g) ? ' selected' : '') + '>' + g + '</option>';
   }).join('');
@@ -459,7 +513,8 @@ $('#dlgSave').addEventListener('click', function () {
     price_cents: Math.round(dollars * 100),
     sort: Number($('#fSort').value) || 100,
     active: $('#fActive').value === 'true',
-    glyph: $('#fGlyph').value
+    glyph: $('#fGlyph').value,
+    options: textToOptions($('#fOptions').value)
   };
   /* keep the slug stable on an existing item so links and past orders still resolve */
   if (id) {
@@ -495,7 +550,7 @@ $('#dlgDelete').addEventListener('click', function () {
 function loadMenu() {
   return Promise.all([
     api('sf_categories?select=key,label,blurb,sort&order=sort.asc'),
-    api('sf_menu?select=id,slug,name,category,blurb,price_cents,badge,glyph,sort,featured,active&order=category.asc,sort.asc')
+    api('sf_menu?select=id,slug,name,category,blurb,price_cents,badge,glyph,options,sort,featured,active&order=category.asc,sort.asc')
   ]).then(function (r) {
     cats = r[0] || []; items = r[1] || [];
     paintMenu();
@@ -635,15 +690,158 @@ $('#saveHours').addEventListener('click', function () {
   });
 });
 
+/* ── photos ────────────────────────────────────────────────────────── */
+var PHOTOS = [];
+
+/* resized in the browser so a 4MB phone photo does not become a 4MB page */
+function shrink(file, maxW, cb) {
+  var img = new Image(), url = URL.createObjectURL(file);
+  img.onload = function () {
+    var w = img.naturalWidth, h = img.naturalHeight;
+    if (w > maxW) { h = Math.round(h * (maxW / w)); w = maxW; }
+    var c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    c.getContext('2d').drawImage(img, 0, 0, w, h);
+    URL.revokeObjectURL(url);
+    cb(c.toDataURL('image/jpeg', 0.82));
+  };
+  img.onerror = function () { URL.revokeObjectURL(url); cb(null); };
+  img.src = url;
+}
+
+function paintPhotos() {
+  var body = $('#photoBody');
+  if (!PHOTOS.length) {
+    body.innerHTML = '<p class="muted">No photos yet. The section stays hidden on the site until there is at least one.</p>';
+    return;
+  }
+  body.innerHTML = '<div class="stats" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr))">' +
+    PHOTOS.map(function (ph) {
+      return '<div class="card" style="padding:10px">' +
+        '<img src="' + esc(ph.url) + '" alt="' + esc(ph.alt || '') + '" ' +
+          'style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block">' +
+        '<input style="width:100%;margin-top:8px;padding:8px 10px;font-size:16px;border:1px solid var(--line);border-radius:8px;background:var(--page)" ' +
+          'value="' + esc(ph.alt || '') + '" data-alt="' + esc(ph.id) + '" placeholder="Describe the photo">' +
+        '<div class="row" style="margin-top:8px">' +
+          '<button class="btn btn-sm" type="button" data-photo-save="' + esc(ph.id) + '">Save text</button>' +
+          '<span class="sp"></span>' +
+          '<button class="btn btn-sm btn-danger" type="button" data-photo-del="' + esc(ph.id) + '">Remove</button>' +
+        '</div></div>';
+    }).join('') + '</div>';
+}
+
+function loadPhotos() {
+  return api('sf_photos?select=id,url,alt,sort,active&slot=eq.room&order=sort.asc')
+    .then(function (rows) { PHOTOS = rows || []; paintPhotos(); })
+    ['catch'](function () { $('#photoBody').innerHTML = '<p class="muted">Could not load photos.</p>'; });
+}
+
+$('#photoPick').addEventListener('change', function (e) {
+  var files = [].slice.call(e.target.files || []);
+  if (!files.length) return;
+  var msg = $('#photoMsg'), done = 0, failed = 0;
+  say(msg, 'Uploading ' + files.length + '…', '');
+  files.forEach(function (f, i) {
+    shrink(f, 1600, function (dataUrl) {
+      if (!dataUrl) { failed++; return; }
+      rpc('sf_save_photo', { p_pass: PASS, p_id: null,
+        p_data: { slot: 'room', url: dataUrl, alt: '', sort: 100 + i, active: true } })
+        .then(function () { done++; })
+        ['catch'](function () { failed++; })
+        .then(function () {
+          if (done + failed === files.length) {
+            say(msg, failed ? (done + ' added, ' + failed + ' failed') : (done + ' added.'), failed ? 'err' : 'ok');
+            loadPhotos();
+          }
+        });
+    });
+  });
+  e.target.value = '';
+});
+
+document.addEventListener('click', function (e) {
+  var d = e.target.closest('[data-photo-del]');
+  if (d) {
+    if (!confirm('Remove this photo?')) return;
+    d.disabled = true;
+    rpc('sf_delete_photo', { p_pass: PASS, p_id: Number(d.getAttribute('data-photo-del')) })
+      .then(loadPhotos)['catch'](function () { d.disabled = false; });
+    return;
+  }
+  var sv = e.target.closest('[data-photo-save]');
+  if (sv) {
+    var id = Number(sv.getAttribute('data-photo-save'));
+    var input = $('[data-alt="' + id + '"]');
+    sv.disabled = true;
+    rpc('sf_save_photo', { p_pass: PASS, p_id: id, p_data: { alt: input ? input.value.trim() : '' } })
+      .then(function () { sv.disabled = false; say($('#photoMsg'), 'Saved.', 'ok'); })
+      ['catch'](function () { sv.disabled = false; });
+  }
+});
+
+/* ── today, FAQ, social ────────────────────────────────────────────── */
+function paintToday() {
+  var t = content.today || {}, n = content.social || {};
+  $('#todayBody').innerHTML =
+    '<div class="field"><label for="tdHead">Today&rsquo;s line <span class="muted">(leave blank to hide the whole band)</span></label>' +
+      '<input id="tdHead" value="' + esc(t.headline || '') + '" placeholder="Rhubarb pie came out of the oven at seven."></div>' +
+    '<div class="field"><label for="tdSoup">Soup of the day <span class="muted">(optional)</span></label>' +
+      '<input id="tdSoup" value="' + esc(t.soup || '') + '" placeholder="Soup: chicken dumpling"></div>' +
+    '<div class="grid2" style="margin-top:6px">' +
+      '<div class="field"><label for="soFb">Facebook link</label><input id="soFb" value="' + esc(n.facebook || '') + '" placeholder="https://facebook.com/..."></div>' +
+      '<div class="field"><label for="soIg">Instagram link</label><input id="soIg" value="' + esc(n.instagram || '') + '" placeholder="https://instagram.com/..."></div>' +
+    '</div>';
+}
+function faqRows() { return (content.faq && content.faq.items) || []; }
+function paintFaq(list) {
+  var items = list || faqRows();
+  $('#faqBody').innerHTML = items.map(function (it, i) {
+    return '<div class="card">' +
+      '<div class="field"><label>Question ' + (i + 1) + '</label>' +
+        '<input class="faq-q" value="' + esc(it.q || '') + '"></div>' +
+      '<div class="field"><label>Answer</label>' +
+        '<textarea class="faq-a">' + esc(it.a || '') + '</textarea></div>' +
+    '</div>';
+  }).join('') || '<p class="muted">No questions yet.</p>';
+}
+$('#addFaq').addEventListener('click', function () {
+  var cur = [].slice.call(document.querySelectorAll('#faqBody .card')).map(function (c) {
+    return { q: c.querySelector('.faq-q').value, a: c.querySelector('.faq-a').value };
+  });
+  cur.push({ q: '', a: '' });
+  paintFaq(cur);
+});
+$('#saveFaq').addEventListener('click', function () {
+  var btn = this, msg = $('#faqMsg');
+  var items = [].slice.call(document.querySelectorAll('#faqBody .card')).map(function (c) {
+    return { q: c.querySelector('.faq-q').value.trim(), a: c.querySelector('.faq-a').value.trim() };
+  }).filter(function (i) { return i.q && i.a; });
+  var today = { headline: $('#tdHead').value.trim(), soup: $('#tdSoup').value.trim(), note: '' };
+  var social = { facebook: $('#soFb').value.trim(), instagram: $('#soIg').value.trim(), note: '' };
+  btn.disabled = true; btn.textContent = 'Saving…';
+  Promise.all([
+    rpc('sf_save_content', { p_pass: PASS, p_section: 'today',  p_data: today }),
+    rpc('sf_save_content', { p_pass: PASS, p_section: 'faq',    p_data: { items: items } }),
+    rpc('sf_save_content', { p_pass: PASS, p_section: 'social', p_data: social })
+  ]).then(function () {
+    btn.disabled = false; btn.textContent = 'Save today & FAQ';
+    content.today = today; content.faq = { items: items }; content.social = social;
+    paintFaq(); say(msg, 'Saved. Reload the site to see it.', 'ok');
+  })['catch'](function (err) {
+    btn.disabled = false; btn.textContent = 'Save today & FAQ';
+    say(msg, 'Could not save: ' + (err && err.message ? err.message : ''), 'err');
+  });
+});
+
 /* ── boot ──────────────────────────────────────────────────────────── */
 function loadContent() {
   return api('sf_content?select=section,data').then(function (rows) {
     (rows || []).forEach(function (r) { content[r.section] = r.data; });
-    paintCopy(); paintHours(); paintInfo();
+    paintCopy(); paintHours(); paintInfo(); paintToday(); paintFaq();
   })['catch'](function () {});
 }
 function loadAll() {
-  loadStats(); loadOrders(); loadMenu(); loadContent();
+  loadStats(); loadOrders(); loadMenu(); loadContent(); loadPhotos();
 }
 
 if (!CFG.SUPA_URL || !CFG.SUPA_KEY) {

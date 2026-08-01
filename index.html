@@ -338,6 +338,52 @@
     border-top:2px solid var(--ink);font-variant-numeric:tabular-nums}
   .tray-empty{font-size:14px;color:var(--ink-faint);padding:14px 0 4px}
   .tray-note{font-size:12px;color:var(--ink-faint);margin-top:12px;line-height:1.5}
+  .tray-list .tl-opts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .tl-opt{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--ink-faint);
+    letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+  .tl-opt select{font-family:inherit;font-size:16px;color:var(--ink);background:var(--page);
+    border:1px solid var(--line);border-radius:var(--r-sm);padding:7px 10px;text-transform:none;
+    letter-spacing:0;font-weight:400}
+  .tray-list .tl-note{grid-column:1/-1;margin-top:8px;width:100%;font-family:inherit;font-size:16px;
+    color:var(--ink);background:var(--page);border:1px solid var(--line);
+    border-radius:var(--r-sm);padding:9px 11px}
+  .tl-note:focus,.tl-opt select:focus{outline:none;border-color:var(--gold);box-shadow:var(--ring)}
+  .tray-fee{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;
+    color:var(--ink-faint);padding:2px 0 10px}
+  .tray-fee small{display:block;font-size:11.5px}
+
+  /* ── today board ─────────────────────────────────────────── */
+  .today{background:var(--ink);color:#F6EFE4;border-block:1px solid var(--ink)}
+  .today-in{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:16px 0}
+  .today-tag{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--gold-lite);flex:none}
+  .today-in p{font-size:15.5px;margin:0}
+  .today-in .soup{margin-left:auto;font-size:13.5px;color:#C9B8A8}
+
+  /* ── gallery ─────────────────────────────────────────────── */
+  .gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+  .gal figure{margin:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
+    background:var(--band);aspect-ratio:4/3;box-shadow:var(--shadow-1)}
+  .gal img{width:100%;height:100%;object-fit:cover}
+
+  /* ── faq ─────────────────────────────────────────────────── */
+  .faq{max-width:70ch}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{cursor:pointer;list-style:none;padding:17px 2px;min-height:52px;
+    display:flex;align-items:center;gap:12px;font-family:var(--disp);font-weight:600;font-size:17px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::marker{content:''}
+  .faq summary .q-chev{flex:none;width:17px;height:17px;color:var(--gold);
+    transition:transform .22s cubic-bezier(.4,0,.2,1)}
+  .faq details[open] summary .q-chev{transform:rotate(90deg)}
+  .faq p{padding:0 2px 18px;color:var(--ink-soft);font-size:15px}
+  @media(hover:hover){.faq summary:hover{color:var(--gold)}}
+
+  .socials{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .socials a{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:8px 14px;
+    border-radius:999px;border:1px solid rgba(233,227,219,.24);font-size:13.5px;font-weight:600}
+  @media(hover:hover){.socials a:hover{border-color:var(--gold-lite)}}
+
   .alt-order{margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline)}
   .alt-order p{font-size:12.5px;color:var(--ink-faint);margin-bottom:10px}
 
@@ -613,6 +659,8 @@
         <a class="btn btn-p" href="#menu"><span data-edit="hero.cta1">See the menu</span>
           <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn btn-s" href="#order"><span data-edit="hero.cta2">Pre-order for pickup</span></a>
+        <a class="btn btn-s" id="heroToast" href="#" target="_blank" rel="noopener" hidden
+           data-track="toast_click">Order &amp; pay online</a>
       </div>
       <span class="open-chip" id="openChip"><span class="dot"></span><span id="openTxt">Checking hours…</span></span>
     </div>
@@ -644,6 +692,15 @@
     <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20h14M6 20V9a6 6 0 0 1 12 0v11"/><path d="M9 5V3M15 5V3"/></svg>
       <b data-edit="trust.3.title">Made in house</b><span data-edit="trust.3.sub">Soups, salsa and desserts</span></li>
   </ul>
+</section>
+
+<!-- ══ TODAY ══ -->
+<section class="today" id="today" hidden aria-label="Today at the cafe">
+  <div class="wrap today-in">
+    <span class="today-tag">Today</span>
+    <p id="todayHeadline"></p>
+    <span class="soup" id="todaySoup" hidden></span>
+  </div>
 </section>
 
 <!-- ══ THE MENU ══ -->
@@ -746,6 +803,10 @@
       <h3>Your tray</h3>
       <ul class="tray-list" id="trayList"></ul>
       <p class="tray-empty" id="trayEmpty">Nothing yet — add something from the menu.</p>
+      <div class="tray-fee" id="trayFee" hidden>
+        <span><span id="trayFeeName">To go</span><small>Every pickup order is packed to go.</small></span>
+        <span id="trayFeeVal">$1.00</span>
+      </div>
       <div class="tray-total" id="trayTotal" hidden><span>Estimated total</span><span id="trayTotalVal">$0.00</span></div>
       <p class="tray-note">This sends the order to the café; it does not take payment.
         We will call if anything is unclear.</p>
@@ -757,11 +818,29 @@
   </div>
 </section>
 
+<!-- ══ GALLERY ══ -->
+<section class="sec wrap" id="gallery" hidden>
+  <div class="sec-head">
+    <p class="kicker"><span data-edit="gallery.kicker">The Room</span><span class="no">04</span></p>
+    <h2 data-edit="gallery.h2">A look inside</h2>
+  </div>
+  <div class="gal" id="galGrid"></div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="sec wrap" id="faq" hidden>
+  <div class="sec-head">
+    <p class="kicker"><span data-edit="faq.kicker">Good to know</span><span class="no">05</span></p>
+    <h2 data-edit="faq.h2">Questions we get asked</h2>
+  </div>
+  <div class="faq" id="faqList"></div>
+</section>
+
 <!-- ══ VISIT ══ -->
 <section class="sec band" id="visit">
   <div class="wrap">
     <div class="sec-head">
-      <p class="kicker"><span data-edit="visit.kicker">Visit</span><span class="no">04</span></p>
+      <p class="kicker"><span data-edit="visit.kicker">Visit</span><span class="no">06</span></p>
       <h2 data-edit="visit.h2">Find us on Church Street</h2>
     </div>
     <div class="notice">
@@ -813,6 +892,7 @@
           </svg>
           <b>Sunflower Café</b>
         </div>
+        <div class="socials" id="socials" hidden></div>
         <p class="f-blurb" data-edit="footer.blurb">A neighborhood café in Stevens Point, Wisconsin. Breakfast all morning,
           lunch off the same griddle, and a fish fry every Friday.</p>
       </div>
@@ -1017,6 +1097,24 @@ function paintHours() {
 /* ── tray ──────────────────────────────────────────────────────────── */
 function loadTray() {
   try { tray = JSON.parse(localStorage.getItem('sf_tray') || '{}') || {}; } catch (e) { tray = {}; }
+  /* older carts stored a bare number per slug; normalise so the rest of the
+     code only ever sees {q, note, choices} */
+  Object.keys(tray).forEach(function (k) {
+    if (typeof tray[k] === 'number') tray[k] = { q: tray[k], note: '', choices: {} };
+    if (!tray[k] || typeof tray[k] !== 'object') { delete tray[k]; return; }
+    tray[k].q = Math.max(0, Math.min(99, parseInt(tray[k].q, 10) || 0));
+    tray[k].note = String(tray[k].note || '').slice(0, 200);
+    if (!tray[k].choices || typeof tray[k].choices !== 'object') tray[k].choices = {};
+    if (!tray[k].q) delete tray[k];
+  });
+}
+function qtyOf(slug) { return (tray[slug] && tray[slug].q) || 0; }
+/* the packaging charge: not a dish, never in the grid, always on the order */
+function togoItem() {
+  for (var i = 0; i < MENU.length; i++) {
+    if (MENU[i].slug === 'togo' && MENU[i].price_cents > 0) return MENU[i];
+  }
+  return null;
 }
 function saveTray() { try { localStorage.setItem('sf_tray', JSON.stringify(tray)); } catch (e) {} }
 function bySlug(slug) {
@@ -1026,13 +1124,21 @@ function bySlug(slug) {
 function trayLines() {
   var out = [];
   Object.keys(tray).forEach(function (slug) {
-    var it = bySlug(slug), q = tray[slug];
-    if (it && q > 0 && it.price_cents > 0) out.push({ item: it, qty: q, line: it.price_cents * q });
+    var it = bySlug(slug), e = tray[slug];
+    if (it && e && e.q > 0 && it.price_cents > 0 && it.category !== 'togo') {
+      out.push({ item: it, qty: e.q, line: it.price_cents * e.q,
+                 note: e.note || '', choices: e.choices || {} });
+    }
   });
   return out;
 }
 function setQty(slug, n) {
-  if (n <= 0) delete tray[slug]; else tray[slug] = Math.min(99, n);
+  if (n <= 0) { delete tray[slug]; }
+  else {
+    if (!tray[slug]) tray[slug] = { q: 0, note: '', choices: {} };
+    var q = Math.min(99, Math.max(0, parseInt(n, 10) || 0));
+    if (!q) { delete tray[slug]; } else { tray[slug].q = q; }
+  }
   saveTray();
   refreshCard(slug);
   paintTray();
@@ -1047,12 +1153,38 @@ function paintTray() {
   var lines = trayLines(), total = 0, count = 0;
   lines.forEach(function (l) { total += l.line; count += l.qty; });
 
+  var fee = togoItem();
+  if (count && fee) total += fee.price_cents;
+
   $('#trayList').innerHTML = lines.map(function (l) {
+    var groups = (l.item.options && l.item.options.length) ? l.item.options : [];
+    var picks = groups.map(function (g, gi) {
+      var chosen = l.choices[g.label] || '';
+      return '<label class="tl-opt"><span>' + esc(g.label) + '</span>' +
+        '<select data-choice="' + esc(l.item.slug) + '" data-group="' + esc(g.label) + '">' +
+        '<option value="">Choose…</option>' +
+        (g.choices || []).map(function (c) {
+          return '<option value="' + esc(c) + '"' + (c === chosen ? ' selected' : '') + '>' + esc(c) + '</option>';
+        }).join('') + '</select></label>';
+    }).join('');
     return '<li><span class="nm"><b>' + esc(l.item.name) + '</b>' +
-      '<small>' + esc(money(l.item.price_cents)) + ' each</small></span>' +
-      '<span class="ln">' + esc(money(l.line)) + '</span>' +
-      '<button class="tray-x" data-rm="' + esc(l.item.slug) + '" aria-label="Remove ' + esc(l.item.name) + '">&times;</button></li>';
+        '<small>' + esc(money(l.item.price_cents)) + ' each</small></span>' +
+        '<span class="ln">' + esc(money(l.line)) + '</span>' +
+        '<button class="tray-x" data-rm="' + esc(l.item.slug) + '" aria-label="Remove ' + esc(l.item.name) + '">&times;</button>' +
+        (picks ? '<div class="tl-opts">' + picks + '</div>' : '') +
+        '<input class="tl-note" data-note="' + esc(l.item.slug) + '" maxlength="200" ' +
+          'placeholder="How would you like it? (optional)" value="' + esc(l.note) + '">' +
+      '</li>';
   }).join('');
+
+  var feeRow = $('#trayFee');
+  if (feeRow) {
+    feeRow.hidden = !(count && fee);
+    if (count && fee) {
+      $('#trayFeeName').textContent = fee.name === 'Togo' ? 'To go' : fee.name;
+      $('#trayFeeVal').textContent = money(fee.price_cents);
+    }
+  }
   $('#trayEmpty').hidden = count > 0;
   $('#trayTotal').hidden = count === 0;
   $('#trayTotalVal').textContent = money(total);
@@ -1064,7 +1196,7 @@ function footInner(p) {
   if (!(p.price_cents > 0)) {
     return '<span class="p-counter">Priced at<br>the counter</span>';
   }
-  var q = tray[p.slug] || 0;
+  var q = qtyOf(p.slug);
   return q > 0
     ? '<span class="stepper"><button data-dec="' + esc(p.slug) + '" aria-label="One fewer ' + esc(p.name) + '">&minus;</button>' +
       '<span aria-live="polite">' + q + '</span>' +
@@ -1096,6 +1228,7 @@ function cardHTML(p) {
 function visible() {
   var q = query.trim().toLowerCase();
   return MENU.filter(function (p) {
+    if (p.category === 'togo') return false;   /* a packaging fee, not a dish */
     if (activeCat !== 'all' && p.category !== activeCat) return false;
     if (!q) return true;
     return (p.name + ' ' + (p.blurb || '')).toLowerCase().indexOf(q) >= 0;
@@ -1156,15 +1289,15 @@ function syncExpandAll() {
 }
 function renderRail() {
   var el = $('#rail'); if (!el) return;
-  var feat = MENU.filter(function (p) { return p.featured && p.price_cents > 0; });
-  if (!feat.length) feat = MENU.filter(function (p) { return p.price_cents > 0; }).slice(0, 6);
+  var feat = MENU.filter(function (p) { return p.featured && p.price_cents > 0 && p.category !== 'togo'; });
+  if (!feat.length) feat = MENU.filter(function (p) { return p.price_cents > 0 && p.category !== 'togo'; }).slice(0, 6);
   el.innerHTML = feat.slice(0, 8).map(cardHTML).join('');
   syncRailNav();
 }
 function renderFilters() {
   var el = $('#filters'); if (!el) return;
   var present = {};
-  MENU.forEach(function (p) { present[p.category] = true; });
+  MENU.forEach(function (p) { if (p.category !== 'togo') present[p.category] = true; });
   var all = [{ key: 'all', label: 'Everything' }].concat(CATS.filter(function (c) { return present[c.key]; }));
   el.innerHTML = all.map(function (c) {
     return '<button class="chip" data-cat="' + esc(c.key) + '" aria-pressed="' +
@@ -1208,6 +1341,54 @@ function applyCopy(copy) {
     if (copy[k] != null && String(copy[k]).trim() !== '') el.textContent = copy[k];
   });
 }
+/* Every one of these hides its whole section when there is nothing true to put
+   in it. An empty band is worse than no band. */
+function applyToday(d) {
+  var sec = $('#today'); if (!sec || !d) return;
+  var head = String(d.headline || '').trim(), soup = String(d.soup || '').trim();
+  if (!head && !soup) { sec.hidden = true; return; }
+  $('#todayHeadline').textContent = head || 'Soup of the day';
+  var el = $('#todaySoup');
+  el.hidden = !soup;
+  if (soup) el.textContent = soup;
+  sec.hidden = false;
+}
+function applyFaq(d) {
+  var sec = $('#faq'); if (!sec) return;
+  var items = (d && d.items) || [];
+  items = items.filter(function (i) {
+    return i && String(i.q || '').trim() && String(i.a || '').trim();
+  });
+  if (!items.length) { sec.hidden = true; return; }
+  $('#faqList').innerHTML = items.map(function (i) {
+    return '<details><summary>' +
+      '<svg class="q-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>' +
+      esc(i.q) + '</summary><p>' + esc(i.a) + '</p></details>';
+  }).join('');
+  sec.hidden = false;
+}
+function applySocial(d) {
+  var box = $('#socials'); if (!box) return;
+  var links = [];
+  if (d && String(d.facebook || '').trim()) links.push(['Facebook', d.facebook]);
+  if (d && String(d.instagram || '').trim()) links.push(['Instagram', d.instagram]);
+  if (!links.length) { box.hidden = true; return; }
+  box.innerHTML = links.map(function (l) {
+    return '<a href="' + esc(l[1]) + '" target="_blank" rel="noopener" data-track="social_click">' +
+      esc(l[0]) + '</a>';
+  }).join('');
+  box.hidden = false;
+}
+function renderGallery(rows) {
+  var sec = $('#gallery'); if (!sec) return;
+  var shots = (rows || []).filter(function (r) { return r && r.url; });
+  if (!shots.length) { sec.hidden = true; return; }
+  $('#galGrid').innerHTML = shots.map(function (r) {
+    return '<figure><img src="' + esc(r.url) + '" alt="' + esc(r.alt || '') + '" loading="lazy"></figure>';
+  }).join('');
+  sec.hidden = false;
+}
+
 function applyInfo(info) {
   if (!info) return;
   INFO = info;
@@ -1226,6 +1407,11 @@ function applyInfo(info) {
   if (toast && info.toast_url) {
     toast.setAttribute('href', info.toast_url);
     $('#altOrder').hidden = false;
+  }
+  var hero = $('#heroToast');
+  if (hero && info.toast_url) {
+    hero.setAttribute('href', info.toast_url);
+    hero.hidden = false;
   }
 }
 
@@ -1277,13 +1463,17 @@ function wireForm() {
       name: name, phone: phone, email: email,
       pickup_date: $('#ofDate').value, pickup_time: $('#ofTime').value,
       notes: $('#ofNotes').value.trim(), website: $('#ofWebsite').value,
-      items: lines.map(function (l) { return { slug: l.item.slug, qty: l.qty }; })
+      items: lines.map(function (l) {
+        return { slug: l.item.slug, qty: l.qty, note: l.note, choices: l.choices };
+      })
     };
 
     if (!LIVE) {
       var body = 'Pickup pre-order\r\n\r\n' +
         lines.map(function (l) { return l.qty + ' x ' + l.item.name + ' - ' + money(l.line); }).join('\r\n') +
-        '\r\n\r\nTotal: ' + money(total) + '\r\nName: ' + name + '\r\nPhone: ' + phone +
+        (togoItem() ? '\r\nTo go: ' + money(togoItem().price_cents) : '') +
+        '\r\n\r\nTotal: ' + money(total + (togoItem() ? togoItem().price_cents : 0)) +
+        '\r\nName: ' + name + '\r\nPhone: ' + phone +
         '\r\nEmail: ' + email + '\r\nPickup: ' + payload.pickup_date + ' ' + payload.pickup_time +
         '\r\nNotes: ' + payload.notes;
       location.href = 'mailto:?subject=' + encodeURIComponent('Pickup pre-order - ' + name) +
@@ -1321,10 +1511,10 @@ function wire() {
     var el;
     if ((el = e.target.closest('[data-add]'))) { setQty(el.getAttribute('data-add'), 1); return; }
     if ((el = e.target.closest('[data-inc]'))) {
-      var a = el.getAttribute('data-inc'); setQty(a, (tray[a] || 0) + 1); return;
+      var a = el.getAttribute('data-inc'); setQty(a, qtyOf(a) + 1); return;
     }
     if ((el = e.target.closest('[data-dec]'))) {
-      var b = el.getAttribute('data-dec'); setQty(b, (tray[b] || 0) - 1); return;
+      var b = el.getAttribute('data-dec'); setQty(b, qtyOf(b) - 1); return;
     }
     if ((el = e.target.closest('[data-rm]'))) { setQty(el.getAttribute('data-rm'), 0); return; }
     if ((el = e.target.closest('[data-more]'))) {
@@ -1351,6 +1541,27 @@ function wire() {
   });
   mob.addEventListener('click', function (e) {
     if (e.target.tagName === 'A') { mob.classList.remove('open'); mb.setAttribute('aria-expanded', 'false'); }
+  });
+
+  /* tray line inputs: notes debounce, choices apply immediately. Neither
+     repaints the tray — repainting under a focused field steals the caret. */
+  var noteTimer = null;
+  document.addEventListener('input', function (e) {
+    var n = e.target.closest('[data-note]');
+    if (!n) return;
+    var slug = n.getAttribute('data-note');
+    clearTimeout(noteTimer);
+    noteTimer = setTimeout(function () {
+      if (tray[slug]) { tray[slug].note = n.value.slice(0, 200); saveTray(); }
+    }, 200);
+  });
+  document.addEventListener('change', function (e) {
+    var c = e.target.closest('[data-choice]');
+    if (!c) return;
+    var slug = c.getAttribute('data-choice'), grp = c.getAttribute('data-group');
+    if (!tray[slug]) return;
+    if (c.value) tray[slug].choices[grp] = c.value; else delete tray[slug].choices[grp];
+    saveTray();
   });
 
   var search = $('#menuSearch'), timer = null;
@@ -1420,8 +1631,9 @@ function boot() {
 
   Promise.all([
     api('sf_categories?select=key,label,blurb,sort&active=eq.true&order=sort.asc'),
-    api('sf_menu?select=slug,name,category,blurb,price_cents,unit,image,glyph,badge,sort,featured&active=eq.true&order=category.asc,sort.asc'),
-    api('sf_content?select=section,data')
+    api('sf_menu?select=slug,name,category,blurb,price_cents,unit,image,glyph,badge,options,sort,featured&active=eq.true&order=category.asc,sort.asc'),
+    api('sf_content?select=section,data'),
+    api('sf_photos?select=url,alt,sort&active=eq.true&slot=eq.room&order=sort.asc')
   ]).then(function (res) {
     if ((res[0] || []).length) CATS = res[0];
     if ((res[1] || []).length) MENU = res[1];
@@ -1429,7 +1641,11 @@ function boot() {
       if (row.section === 'copy') applyCopy(row.data);
       if (row.section === 'info') applyInfo(row.data);
       if (row.section === 'hours' && row.data && row.data.days) HOURS = row.data;
+      if (row.section === 'today') applyToday(row.data);
+      if (row.section === 'faq') applyFaq(row.data);
+      if (row.section === 'social') applySocial(row.data);
     });
+    renderGallery(res[3]);
     /* the fallback menu seeded openCats with ITS first section; the live menu
        has different sections, so re-seed rather than leave an arbitrary one open */
     openCats = null;
