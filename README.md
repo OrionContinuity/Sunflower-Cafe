@@ -64,6 +64,14 @@ Same shape as GBC and Ariana, which came out of the NEXUS hardening:
   first, with `search_path` pinned.
 - Supabase auto-grants `EXECUTE` on new functions, so the setup script **revokes**
   `PUBLIC` and `authenticated` explicitly, then re-grants only `anon` and `service_role`.
+- It does the same for **tables**, which matters more than it looks. Supabase grants
+  anon and authenticated the full privilege set on every new table, and while RLS with
+  zero write policies blocks INSERT/UPDATE/DELETE, **there is no RLS policy type for
+  TRUNCATE**. Verified against this database: with RLS on and no policies, `set role
+  anon; truncate <table>` emptied it. PostgREST cannot emit a TRUNCATE so it was never
+  reachable from a browser, but the privilege is gone now — anon holds exactly one,
+  `SELECT` on the four public tables, and the customer-data tables hold none at all.
+  Reading `sf_orders` with the publishable key returns 401, not an empty array.
 - `sf_orders`, `sf_events` and `sf_auth_attempts` hold customer data and have **no select
   policy at all** — the anon key can write an order through the RPC but cannot read one back.
 - Sign-in goes through `sf_admin_login`, which **rate-limits to 8 failures per IP per 15

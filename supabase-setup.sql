@@ -526,7 +526,37 @@ end $$;
 
 -- ═══════════════════════════════════════════════════════════════════════
 -- 12. GRANTS — strip Supabase's auto-grants, then hand back only what's needed
+--
+--     TABLES FIRST. Supabase auto-grants anon and authenticated the FULL
+--     privilege set on every new table. RLS with zero write policies blocks
+--     INSERT/UPDATE/DELETE — but there is no RLS policy type for TRUNCATE,
+--     and the auto-grant includes it. Verified on this database: with RLS
+--     enabled and no policies at all, `set role anon; truncate <table>`
+--     emptied it. PostgREST cannot emit a TRUNCATE, so it was never
+--     reachable from the browser, but the privilege has no business existing.
+--
+--     Every write here goes through a SECURITY DEFINER RPC, which executes as
+--     the owner and needs no table grant whatsoever. So anon keeps exactly one
+--     privilege: SELECT on the four public tables. Customer data gets nothing.
 -- ═══════════════════════════════════════════════════════════════════════
+do $$
+declare t text;
+begin
+  foreach t in array array[
+    'sf_content','sf_categories','sf_menu','sf_photos',
+    'sf_orders','sf_events','sf_admin','sf_auth_attempts'
+  ]
+  loop
+    execute format('revoke all on table public.%I from anon, authenticated, public', t);
+  end loop;
+end $$;
+
+grant select on table public.sf_content    to anon;
+grant select on table public.sf_categories to anon;
+grant select on table public.sf_menu       to anon;
+grant select on table public.sf_photos     to anon;
+
+-- FUNCTIONS NEXT — same idea, same reason.
 do $$
 declare f text;
 begin
